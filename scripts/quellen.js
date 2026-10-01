@@ -1,0 +1,36 @@
+// Literatur im IEEE-Stil. Markup: *kursiv*, [[Platzhalter]] wird gelb markiert.
+// Die Nummern ergeben sich aus der Reihenfolge der ersten Zitierung im Handout.
+const ACC = 'Accessed: Oct. 1, 2026. [Online]. Available: ';
+
+module.exports = {
+  pearl: `"Milestones: Pearl Street Station, 1882," *Engineering and Technology History Wiki (ETHW)*, IEEE History Center. ${ACC}https://ethw.org/Milestones:Pearl_Street_Station,_1882`,
+  edpCW: `Thomas A. Edison Papers, "The current wars," Rutgers Univ., New Brunswick, NJ, USA. ${ACC}https://edison.rutgers.edu/life-of-edison/essaying-edison/essay/the-current-wars`,
+  jonnes: `J. Jonnes, *Empires of Light: Edison, Tesla, Westinghouse, and the Race to Electrify the World*. New York, NY, USA: Random House, 2003.`,
+  carlson: `W. B. Carlson, *Tesla: Inventor of the Electrical Age*. Princeton, NJ, USA: Princeton Univ. Press, 2013.`,
+  hughes58: `T. P. Hughes, "Harold P. Brown and the executioner's current: An incident in the AC-DC controversy," *Business History Review*, vol. 32, no. 2, pp. 143–165, 1958.`,
+  moran: `R. Moran, *Executioner's Current: Thomas Edison, George Westinghouse, and the Invention of the Electric Chair*. New York, NY, USA: Alfred A. Knopf, 2002.`,
+  edison89: `T. A. Edison, "The dangers of electric lighting," *The North American Review*, vol. 149, no. 396, pp. 625–634, Nov. 1889.`,
+  west89: `G. Westinghouse, "A reply to Mr. Edison," *The North American Review*, vol. 149, no. 397, pp. [[Seitenzahlen ergänzen]], Dec. 1889.`,
+  essig: `M. Essig, *Edison and the Electric Chair: A Story of Light and Death*. New York, NY, USA: Walker & Company, 2003.`,
+  cole: `B. M. Cole and D. Chandler, "A model of competitive impression management: Edison versus Westinghouse in the War of the Currents," *Administrative Science Quarterly*, vol. 64, no. 4, pp. 1020–1063, 2019, doi: 10.1177/0001839218821439.`,
+  steig: `A. Steigmeier, "Brown, Charles Eugen Lancelot," in *Historisches Lexikon der Schweiz (HLS)*, version of Aug. 26, 2004. ${ACC}https://hls-dhs-dss.ch/de/articles/029568/2004-08-26/`,
+  davidBunn: `P. A. David and J. A. Bunn, "The economics of gateway technologies and network evolution: Lessons from electricity supply history," *Information Economics and Policy*, vol. 3, no. 2, pp. 165–202, 1988.`,
+  millard: `A. Millard, "Thomas Edison, the battle of the systems and the persistence of direct current," *Material History Review*, vol. 36, pp. 18–28, 1992.`,
+  lee: `J. 8. Lee, "Off goes the power current started by Thomas Edison," *The New York Times* (City Room), Nov. 14, 2007. [Online]. Available: https://cityroom.blogs.nytimes.com/2007/11/14/off-goes-the-power-current-started-by-thomas-edison/`,
+  david92: `P. A. David, "Heroes, herds and hysteresis in technological history: Thomas Edison and 'the battle of the systems' reconsidered," *Industrial and Corporate Change*, vol. 1, no. 1, pp. 129–180, 1992, doi: 10.1093/icc/1.1.129.`,
+  israel: `P. Israel, *Edison: A Life of Invention*. New York, NY, USA: John Wiley & Sons, 1998.`,
+  hughes91: `T. P. Hughes, *Die Erfindung Amerikas: Der technologische Aufstieg der USA seit 1870*. München, Germany: C. H. Beck, 1991.`,
+  bairoch: `P. Bairoch, "International industrialization levels from 1750 to 1980," *Journal of European Economic History*, vol. 11, no. 2, pp. 269–333, 1982.`,
+  devine: `W. D. Devine, Jr., "From shafts to wires: Historical perspective on electrification," *The Journal of Economic History*, vol. 43, no. 2, pp. 347–372, 1983.`,
+  david90: `P. A. David, "The dynamo and the computer: An historical perspective on the modern productivity paradox," *American Economic Review*, vol. 80, no. 2, pp. 355–361, 1990.`,
+  hughes83: `T. P. Hughes, *Networks of Power: Electrification in Western Society, 1880–1930*. Baltimore, MD, USA: Johns Hopkins Univ. Press, 1983.`,
+  tagi: `[[Autor ergänzen]], "Der Stromkrieg verändert alles," *Tages-Anzeiger*, [[Datum ergänzen]]. [Online]. Available: [[vollständige URL ergänzen]]`,
+  abb: `ABB-Redaktionsteam, "Tesla gegen Edison: Kampf um Strom," *Destination Zukunft* (ABB), Oct. 31, 2023. ${ACC}[[vollständige URL ergänzen]]`,
+  spiegel: `[[Autor ergänzen]], "[[Titel ergänzen]]," *Der Spiegel*, [[Datum, ggf. Heft und Seiten ergänzen]].`,
+  topsy: `Thomas A. Edison Papers, "Myth buster: Topsy the elephant," Rutgers Univ., New Brunswick, NJ, USA. ${ACC}https://edison.rutgers.edu/life-of-edison/essaying-edison/essay/myth-buster-topsy-the-elephant`,
+  pbsEdison: `M. Ferrari, Dir., "Edison," *American Experience*. [TV documentary]. Boston, MA, USA: WGBH/PBS, Jan. 27, 2015.`,
+  pbsTesla: `D. Grubin, Dir., "Tesla," *American Experience*. [TV documentary]. Boston, MA, USA: WGBH/PBS, Oct. 18, 2016.`,
+  terraX: `M. Becker, Dir., "Nikola Tesla – Magier der Elektrizität," *Terra X*. [TV documentary]. Mainz, Germany: ZDF, Jul. 7, 2024.`,
+  mcnichol: `T. McNichol, *AC/DC: The Savage Tale of the First Standards War*. San Francisco, CA, USA: Jossey-Bass, 2006.`,
+  gotland: `"Milestones: Gotland High Voltage Direct Current Link, 1954," *Engineering and Technology History Wiki (ETHW)*, IEEE History Center. ${ACC}https://ethw.org/Milestones:Gotland_High_Voltage_Direct_Current_Link,_1954`,
+};

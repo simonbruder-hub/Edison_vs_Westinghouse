@@ -2,7 +2,9 @@
 
 Abgabe in `abgabe/`:
 
-- `Handout_Stromkrieg_Bruder.docx` – Handout (A4, Arial 11, Zitierweise IEEE)
+- `Handout_Stromkrieg_Bruder.docx` – kurzes Handout (3 Seiten) im FHNW-Layout: Einleitung, Fragen, Begriffe,
+  Etappen, Bedeutung, «Und heute?», Gruppendiskussion, Quellen (IEEE)
+- `Ausarbeitung_Stromkrieg_lang.docx` – ausführliche Hintergrund-Ausarbeitung (30 Quellen) zur eigenen Vorbereitung
 - `Praesentation_Stromkrieg_Bruder.pptx` – Präsentation auf Basis der Slidesgo-Vorlage «Reconstruction Era and the Gilded Age»,
   13 Folien inkl. Titel, Danke und Quellen-Anhang, mit Sprechernotizen (10 Minuten).
   Schriften der Vorlage: Libre Baskerville und Source Sans 3 (Google Fonts) vor dem Präsentieren installieren.
@@ -16,7 +18,8 @@ und `playwright` (nur für die Grafik).
 
 ```bash
 node scripts/chart.js assets/chart_weltindustrie.png   # Grafik Weltindustrieproduktion
-node scripts/handout.js                                # Handout + Zitierreihenfolge
+node scripts/handout.js                                # lange Ausarbeitung + Zitierreihenfolge
+python3 scripts/handout_kurz.py <eigenes-FHNW-Handout.docx> abgabe/Handout_Stromkrieg_Bruder.docx
 node scripts/chart_vorlage.js assets/chart_weltindustrie_vorlage.png
 python3 scripts/praesentation_vorlage.py struct.pptx abgabe/Praesentation_Stromkrieg_Bruder.pptx
 ```

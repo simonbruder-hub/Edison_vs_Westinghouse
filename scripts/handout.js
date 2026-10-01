@@ -9,7 +9,7 @@ const {
 const REFS = require('./quellen');
 
 const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'abgabe', 'Handout_Stromkrieg_Bruder.docx');
+const OUT = path.join(ROOT, 'abgabe', 'Ausarbeitung_Stromkrieg_lang.docx');
 const FONT = 'Arial';
 const INK = '1E1E1E', MUTED = '5F5D58', TEAL = '0E7C9E', COPPER = 'C8641E', TINT = 'EEF5F8', HEAD = 'DCEBF1';
 const PAGE_W = 11906, MARGIN = 1134, CONTENT_W = PAGE_W - 2 * MARGIN; // 9638 DXA

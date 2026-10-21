@@ -19,6 +19,13 @@ In `vorbereitung/`:
 - `Playbook_und_Vorbereitung_Stromkrieg.docx` – Ablauf Folie für Folie, Checkliste, mögliche Fragen,
   Lese- und Schauliste mit Zeitplan
 
+## Lokaler Ordner ohne GitHub
+
+`Stromkrieg_aktualisieren.cmd` doppelklicken (Windows). Das Skript lädt die Ordner `abgabe` und `vorbereitung`
+nach `C:\Users\simon\OneDrive - FHNW\7EIT\wusa\Stromkrieg_Referat` und legt sich beim ersten Lauf selbst dort ab.
+Danach genügt ein Doppelklick im Ordner, um die neueste Version zu holen. Selbst geänderte Dateien werden vorher
+nach `_Sicherung\<Datum>` kopiert. Kein Git und kein Login nötig.
+
 Gelb markierte Stellen im Literaturverzeichnis sind Platzhalter, die noch ergänzt werden müssen.
 
 ## Neu erzeugen

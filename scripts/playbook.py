@@ -10,7 +10,7 @@ src, out = sys.argv[1], sys.argv[2]
 
 b = []
 b.append(para('Der Stromkrieg – Playbook für die Präsentation', b=True, sz=36, jc='center', after=60))
-b.append(para('10 Minuten · 13 Folien · 10. Dezember 2026', jc='center', after=240))
+b.append(para('10 Minuten · 14 Folien (mit Diskussion: 21) · 10. Dezember 2026', jc='center', after=240))
 
 b.append(heading('Deine Kernbotschaft'))
 b.append(para('Den Stromkrieg gewann nicht die bessere Propaganda und nicht das grössere Genie, sondern das billigere '
@@ -18,49 +18,59 @@ b.append(para('Den Stromkrieg gewann nicht die bessere Propaganda und nicht das 
 
 b.append(heading('Ablauf: Folie für Folie'))
 b.append(table([
-    ['0:00–0:45', '1–2 Titel, Auburn',
-     '«6. August 1890: Zum ersten Mal stirbt ein Mensch auf dem elektrischen Stuhl – mit Strom von Westinghouse. '
+    ['0:00–0:45', '1–3 Intro, Titel, Auburn',
+     'Intro steht, während alle Platz nehmen. Ein Klick: Der Titel morpht, Edison und Tesla fliegen ein. Dann: «6. August 1890: Zum ersten Mal stirbt ein Mensch auf dem elektrischen Stuhl – mit Strom von Westinghouse. '
      'Den Generator hatte aber Edisons Lager beschafft.» Dann die Leitfrage: Warum gewann trotzdem der Wechselstrom?',
      '«Dafür braucht es eine Minute Technik.»'],
-    ['0:45–1:45', '3 Spannung',
+    ['0:45–1:45', '4 Spannung',
      'Hohe Spannung = wenig Verlust. Nur Wechselstrom liess sich damals mit dem Transformator umspannen.',
      '«Wer stand hinter den beiden Systemen?»'],
-    ['1:45–3:00', '4 Akteure',
+    ['1:45–3:00', '5 Akteure',
      'Edison, Westinghouse, Tesla, Brown – eigentlich stritten aber Firmen und ihre Geldgeber.',
      '«Wie lief der Streit ab?»'],
-    ['3:00–4:15', '5 Verlauf I',
+    ['3:00–4:15', '6 Verlauf I',
      'Erst Wettbewerb, ab 1888 Propaganda: Brown tötet Hunde, dann der elektrische Stuhl.',
      '«Entschieden hat die Propaganda aber nichts.»'],
-    ['4:15–5:30', '6 Verlauf II',
+    ['4:15–5:30', '7 Verlauf II',
      'Wendepunkt 1892: J. P. Morgan gründet GE, Edison verliert die Kontrolle. 1893 Chicago, 1896 Niagara.',
      '«Warum also Wechselstrom?»'],
-    ['5:30–6:30', '7 Warum',
+    ['5:30–6:30', '8 Warum',
      'Kosten und Kapital. Die Angstkampagne scheiterte. Schweizer Bezug: Oerlikon und BBC Baden, heute ABB.',
      '«Was heisst das für die USA?»'],
-    ['6:30–7:30', '8 Grafik',
+    ['6:30–7:30', '9 Grafik',
      'Genau in dieser Zeit überholen die USA Grossbritannien. 1913: 32 % der Weltindustrie.',
      '«Was steckt hinter dieser Kurve?»'],
-    ['7:30–8:30', '9 Zahlen',
+    ['7:30–8:30', '10 Zahlen',
      'Elektromotoren in Fabriken: 5 % → 78 %. GE gehört 1896 zu den ersten Werten des Dow Jones.',
      '«Viele kennen die Geschichte anders.»'],
-    ['8:30–9:30', '10 Mythen',
+    ['8:30–9:30', '11 Mythen',
      'Topsy, «Tesla gegen Edison», der zerrissene Vertrag – alle drei sind nicht belegt.',
      '«Was bleibt davon bis heute?»'],
-    ['9:30–10:00', '11–12 Fazit, Danke',
+    ['9:30–10:00', '12–13 Fazit, Danke',
      'Gewonnen hat das billigere System mit dem stärkeren Kapital. Heute: Wechselstrom aus jeder Steckdose, neue '
      'Standardkriege (Ladestecker), und Gleichstrom kommt mit HGÜ zurück.',
      '«Danke – Fragen?»'],
-    ['–', '13 Quellen', 'Nur zeigen, wenn jemand nach Quellen fragt.', ''],
+    ['–', '14 Quellen', 'Nur zeigen, wenn jemand nach Quellen fragt.', ''],
 ], [1050, 1500, 4652, 2050], head=['Zeit', 'Folie', 'Das sagst du', 'Überleitung'], sz=18))
 b.append(para('Die ausführlichen Sprechernotizen stehen in der PowerPoint (Ansicht → Notizen).', sz=18, after=200))
+
+b.append(heading('Version mit Diskussion'))
+b.append(para('Datei «…_mit_Diskussion»: Nach dem Fazit folgen sieben Folien – Kapitel «Diskussion», Handout Seite 1 und 2 '
+              '(Fragen ans Plenum), die Gruppenaufträge (stehen lassen, solange die Gruppen arbeiten) und je eine '
+              'Lösungsfolie pro Gruppe. Auf den Lösungsfolien erscheint jede Antwort erst per Klick: zuerst Antworten '
+              'sammeln, dann klicken. Danach kommen «Danke» und die Quellen.', after=200))
 
 b.append(heading('Checkliste'))
 b.append(items([
     'Lerne pro Folie nur den Satz aus «Das sagst du», nicht die ganzen Notizen.',
-    'Übe dreimal laut mit Stoppuhr. Wirst du zu lang, kürze Folie 9 oder lass sie weg.',
+    'Übe dreimal laut mit Stoppuhr. Wirst du zu lang, kürze Folie 10 oder lass sie weg.',
+    'Die Animationen laufen automatisch. Warte, bis eine Folie fertig aufgebaut ist, bevor du klickst. Morph und '
+    'Animationen funktionieren nur in PowerPoint (2019 oder Microsoft 365); im PDF sind alle Antworten schon sichtbar.',
     'Diese Zahlen müssen sitzen: 1882, 1888, 1890, 1892, 1893, 1896 · 32 % · 5 % → 78 %.',
-    'Installiere die Schriften Libre Baskerville und Source Sans 3 (kostenlos bei Google Fonts) oder nimm zusätzlich '
-    'ein PDF der Folien mit. Im PDF sehen die Folien auf jedem Computer richtig aus.',
+    'Installiere die Schriften Libre Baskerville und Source Sans 3 (kostenlos bei Google Fonts) und nimm zusätzlich '
+    'das PDF der Folien mit. Im PDF sehen die Folien auf jedem Computer richtig aus.',
+    'Optional: echte Fotos von Edison und Tesla und das Westinghouse-Logo in die Ovale der Titelfolie einsetzen – '
+    'die Anleitung steht in den Notizen der Titelfolie.',
     'Verteile das Handout zu Beginn, damit alle die Begriffe vor sich haben. Kläre vorher mit dem Dozenten, ob nach '
     'dem Vortrag Zeit für die Gruppendiskussion bleibt.',
     'Wenn du den Faden verlierst: zurück zur Leitfrage.',
@@ -97,11 +107,11 @@ b.append(PB)
 b.append(para('Vorbereitung: Was lesen, was schauen?', b=True, sz=28, after=200))
 b.append(heading('1. Zuerst lesen (zusammen etwa 4 Stunden)'))
 b.append(table([
-    ['Edison Papers: «The Current Wars»', 'Kurzer, zuverlässiger Überblick der Rutgers University. Grundlage für Folien 4–6. '
+    ['Edison Papers: «The Current Wars»', 'Kurzer, zuverlässiger Überblick der Rutgers University. Grundlage für Folien 5–7. '
      'Online, ca. 15 Min.'],
     ['Edison Papers: «Myth Buster: Topsy the Elephant»', 'Für die Mythen-Folie und Gruppe 2. Online, ca. 10 Min.'],
     ['Cole & Chandler (2019)', 'Hast du als PDF. Nur Einleitung und Schluss lesen (ca. 1 Std.): Warum Edisons '
-     'Angstkampagne scheiterte. Für Folie 7.'],
+     'Angstkampagne scheiterte. Für Folie 8.'],
     ['Jonnes: *Empires of Light* (2003)', 'Das Standardbuch zum Stromkrieg, gut lesbar. Nicht alles lesen: im '
      'Inhaltsverzeichnis die Kapitel zu 1886–1896 suchen (Great Barrington, elektrischer Stuhl, Chicago, Niagara). '
      'Ca. 2 Std.'],

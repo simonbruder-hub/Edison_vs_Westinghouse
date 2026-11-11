@@ -1,6 +1,6 @@
-"""Bausteine für Word-Dokumente im Layout von Simons FHNW-Handout.
+"""Bausteine für Word-Dokumente im FHNW-Layout (Kopfzeile mit Logo, Fusszeile, Times New Roman 10 pt).
 
-Kopf-/Fusszeile und Logo stammen aus einer bestehenden .docx-Vorlage; nur der Inhalt wird ersetzt.
+Das Layout steckt in assets/vorlage_fhnw.docx; build() ersetzt nur den Inhalt.
 """
 import re
 import shutil
@@ -8,6 +8,9 @@ import tempfile
 import zipfile
 from pathlib import Path
 from xml.sax.saxutils import escape
+
+ROOT = Path(__file__).resolve().parent.parent
+VORLAGE = ROOT / 'assets' / 'vorlage_fhnw.docx'
 
 RPR = '<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>{b}{i}<w:color w:val="000000"/><w:sz w:val="{sz}"/><w:szCs w:val="{sz}"/><w:lang w:val="de-CH"/>'
 PB = '<w:p><w:r><w:br w:type="page"/></w:r></w:p>'
@@ -85,14 +88,14 @@ def image(rid, cx_in, cy_in, pid, name, descr):
             f'</pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p>')
 
 
-def references(refs, sz=18):
-    """Nummerierte IEEE-Liste [1], [2], … mit hängendem Einzug."""
+def references(entries, sz=18):
+    """IEEE-Liste mit hängendem Einzug; entries = [(Nummer, Text), …]."""
     return ''.join(f'<w:p><w:pPr><w:tabs><w:tab w:val="left" w:pos="567"/></w:tabs><w:spacing w:after="60" w:line="240" w:lineRule="auto"/>'
-                   f'<w:ind w:left="567" w:hanging="567"/></w:pPr>{run(f"[{k}]", sz=sz)}<w:r><w:tab/></w:r>{rich(r, sz)}</w:p>'
-                   for k, r in enumerate(refs, 1))
+                   f'<w:ind w:left="567" w:hanging="567"/></w:pPr>{run(f"[{n}]", sz=sz)}<w:r><w:tab/></w:r>{rich(text, sz)}</w:p>'
+                   for n, text in entries)
 
 
-def build(src, out, body, title, chart=None):
+def build(out, body, title, chart=None, src=VORLAGE):
     """Ersetzt den Inhalt der Vorlage `src` durch `body` (Liste von XML-Stücken) und schreibt `out`.
 
     Bilder der Vorlage werden entfernt; `chart` (PNG) wird als Beziehung rIdChart eingebunden.

@@ -1,23 +1,31 @@
 # Der Stromkrieg – Referat «Weltmacht USA» (FHNW)
 
-Abgabe in `abgabe/`:
+Referat von Simon Bruder, Modul «Weltmacht USA» (Dozent: Stephan Schwarz), 10. Dezember 2026.
 
-- `Handout_Stromkrieg_Bruder.docx` – kurzes Handout (3 Seiten) im FHNW-Layout: Einleitung, Fragen, Begriffe,
-  Etappen, Bedeutung, «Und heute?», Gruppendiskussion, Quellen (IEEE)
-- `Loesung_Handout_Stromkrieg_Bruder.docx` – Musterlösungen zu allen Fragen und Gruppenaufträgen des Handouts (1 Seite)
-- `Ausarbeitung_Stromkrieg_lang.docx` – ausführliche Hintergrund-Ausarbeitung (30 Quellen) zur eigenen Vorbereitung
-- `Praesentation_Stromkrieg_Bruder.pptx` / `.pdf` – Präsentation ohne Diskussion (14 Folien, 10 Minuten) auf Basis der
+## Abgabe (`abgabe/`)
+
+- `Handout_Stromkrieg_Bruder.docx` – Handout im FHNW-Layout (3 Seiten Inhalt, 1 Seite Quellen): Einleitung mit Leitfrage
+  und These, Begriffe, Etappen, Bedeutung für die USA mit Grafik, Mythen, «Und heute?», Gruppendiskussion
+- `Loesung_Handout_Stromkrieg_Bruder.docx` – mögliche Antworten zu allen Fragen und Gruppenaufträgen des Handouts
+- `Ausarbeitung_Stromkrieg_lang.docx` – ausführliche Ausarbeitung (34 Quellen) zur eigenen Vorbereitung
+- `Praesentation_Stromkrieg_Bruder.pptx` / `.pdf` – Präsentation ohne Diskussion (18 Folien, 10 Minuten) auf der
   Slidesgo-Vorlage «Reconstruction Era and the Gilded Age», mit Sprechernotizen, Morph-Intro und Animationen
-- `Praesentation_Stromkrieg_Bruder_mit_Diskussion.pptx` / `.pdf` – dieselbe Präsentation plus Diskussionsblock
-  (21 Folien): Handout-Fragen und Gruppenaufträge, Lösungen erscheinen per Klick
-  Schriften der Vorlage: Libre Baskerville und Source Sans 3 (Google Fonts) vor dem Präsentieren installieren.
-  Morph und Animationen laufen in PowerPoint 2019 / Microsoft 365. Die PDFs zeigen den Endzustand jeder Folie
-  (ohne die Intro-Folie, die nur für den Morph-Übergang da ist).
+- `Praesentation_Stromkrieg_Bruder_mit_Diskussion.pptx` / `.pdf` – dieselbe Präsentation mit Diskussionsblock
+  (25 Folien): Fragen und Gruppenaufträge des Handouts; die Lösungen erscheinen per Klick
 
-In `vorbereitung/`:
+Handout, Lösung und Folien verwenden dieselben Quellennummern (IEEE, 18 Quellen). Die lange Ausarbeitung hat eine
+eigene Nummerierung.
 
-- `Playbook_und_Vorbereitung_Stromkrieg.docx` – Ablauf Folie für Folie, Checkliste, mögliche Fragen,
-  Lese- und Schauliste mit Zeitplan
+Schriften der Folien: Libre Baskerville und Source Sans 3 (Google Fonts) vor dem Präsentieren installieren. Morph und
+Animationen laufen in PowerPoint 2019 oder Microsoft 365. Die PDFs zeigen den Endzustand jeder Folie, ohne die
+Intro-Folie, die nur dem Morph-Übergang dient.
+
+## Vorbereitung (`vorbereitung/`)
+
+- `Playbook_und_Vorbereitung_Stromkrieg.docx` – Ablauf Folie für Folie, Checkliste, **offene Punkte vor der Abgabe**
+  (Seitenzahlen nachtragen, Online-Quellen prüfen), mögliche Fragen, Lese- und Schauliste mit Zeitplan
+
+Gelb markierte Stellen im Literaturverzeichnis der langen Ausarbeitung sind Platzhalter, die noch ergänzt werden müssen.
 
 ## Lokaler Ordner ohne GitHub
 
@@ -26,28 +34,29 @@ nach `C:\Users\simon\OneDrive - FHNW\7EIT\wusa\Stromkrieg_Referat` und legt sich
 Danach genügt ein Doppelklick im Ordner, um die neueste Version zu holen. Selbst geänderte Dateien werden vorher
 nach `_Sicherung\<Datum>` kopiert. Kein Git und kein Login nötig.
 
-Gelb markierte Stellen im Literaturverzeichnis sind Platzhalter, die noch ergänzt werden müssen.
-
 ## Neu erzeugen
 
-Benötigt Node.js mit den Paketen `docx`, `pptxgenjs`, `react`, `react-dom`, `react-icons`, `sharp`
-und `playwright` (nur für die Grafik).
-
 ```bash
-node scripts/chart.js assets/chart_weltindustrie.png   # Grafik Weltindustrieproduktion
-node scripts/handout.js                                # lange Ausarbeitung + Zitierreihenfolge
-python3 scripts/handout_kurz.py <eigenes-FHNW-Handout.docx> abgabe/Handout_Stromkrieg_Bruder.docx
-python3 scripts/loesung_handout.py <eigenes-FHNW-Handout.docx> abgabe/Loesung_Handout_Stromkrieg_Bruder.docx
-python3 scripts/playbook.py <eigenes-FHNW-Handout.docx> vorbereitung/Playbook_und_Vorbereitung_Stromkrieg.docx
-node scripts/chart_vorlage.js assets/chart_weltindustrie_vorlage.png
-python3 scripts/praesentation_vorlage.py struct_full.pptx abgabe/Praesentation_Stromkrieg_Bruder.pptx \
-    abgabe/Praesentation_Stromkrieg_Bruder_mit_Diskussion.pptx
+bash scripts/bauen.sh
 ```
 
-Quellen stehen zentral in `scripts/quellen.js`; die Nummern [n] ergeben sich aus der Reihenfolge
-der ersten Zitierung im Handout und werden in den Folien übernommen.
+Voraussetzungen: Node.js mit den Paketen `docx` und `playwright` (Chromium, nur für die Grafik), Python 3 mit
+`python-pptx` und `lxml`, die beiden Schriften und für die PDFs LibreOffice.
 
-`struct_full.pptx` ist die Slidesgo-Vorlage mit diesen Folien in dieser Reihenfolge (alle übrigen entfernt):
-1 (Kopie, Intro), 1, 4, 17, 11, 25, 25 (Kopie), 9, 29, 19, 30, 6, 5, 6 (Kopie), 6 (Kopie), 9 (Kopie),
-6 (Kopie), 6 (Kopie), 6 (Kopie), 35, 6 (Kopie). Die Folien 13–19 bilden den Diskussionsblock; für die Version
-ohne Diskussion entfernt das Skript sie. Animationen und Übergänge erzeugt `scripts/animation.py`.
+| Datei | Zweck |
+| --- | --- |
+| `scripts/quellen.json` | alle Quellen im IEEE-Format (eine Stelle für alle Dokumente) |
+| `scripts/quellen.py` | Nummerierung: Das Handout legt die Reihenfolge fest (`assets/zitierreihenfolge.json`), Lösung und Folien übernehmen sie |
+| `scripts/chart.js` | Grafik «Anteil an der Weltindustrieproduktion» für Word und Folien |
+| `scripts/fhnw_docx.py` | Bausteine für Word-Dokumente im FHNW-Layout (`assets/vorlage_fhnw.docx`) |
+| `scripts/handout_kurz.py`, `loesung_handout.py`, `playbook.py` | Handout, Lösung, Playbook |
+| `scripts/handout.js` | lange Ausarbeitung |
+| `scripts/praesentation_vorlage.py`, `animation.py` | füllt `assets/folien_struktur.pptx` und erzeugt beide Foliensätze samt Animationen |
+
+Im Text steht eine Quelle als `{schluessel}`; daraus wird beim Erzeugen die Nummer `[n]`. Eine Quelle, die im Handout
+fehlt, lässt den Lauf der Folien abbrechen. So bleiben die Nummern überall gleich.
+
+`assets/folien_struktur.pptx` enthält die 25 Folien der Vorlage in der Reihenfolge des Referats: Intro, Titel,
+Einstieg, Leitfrage, Technik, Firmen, Verlauf 1 und 2, Gründe, Grafik, Kennzahlen, Mythen, «Und heute?», Fazit,
+Diskussion (7 Folien), Danke, Quellen (3 Folien). Für die Fassung ohne Diskussion entfernt das Skript die sieben
+Diskussionsfolien.

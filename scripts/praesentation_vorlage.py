@@ -333,15 +333,17 @@ for tr in tbl._tbl.tr_lst[4:]:  # Zeile «Schwachpunkt» entfällt
     tbl._tbl.remove(tr)
 fill_table(tbl, [
     ['', 'Gleichstrom (Edison)', 'Wechselstrom (Westinghouse)'],
-    ['Spannung', 'rund 110 V, damals nicht transformierbar', 'Transformator: hoch im Netz, tief beim Kunden'],
+    ['Spannung', 'rund 110 V, damals nicht transformierbar', 'Transformator: hoch im Netz, tief im Haus'],
     ['Leitungsverlust', 'hoch: viel Strom, dicke Kupferleitungen', 'klein: hohe Spannung, wenig Strom'],
-    ['Reichweite', 'ein Stadtquartier (Pearl Street 1882: 0,65 km²) {pearl}', 'Niagara–Buffalo 1896: rund 40 km {jonnes}'],
+    ['Reichweite', 'ein Quartier (Pearl Street: 0,65 km²) {pearl}', 'Niagara–Buffalo 1896: rund 40 km {jonnes}'],
 ], size=13)
+for col, breite in zip(tbl.columns, (1.57, 3.43, 3.43)):  # jede Zelle bleibt einzeilig
+    col.width = Inches(breite)
 for k, row in enumerate(tbl.rows):
-    row.height = Inches(0.48 if k == 0 else 0.6)
-frame.height = Inches(0.48 + 3 * 0.6)
-merksatz = textbox(s, 'Merksatz', 0.79, 3.98, 8.43, 0.45,
-                   [('Bei gleicher Leistung: 10-fache Spannung → 1/10 des Stroms → 1/100 des Verlusts (I² · R)', SERIF, 13, True, False)])
+    row.height = Inches(0.48 if k == 0 else 0.66)
+frame.height = Inches(0.48 + 3 * 0.66)
+merksatz = textbox(s, 'Merksatz', 0.79, 4.2, 8.43, 0.45,
+                   [('Bei gleicher Leistung: 10-fache Spannung → 1/10 des Stroms → 1/100 des Verlusts (I² · R)', SANS, 14, True, False)])
 set_timing(s, Timeline().auto().add('float', merksatz.shape_id, at=600, dur=700))
 
 # ---------- 6 Firmen und Geldgeber ----------
@@ -450,7 +452,7 @@ Drittens: Die Angstkampagne scheiterte. Cole und Chandler zeigen, dass Westingho
 s = S[I_CHART]
 remove_ids(s, (4458, 4459, 4460, 4461, 4462, 4463))  # Legende der Vorlage; die Grafik beschriftet die Linien direkt
 fill(s, {4456: 'Die USA überholen Grossbritannien',
-         4457: ('Anteil an der Weltindustrieproduktion in %. Die Linien verbinden die Stichjahre; es sind Schätzwerte. '
+         4457: ('Anteil an der Weltindustrieproduktion in %. Linien verbinden Stichjahre (Schätzwerte). '
                 'Eigene Darstellung nach {bairoch}.', 11)},
      """[5:55–6:45] Bedeutung für die USA (1)
 Bezug zum Modul «Weltmacht USA». Die Daten stammen vom Wirtschaftshistoriker Paul Bairoch {bairoch}; es sind Schätzwerte für vier Stichjahre, die Linien verbinden diese Punkte.
@@ -462,7 +464,7 @@ pic = sh[4464]
 s.part.related_part(pic._element.blipFill.find(A + 'blip').get(R_EMBED))._blob = \
     (ROOT / 'assets' / 'chart_weltindustrie_folie.png').read_bytes()
 place(pic, 1.2, 1.36, 7.6, 3.0)
-place(sh[4457], 1.07, 4.4, 7.85, 0.36)
+place(sh[4457], 0.79, 4.4, 8.43, 0.36)
 set_timing(s, Timeline().auto().add('wipe_left', 4464, dur=2000).add('fade', 4457, at=1800, dur=600))
 
 # ---------- 11 Zwei Kennzahlen ----------
@@ -476,6 +478,9 @@ Beide Zahlen stammen von Devine {devine}.
 Der Output pro Arbeitsstunde wuchs vor 1919 um 1,3 % pro Jahr, danach um 3,1 %. Grund: Erst als die Fabriken um viele einzelne Elektromotoren herum neu gebaut wurden, zahlte sich die Technik aus.
 Wenn die Zeit knapp wird: Diese Folie kürzen.
 Überleitung: «Viele kennen die Geschichte anders.»""")
+sh = shapes_by_id(S[I_ZAHLEN])
+for sid in (3953, 3952, 3955, 3957):
+    place(sh[sid], 1.8, sh[sid].top / 914400, 6.4)
 staggered(S[I_ZAHLEN], [(3953, 3952), (3954, 3955), (3956, 3957)], step=500)
 
 # ---------- 12 Mythen (drei Tabellen: Mythos / Befund) ----------
@@ -515,7 +520,7 @@ Gleichstrom ist zurück: Akkus, Solarzellen und Elektronik arbeiten mit Gleichst
 Schweizer Spur: Charles E. L. Brown von der Maschinenfabrik Oerlikon gründete 1891 in Baden die BBC {steig}. BBC und ASEA schlossen sich 1988 zu ABB zusammen {abbHistory}. Nicht verwechseln mit Harold P. Brown.
 Neue Standardkriege: In den USA stellten ab 2023 fast alle Autohersteller auf den Ladestecker der Firma Tesla um {nacs}. In der EU ist USB-C für Handys seit Ende 2024 Pflicht {eu}.
 Überleitung: «Zurück zur Leitfrage.»""")
-vier_felder(s, [('~', 26), ('=', 26), ('CH', 18), ('vs.', 18)])
+vier_felder(s, [('AC', 18), ('DC', 18), ('CH', 18), ('vs.', 18)])
 
 # ---------- 14 Fazit: beide Teile der Leitfrage ----------
 s = S[I_FAZIT]
@@ -530,7 +535,7 @@ Zurück zur Leitfrage, erster Teil: Der Wechselstrom gewann, weil er billiger wa
 Zweiter Teil: Billiger Strom und Grosskonzerne wie General Electric und Westinghouse trugen den Aufstieg der USA zur grössten Industriemacht.
 Der Stromkrieg ist ein früher, prägender Standardkrieg. Er ist nicht der erste: Britische Bahngesellschaften stritten schon in den 1840er-Jahren um die Spurweite.
 Schluss: «Standards werden früh gesetzt und bleiben lange. Darum kommt in den USA bis heute eine andere Spannung aus der Steckdose als bei uns.»""",
-            l_size=14, r_size=14, label_size=13)
+            l_size=16, r_size=16, label_size=14)
 set_timing(s, Timeline().auto().add('float', 2342, dur=800).add('float', 2341, at=700, dur=800))
 
 # ---------- Diskussionsblock (nur Fassung «mit Diskussion») ----------
@@ -609,9 +614,9 @@ for k, idx in enumerate((I_Q1, I_Q2, I_Q3)):
     sh = shapes_by_id(s)
     for sid, x, zeilen in ((2342, 1.25, teil[:3]), (2341, 5.28, teil[3:])):
         set_paras(sh[sid].text_frame, zeilen or [''], 10, rich=True)
-        place(sh[sid], x, 1.72, 3.47, 3.0, anchor='t')
+        place(sh[sid], x, 1.64, 3.47, 3.2, anchor='t')
         space_after(sh[sid].text_frame, 7)
-    textbox(s, 'Hinweis', 1.25, 1.27, 7.5, 0.3, [('IEEE-Format · Nummern wie im Handout', SANS, 11, False, True)])
+    textbox(s, 'Hinweis', 1.25, 1.24, 7.5, 0.3, [('IEEE-Format · Nummern wie im Handout', SANS, 11, False, True)])
 
 # ---------- Übergänge ----------
 for i, slide in enumerate(S):

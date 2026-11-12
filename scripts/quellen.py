@@ -1,8 +1,11 @@
-"""Gemeinsames Quellenverzeichnis (scripts/quellen.json) und IEEE-Nummerierung.
+"""Gemeinsames Quellenverzeichnis und IEEE-Nummerierung für Lösung, Playbook und Folien.
 
-Das Handout legt die Nummern fest (Reihenfolge der ersten Nennung) und schreibt sie nach
-assets/zitierreihenfolge.json. Folien und Lösung lesen diese Datei und verwenden dieselben Nummern.
+Das LaTeX-Handout (latex/handout/main.tex) legt die Nummern fest: Reihenfolge der ersten Nennung.
+Die fertig formatierten Einträge stehen in scripts/quellen.json (deutsches IEEE-Format wie im Handout),
+die Daten für LaTeX in latex/handout/quellen.bib. Beide verwenden dieselben Schlüssel.
 Markup im Text: {schluessel} oder {a,b} wird zu [n] bzw. [n], [m].
+
+Aufruf zur Kontrolle: python3 scripts/quellen.py
 """
 import json
 import re
@@ -10,12 +13,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 REFS = json.loads((ROOT / 'scripts' / 'quellen.json').read_text(encoding='utf-8'))
-ORDER_FILE = ROOT / 'assets' / 'zitierreihenfolge.json'
+HANDOUT = ROOT / 'latex' / 'handout' / 'main.tex'
+BIB = ROOT / 'latex' / 'handout' / 'quellen.bib'
 
 
-def typografisch(text):
-    """IEEE-Einträge: gerade Anführungszeichen zu typografischen."""
-    return re.sub(r'"([^"]*)"', '“\\1”', text)
+def reihenfolge_im_handout():
+    """Schlüssel in der Reihenfolge der ersten Nennung im LaTeX-Handout (\\cite und \\citeoffen)."""
+    text = '\n'.join(re.sub(r'(?<!\\)%.*', '', zeile) for zeile in HANDOUT.read_text(encoding='utf-8').splitlines())
+    order = []
+    for m in re.finditer(r'\\cite(?:offen)?(?:\[[^\]]*\])*\{([^}]*)\}', text):
+        for key in (k.strip() for k in m.group(1).split(',')):
+            if key and key not in order:
+                order.append(key)
+    return order
 
 
 class Zitate:
@@ -52,11 +62,26 @@ class Zitate:
     def eintraege(self, nur_zitierte=False):
         """(Nummer, IEEE-Text) in Reihenfolge der Nummern."""
         keys = [k for k in self.order if not nur_zitierte or k in self.used]
-        return [(self.order.index(k) + 1, typografisch(REFS[k])) for k in keys]
-
-    def speichern(self):
-        ORDER_FILE.write_text(json.dumps(self.order, indent=2), encoding='utf-8')
+        return [(self.order.index(k) + 1, REFS[k]) for k in keys]
 
 
 def gemeinsame_zitate():
-    return Zitate(json.loads(ORDER_FILE.read_text(encoding='utf-8')))
+    """Nummern wie im Handout."""
+    order = reihenfolge_im_handout()
+    fehlend = [k for k in order if k not in REFS]
+    if fehlend:
+        raise KeyError(f'In scripts/quellen.json fehlen: {", ".join(fehlend)}')
+    return Zitate(order)
+
+
+if __name__ == '__main__':
+    order = reihenfolge_im_handout()
+    bib = set(re.findall(r'^@\w+\{([^,\s]+),', BIB.read_text(encoding='utf-8'), re.M))
+    print(len(order), 'Quellen im Handout:')
+    for nr, key in enumerate(order, 1):
+        print(f'  [{nr}] {key}')
+    probleme = [f'{k}: fehlt in quellen.bib' for k in order if k not in bib]
+    probleme += [f'{k}: fehlt in quellen.json' for k in order if k not in REFS]
+    probleme += [f'{k}: steht in quellen.bib, wird aber nicht zitiert' for k in sorted(bib - set(order))]
+    print('\n'.join(probleme) if probleme else 'Schlüssel in main.tex, quellen.bib und quellen.json stimmen überein.')
+    raise SystemExit(1 if probleme else 0)

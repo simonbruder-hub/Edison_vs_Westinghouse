@@ -1,0 +1,86 @@
+% Einstellungen für das Handout (Layout der FHNW-Vorlage, Quellen nach IEEE auf Deutsch).
+% Hier musst du normalerweise nichts ändern. Der Text steht in main.tex, die Quellen in quellen.bib.
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[nswissgerman]{babel}
+\usepackage[autostyle,german=swiss]{csquotes}
+\usepackage{newtxtext,newtxmath}   % Times-ähnliche Schrift wie in der FHNW-Vorlage
+\usepackage{microtype}
+\usepackage[a4paper,left=19mm,right=17mm,top=28mm,bottom=20mm,
+            headheight=14mm,headsep=5mm,footskip=10mm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx,booktabs,array}
+\usepackage{caption}
+\usepackage{tcolorbox}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage[backend=biber,style=ieee,sorting=none,dashed=false,urldate=long]{biblatex}
+\addbibresource{quellen.bib}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- Verweise mit noch fehlender Seitenzahl ----------
+% \citeoffen{jonnes} ergibt im Entwurf [1, S. ?] in Rot, in der Endfassung [1].
+\newif\ifentwurf
+\entwurftrue
+\newcommand{\citeoffen}[1]{\ifentwurf\cite[{\color{red}S.\,?}]{#1}\else\cite{#1}\fi}
+
+% ---------- Quellenverzeichnis: IEEE mit deutschen Angaben wie im FHNW-Leitfaden ----------
+\stdpunctuation                                                    % «Titel», Zeitschrift (Komma nach dem Schlusszeichen)
+\DefineBibliographyStrings{nswissgerman}{jourvol = {Bd\adddot}}   % Bd. statt Jg.
+\DeclareFieldFormat{url}{\mkbibbrackets{Online}\adddot\space Verfügbar unter\addcolon\space\url{#1}}
+\DeclareFieldFormat{urldate}{\mkbibbrackets{Zugegriffen\addcolon\space#1}}
+\renewcommand*{\bibfont}{\small\raggedright}
+\setlength{\bibitemsep}{3pt}
+% Webseiten: Urheber, «Titel», Organisation, Datum. [Online]. Verfügbar unter: Adresse [Zugegriffen: Datum].
+\DeclareBibliographyDriver{online}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \printlist{organization}%
+  \newunit\newblock
+  \usebibmacro{date}%
+  \setunit{\adddot\addspace}\newblock
+  \usebibmacro{url+urldate}%
+  \usebibmacro{finentry}}
+
+% ---------- Seitenlayout: Kopfzeile mit Logo, Fusszeile mit Dozent und Seitenzahl ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=11mm]{bilder/fhnw_logo.jpg}}
+\fancyfoot[L]{\footnotesize FHNW, School of Engineering, Windisch, Stephan Schwarz}
+\fancyfoot[R]{\footnotesize\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% ---------- Absätze, Überschriften, Listen, Tabellen ----------
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt plus 1pt}
+\setcounter{secnumdepth}{0}
+\titleformat{\section}{\normalsize\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{9pt plus 2pt minus 1pt}{2pt}
+\setlist{nosep,leftmargin=*}
+\renewcommand{\arraystretch}{1.2}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\captionsetup{labelsep=colon,skip=3pt}
+\captionsetup[table]{name=Tab.,position=top,justification=raggedright,singlelinecheck=false,font={normalsize,bf}}
+\captionsetup[figure]{name=Abb.,justification=centering,font=small,labelfont=bf}
+% Tabelle mit Überschrift; bleibt auf einer Seite zusammen
+\newenvironment{tabelle}[1]
+  {\par\addvspace{8pt}\noindent\begin{minipage}{\linewidth}\captionof{table}{#1}}
+  {\end{minipage}\par\addvspace{4pt}}
+% Kasten für Leitfrage und These
+\newtcolorbox{kasten}{colback=white,colframe=black,boxrule=0.5pt,arc=0pt,left=2mm,right=2mm,top=1.5mm,bottom=1.5mm}
+
+% ---------- Farben der Grafik (wie auf den Folien) ----------
+\definecolor{usa}{HTML}{0B6682}
+\definecolor{deutschland}{HTML}{6C4A93}
+\definecolor{grossbritannien}{HTML}{B0531A}

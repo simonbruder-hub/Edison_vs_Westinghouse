@@ -195,7 +195,8 @@ b.append(para('', after=160))
 b.append(heading('Prüfprotokoll, zweite Runde (streng)'))
 b.append(para('**1. Kritische Mängel**', after=40))
 b.append(punkte([
-    'Seitenzahlen fehlen bei neun Quellen (rot im Handout). Der FHNW-Leitfaden verlangt sie bei Büchern und Aufsätzen.',
+    'Seitenzahlen fehlen bei acht Quellen, an 21 Stellen (rot im Handout). Der FHNW-Leitfaden verlangt sie bei Büchern '
+    'und Aufsätzen.',
     'Zwanzig von einundzwanzig Quellen sind nicht an der Quelle geprüft (Tabelle oben). Ohne diese Prüfung sind die '
     'Belege formal richtig, aber nicht gesichert.',
     'Bei zwei Online-Quellen fehlen Autorin oder Autor und das genaue Datum ({natgeo}, {srf}).',

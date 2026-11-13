@@ -13,7 +13,7 @@ KARTEN = {
     ], weiter='Klick: Titelfolie'),
     'titel': dict(folie='Titel', zeit='0:20–0:30', punkte=[
         '«Mein Thema: der Stromkrieg, Edison gegen Tesla.»',
-        'Animation abwarten: E links, T rechts, dann W',
+        'Animation abwarten: Edison links, Tesla rechts, dann W',
         '«W steht für Westinghouse, den Mann mit dem Geld.»',
     ], weiter='«Der Streit ging bis zum Äussersten.»'),
     'auburn': dict(folie='Auburn 1890', zeit='0:30–0:55', punkte=[

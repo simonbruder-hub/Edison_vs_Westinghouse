@@ -59,8 +59,10 @@ b.append(punkte([
     'direkt am Bild und auf der letzten Folie. Im Handout stehen nur Karikatur und Hinrichtung; das Nachtbild von 1889 '
     'ist auf der Frontfolie. Für Vortrag und Handout im Unterricht ist das mit Quellenangabe üblich. '
     'Stelle Folien und Handout aber nicht öffentlich ins Netz: Die Rechte an den Aufnahmen liegen bei den Agenturen.',
-    '**Porträts (optional):** In die Ovale der Titelfolie kannst du Porträts einsetzen; die Anleitung steht in den '
-    'Notizen der Folie.',
+    ('**Porträts:** Auf der Titelfolie und auf «Zwei Erfinder und ihre Geldgeber» stehen Fotos von Edison und Tesla '
+     '(gemeinfrei, Nachweis auf der Folie «Bildnachweis»).' if (ROOT / 'assets' / 'portraets' / 'edison.jpg').exists()
+     else '**Porträts:** Auf der Titelfolie und auf «Zwei Erfinder und ihre Geldgeber» stehen noch Buchstaben. Sobald '
+          'die Fotos in assets/portraets liegen, setzt das Skript sie ein (siehe README).'),
 ], letters=False))
 b.append(para('', after=100))
 

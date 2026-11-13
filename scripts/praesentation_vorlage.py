@@ -10,6 +10,7 @@ Quellen: Markup {schluessel} wird zu [n]. Die Nummern folgen der ersten Nennung 
 (latex/handout/main.tex). Eine Quelle, die im Handout fehlt, bricht den Lauf ab.
 """
 import copy
+import json
 import re
 
 from lxml import etree
@@ -34,6 +35,7 @@ STRUKTUR = ROOT / 'assets' / 'folien_struktur.pptx'
 OUT_OHNE = ROOT / 'abgabe' / 'Praesentation_Stromkrieg_Bruder.pptx'
 OUT_MIT = ROOT / 'abgabe' / 'Praesentation_Stromkrieg_Bruder_mit_Diskussion.pptx'
 BILDER = ROOT / 'latex' / 'handout' / 'bilder'
+PORTRAETS = ROOT / 'assets' / 'portraets'  # edison.jpg, tesla.jpg und nachweis.json (gemeinfreie Fotos)
 VIDEO, POSTER = ROOT / 'assets' / 'titelvideo.mp4', ROOT / 'assets' / 'titelvideo_poster.jpg'
 
 (I_INTRO, I_TITEL, I_AUBURN, I_LEITFRAGE, I_SPANNUNG, I_FIRMEN, I_V1, I_V2, I_WARUM, I_CHART, I_ZAHLEN, I_MYTHEN,
@@ -217,8 +219,52 @@ def slot(slide, name, x, y, text, size=22):
     return textbox(slide, name, x, y, 0.81, 0.68, [(text, SERIF, size, True, False)], anchor=MSO_ANCHOR.MIDDLE)
 
 
-def medallion(slide, name, x, y, w, h, letter, bg=None, letter_color=NAVY, size=40):
-    """Ovaler Bilderrahmen mit doppelter Linie. Später per Formfüllung durch ein Foto ersetzbar."""
+def portraet(name):
+    """Porträt aus assets/portraets, falls vorhanden; sonst None (dann steht dort ein Buchstabe)."""
+    datei = PORTRAETS / f'{name}.jpg'
+    return datei if datei.exists() else None
+
+
+def bildfuellung(shp, datei, fokus=0.25):
+    """Füllt eine Form (Oval, Kreis) mit einem Foto, zugeschnitten auf das Seitenverhältnis der Form.
+    Ist das Foto zu hoch, fällt oben nur der Anteil «fokus» des Überstands weg, damit das Gesicht bleibt."""
+    from PIL import Image
+    with Image.open(datei) as im:
+        bw, bh = im.size
+    _, rid = shp.part.get_or_add_image_part(str(datei))
+    ziel, ist = shp.width / shp.height, bw / bh
+    if ist > ziel:  # zu breit: links und rechts gleich viel weg
+        rand = {'l': (1 - ziel / ist) / 2, 'r': (1 - ziel / ist) / 2}
+    else:           # zu hoch: oben wenig, unten mehr weg
+        rest = 1 - ist / ziel
+        rand = {'t': rest * fokus, 'b': rest * (1 - fokus)}
+    sppr = shp._element.spPr
+    for tag in ('a:noFill', 'a:solidFill', 'a:gradFill', 'a:blipFill', 'a:pattFill'):
+        for el in sppr.findall(qn(tag)):
+            sppr.remove(el)
+    bf = etree.Element(qn('a:blipFill'), rotWithShape='1')
+    etree.SubElement(bf, qn('a:blip')).set(qn('r:embed'), rid)
+    src = etree.SubElement(bf, qn('a:srcRect'))
+    for k, v in rand.items():
+        src.set(k, str(round(v * 100000)))
+    etree.SubElement(etree.SubElement(bf, qn('a:stretch')), qn('a:fillRect'))
+    sppr.find(qn('a:prstGeom')).addnext(bf)
+
+
+def rund_portraet(slide, name, x, y, foto, d=0.66):
+    """Rundes Porträt mitten im Rahmenfeld der Vorlage (0,81 × 0,68 Zoll) statt des Buchstabens."""
+    shp = slide.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x + (0.81 - d) / 2), Inches(y + (0.68 - d) / 2),
+                                 Inches(d), Inches(d))
+    rename(shp, name)
+    shp.shadow.inherit = False
+    shp.line.color.rgb = NAVY
+    shp.line.width = Pt(1.25)
+    bildfuellung(shp, foto)
+    return shp
+
+
+def medallion(slide, name, x, y, w, h, letter, bg=None, letter_color=NAVY, size=40, foto=None):
+    """Ovaler Bilderrahmen mit doppelter Linie: mit Foto, falls eines vorliegt, sonst mit Buchstabe."""
     shp = slide.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x), Inches(y), Inches(w), Inches(h))
     rename(shp, name)
     shp.shadow.inherit = False
@@ -231,6 +277,9 @@ def medallion(slide, name, x, y, w, h, letter, bg=None, letter_color=NAVY, size=
     shp.line.color.rgb = NAVY if bg is None else PAPER
     shp.line.width = Pt(4.5 if bg is None else 3)
     shp.line._get_or_add_ln().set('cmpd', 'dbl')
+    if foto:
+        bildfuellung(shp, foto)
+        return shp
     tf = shp.text_frame
     tf.vertical_anchor = MSO_ANCHOR.MIDDLE
     p = tf.paragraphs[0]
@@ -358,10 +407,10 @@ for slide in (S[I_INTRO], S[I_TITEL]):
     t = shapes_by_id(slide)
     rename(t[890], '!!Titel')
     rename(t[891], '!!Untertitel')
-edison = medallion(s, '!!Edison', 1.42, 1.62, 1.05, 1.35, 'E', size=36)
+edison = medallion(s, '!!Edison', 1.42, 1.62, 1.05, 1.35, 'E', size=36, foto=portraet('edison'))
 edison_name = textbox(s, 'Edison Name', 0.995, 3.02, 1.9, 0.5,
                       [('Thomas A. Edison', SERIF, 11, True, False), ('Gleichstrom', SANS, 11, False, True)])
-tesla = medallion(s, '!!Tesla', 7.53, 1.62, 1.05, 1.35, 'T', size=36)
+tesla = medallion(s, '!!Tesla', 7.53, 1.62, 1.05, 1.35, 'T', size=36, foto=portraet('tesla'))
 tesla_name = textbox(s, 'Tesla Name', 6.955, 3.02, 2.2, 0.5,
                      [('Nikola Tesla', SERIF, 11, True, False), ('Wechselstrom · mit Westinghouse', SANS, 11, False, True)])
 westinghouse = medallion(s, '!!Westinghouse', 8.24, 1.48, 0.55, 0.55, 'W', bg=NAVY2, letter_color=WEISS, size=20)
@@ -398,7 +447,7 @@ set_timing(s, Timeline().auto().add('fade', 2342, dur=700).click().add('float', 
 
 # ---------- 5 Zwei Erfinder und ihre Geldgeber (vier Felder) ----------
 def vier_felder(slide, zeichen):
-    """Verbreitert die Textfelder des Vier-Felder-Layouts und setzt Zeichen in die Rahmenfelder."""
+    """Verbreitert die Textfelder des Vier-Felder-Layouts und setzt Zeichen oder Porträts in die Rahmenfelder."""
     sh = shapes_by_id(slide)
     for sid in (2434, 2430, 2435, 2432):  # linke Spalte
         place(sh[sid], 2.31, sh[sid].top / 914400, 2.7)
@@ -406,8 +455,12 @@ def vier_felder(slide, zeichen):
         place(sh[sid], 4.99, sh[sid].top / 914400, 2.7)
     felder = [(1.33, 1.86, 2434, 2430), (7.86, 1.86, 2436, 2431), (1.33, 3.44, 2435, 2432), (7.86, 3.44, 2437, 2433)]
     spalten = []
-    for (x, y, titel, text), (z, size) in zip(felder, zeichen):
-        spalten.append((slot(slide, f'Zeichen {z}', x, y, z, size).shape_id, titel, text))
+    for (x, y, titel, text), (z, size, *foto) in zip(felder, zeichen):
+        if foto and foto[0]:
+            form = rund_portraet(slide, f'Porträt {z}', x, y, foto[0])
+        else:
+            form = slot(slide, f'Zeichen {z}', x, y, z, size)
+        spalten.append((form.shape_id, titel, text))
     staggered(slide, spalten)
 
 
@@ -420,7 +473,7 @@ fill(s, {
     2435: ('J. P. Morgan', 15), 2432: ('Bankier, finanziert Edison {jonnes}', 13),
     2437: ('George Westinghouse', 15), 2433: ('Unternehmer, kauft 1888 Teslas Patente {kaick}', 13),
 }, K('erfinder'))
-vier_felder(s, [('E', 22), ('T', 22), ('M', 22), ('W', 22)])
+vier_felder(s, [('E', 22, portraet('edison')), ('T', 22, portraet('tesla')), ('M', 22), ('W', 22)])
 
 # ---------- 6 Zwei Systeme: Stärken und Schwächen (Tabelle) ----------
 s = S[I_SPANNUNG]
@@ -656,6 +709,11 @@ for k, s in enumerate(QUELLENFOLIEN):
         space_after(sh[sid].text_frame, 5)
     textbox(s, 'Hinweis', 1.25, 1.24, 7.5, 0.3, [('IEEE-Format · Nummern wie im Handout', SANS, 11, False, True)])
 s = F_BILD
+PORTRAET_NACHWEIS = []
+if portraet('edison') or portraet('tesla'):  # Fotos nur mit Nachweis (Fotograf, Jahr, Lizenz, Fundort)
+    nachweis_datei = PORTRAETS / 'nachweis.json'
+    assert nachweis_datei.exists(), 'Porträts ohne assets/portraets/nachweis.json: Bildnachweis ergänzen.'
+    PORTRAET_NACHWEIS = ['Porträts: ' + '; '.join(json.loads(nachweis_datei.read_text(encoding='utf-8')).values()) + '.']
 fill(s, {2340: 'Bildnachweis'}, 'Anhang – nur bei Nachfragen zeigen.')
 sh = shapes_by_id(s)
 for sid, x, zeilen in (
@@ -663,7 +721,7 @@ for sid, x, zeilen in (
                   'aus {natgeo}. Abdunkeln und Aufleuchten im Video: eigene Bearbeitung.',
                   'Auburn 1890: kolorierte Illustration; Granger/Cordon Press, aus {natgeo}.']),
     (2341, 5.28, ['Karikatur: Currier & Ives, «The Electric Light», Lithografie, 1880 {met}; MPI/Getty Images, aus {natgeo}.',
-                  'Grafik zur Weltindustrie: eigene Darstellung nach {bairoch}.']),
+                  'Grafik zur Weltindustrie: eigene Darstellung nach {bairoch}.'] + PORTRAET_NACHWEIS),
 ):
     set_paras(sh[sid].text_frame, zeilen, 12, rich=True)
     place(sh[sid], x, 1.64, 3.47, 3.2, anchor='t')

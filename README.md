@@ -58,6 +58,7 @@ das Video), die beiden Schriften und für die PDFs der Folien LibreOffice.
 | `latex/handout/main.tex`, `einstellungen.tex`, `quellen.bib`, `bilder/` | Handout; die Reihenfolge der Quellen im Text legt die Nummern fest |
 | `scripts/quellen.json` | alle Quellen im IEEE-Format für Folien, Playbook und Ausarbeitung (dieselben Schlüssel wie in `quellen.bib`) |
 | `scripts/quellen.py` | liest die Reihenfolge aus `main.tex`; `python3 scripts/quellen.py` prüft, ob alle Schlüssel übereinstimmen |
+| `assets/portraets/` | optional: `edison.jpg`, `tesla.jpg` (gemeinfreie Fotos) und `nachweis.json` (`{"edison": "…", "tesla": "…"}`: Fotograf, Jahr, Lizenz, Fundort). Liegen sie vor, erscheinen die Fotos auf der Titelfolie, auf «Zwei Erfinder und ihre Geldgeber» und im Bildnachweis; sonst stehen dort Buchstaben |
 | `scripts/titelvideo.py` | erzeugt `assets/titelvideo.mp4` und das Standbild aus dem Stich von 1889 |
 | `scripts/praesentation_vorlage.py`, `animation.py` | füllt `assets/folien_struktur.pptx` und erzeugt beide Foliensätze samt Animationen und Video |
 | `scripts/chart.js` | Grafik «Anteil an der Weltindustrieproduktion» für die Folien |

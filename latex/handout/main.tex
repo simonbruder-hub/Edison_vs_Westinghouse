@@ -3,8 +3,8 @@
 %
 % Quellen nach IEEE, wie es die FHNW empfiehlt (Seitenzahl im Verweis, Punkt nach der Klammer):
 %   \cite{edpCW}          ergibt [1]           Online-Quelle ohne Seitenzahl
-%   \cite[994]{kaick}     ergibt [4, S. 994]   Buch oder Artikel mit Seitenzahl
-%   \citeoffen{jonnes}    ergibt [3, S. ?]     Seitenzahl fehlt noch (rot markiert)
+%   \cite[994]{kaick}     ergibt [3, S. 994]   Buch oder Artikel mit Seitenzahl
+%   \citeoffen{jonnes}    ergibt [8, S. ?]     Seitenzahl fehlt noch (rot markiert)
 % Hast du eine Seitenzahl nachgeschlagen, ersetzt du \citeoffen{...} durch \cite[Seite]{...}.
 
 \documentclass[10pt,a4paper]{article}
@@ -19,22 +19,23 @@
 \begin{center}
   {\fontsize{18}{22}\selectfont\bfseries Der Stromkrieg -- Handout\par}
   \vspace{1.5mm}
-  Edison vs.\ Westinghouse und die Rolle von Nikola Tesla\par
+  Edison vs.\ Tesla -- und die Rolle von George Westinghouse\par
   Simon Bruder \textperiodcentered{} Modul «Weltmacht USA» \textperiodcentered{} Dozent: Stephan Schwarz
   \textperiodcentered{} 10.12.2026
 \end{center}
 
 \section{Worum geht es?}
 \begin{spalte}{0.655\linewidth}
-  Elektrisches Licht war in den 1880er-Jahren ein neues Geschäft, um das mehrere Firmen kämpften
-  (Abb.~\ref{abb:karikatur}). Daraus wurde ein Streit um das Stromsystem der USA: der \textbf{«Stromkrieg»},
-  englisch «War of the Currents». Er fällt in die späten 1880er- und frühen 1890er-Jahre \cite{edpCW}.
+  Elektrisches Licht war in den 1880er-Jahren ein neues Geschäft, um das Erfinder und Firmen kämpften
+  (Abb.~\ref{abb:karikatur}). Daraus wurde der \textbf{«Stromkrieg»} («War of the Currents») um das Stromsystem der
+  USA, in den späten 1880er- und frühen 1890er-Jahren \cite{edpCW}. Im Zentrum stehen zwei Erfinder:
+  \textbf{Thomas Edison} und \textbf{Nikola Tesla}.
   \begin{itemize}
-    \item \textbf{Gleichstrom:} Thomas Edison lieferte ab 1882 in New York Gleichstrom. Ein Kraftwerk reichte nur
-      für ein Quartier \cite{pearl}.
-    \item \textbf{Wechselstrom:} George Westinghouse baute ab 1886 Netze mit Wechselstrom \citeoffen{jonnes}.
-      Wechselstrom lässt sich mit wenig Verlust über weite Strecken übertragen \cite[994]{kaick}.
-    \item \textbf{Nikola Tesla} verkaufte Westinghouse im Juli 1888 seine Wechselstrompatente \cite[994]{kaick}.
+    \item \textbf{Edison} setzte auf Gleichstrom. Sein erstes Kraftwerk in New York (1882) reichte nur für ein
+      Quartier \cite{pearl}.
+    \item \textbf{Tesla} setzte auf Wechselstrom. Er lässt sich mit wenig Verlust über weite Strecken übertragen,
+      und Teslas Motor machte ihn auch für Fabriken nutzbar. George Westinghouse kaufte 1888 Teslas Patente und
+      baute die Netze \cite[994]{kaick}.
     \item \textbf{Angstkampagne:} Edisons Lager stellte Wechselstrom als lebensgefährlich dar. Harold P. Brown
       tötete öffentlich Tiere und half, den elektrischen Stuhl einzuführen \citeoffen{hughes58}.
   \end{itemize}
@@ -49,37 +50,50 @@
 \vspace{3mm}
 \begin{tabularx}{\linewidth}{|Y|}
   \hline
-  \textbf{Leitfrage:} Warum setzte sich in den USA der Wechselstrom gegen Edisons Gleichstrom durch -- und was zeigt
-  der Konflikt über den Aufstieg der USA zur führenden Industriemacht? \\ \hline
-  \textbf{These:} Entschieden haben nicht Propaganda oder ein einzelnes Genie, sondern Kosten, Kapital und Technik.
-  Aus dem Streit gingen Grosskonzerne hervor, die typisch für den amerikanischen Industriekapitalismus wurden. \\
-  \hline
+  \textbf{Leitfrage:} Edison gegen Tesla: Warum setzte sich Teslas Wechselstrom gegen Edisons Gleichstrom durch --
+  und was zeigt der Konflikt über den Aufstieg der USA zur führenden Industriemacht? \\ \hline
+  \textbf{These:} Nicht der berühmtere Erfinder gewann, sondern das billigere System mit dem stärkeren Geldgeber:
+  Teslas Wechselstrom, finanziert von Westinghouse. Aus dem Streit gingen Grosskonzerne hervor, die typisch für den
+  amerikanischen Industriekapitalismus wurden. \\ \hline
 \end{tabularx}
 
-\par\addvspace{8pt}
+\begin{tabelle}{Edison und Tesla im Vergleich}
+\begin{tabularx}{\linewidth}{|C{21mm}|Y|Y|}
+  \hline
+  & \kopf{Thomas A. Edison (1847--1931)} & \kopf{Nikola Tesla (1856--1943)} \\ \hline
+  System & Gleichstrom, rund 110\,V; erstes Kraftwerk 1882 in New York \cite{pearl} & Wechselstrom mit Drehfeldmotor;
+    Patente 1888 an Westinghouse \cite[994]{kaick} \\ \hline
+  Wechselstrom & gefährlich: Nichts rechtfertige Hochspannung und Wechselstrom (1889) \citeoffen{edison89} &
+    verlustarm über weite Strecken; Grundlage der heutigen Netze \cite[994]{kaick} \\ \hline
+  Arbeitsweise & Probieren im grossen Labor & Theorie und Rechnung; 1931 spottete er, Edison suche die Nadel im
+    Heuhaufen Halm für Halm \citeoffen{nyt31} \\ \hline
+  Ausgang & 1892 geht seine Firma in General Electric auf \citeoffen{jonnes} & stirbt 1943 in Geldnot in New York
+    \cite[994]{kaick} \\ \hline
+\end{tabularx}
+\end{tabelle}
+
+\par\addvspace{6pt}
 \begin{spalte}{0.805\linewidth}
 \captionof{table}{Die wichtigsten Etappen}
 \small
 \begin{tabularx}{\linewidth}{|C{9mm}|Y|}
   \hline
   \textbf{Jahr} & \kopf{Ereignis} \\ \hline
-  1882 & Edison eröffnet in New York sein erstes dauerhaftes kommerzielles Zentralkraftwerk (Pearl Street):
-    Gleichstrom für rund 85 Kunden und 400 Lampen \cite{pearl}. \\ \hline
-  1886 & Westinghouse gründet seine Elektrofirma. In Great Barrington läuft das erste Wechselstromnetz der USA mit
-    Transformatoren \citeoffen{jonnes}. \\ \hline
-  1888 & Tesla verkauft Westinghouse seine Wechselstrompatente \cite[994]{kaick}. Edisons Lager startet die
+  1882 & Edison eröffnet in New York sein erstes Kraftwerk (Pearl Street): Gleichstrom für rund 85 Kunden und
+    400 Lampen \cite{pearl}. \\ \hline
+  1884 & Tesla, Ingenieur aus Smiljan (heute Kroatien), arbeitet in New York für Edison. Nach sechs Monaten
+    trennen sie sich \cite[993--994]{kaick}. \\ \hline
+  1888 & Westinghouse kauft im Juli Teslas Wechselstrompatente \cite[994]{kaick}. Edisons Lager startet die
     Angstkampagne: Harold P. Brown tötet öffentlich Hunde \citeoffen{hughes58}. \\ \hline
-  1890 & Erste Hinrichtung auf dem elektrischen Stuhl (Abb.~\ref{abb:stuhl}) \citeoffen{essig}. Den
-    Westinghouse-Generator dafür hatte Brown gegen den Willen von Westinghouse über Dritte beschafft
-    \citeoffen{hughes58}. \\ \hline
+  1890 & Erste Hinrichtung auf dem elektrischen Stuhl (Abb.~\ref{abb:stuhl}) \citeoffen{essig}. Den Generator von
+    Westinghouse hatte Brown gegen dessen Willen beschafft \citeoffen{hughes58}. \\ \hline
   1891 & Westinghouse gerät in Finanznot; Tesla verzichtet auf seine Lizenzgebühren \citeoffen{carlson}. \\ \hline
-  1892 & Edison General Electric und der Rivale Thomson-Houston fusionieren zu General Electric, eingefädelt von
-    Banken um J.\,P. Morgan. Edisons Name verschwindet, die Führung übernimmt Thomson-Houston \citeoffen{jonnes}. \\
-    \hline
+  1892 & Edisons Firma fusioniert mit Thomson-Houston zu General Electric, eingefädelt von Banken um J.\,P. Morgan.
+    Edisons Name verschwindet \citeoffen{jonnes}. \\ \hline
   1893 & Westinghouse versorgt die Weltausstellung in Chicago mit Teslas Wechselstromsystem \cite[994]{kaick}. \\
     \hline
-  1896 & Strom von den Niagarafällen fliesst rund 40\,km nach Buffalo. General Electric und Westinghouse teilen
-    ihre Patente \citeoffen{jonnes}. \\ \hline
+  1896 & Strom von den Niagarafällen fliesst rund 40\,km nach Buffalo \citeoffen{jonnes}, mit Teslas System
+    \cite[994]{kaick}. \\ \hline
 \end{tabularx}
 \end{spalte}\hfill
 \begin{spalte}{0.17\linewidth}
@@ -90,20 +104,20 @@
   \label{abb:stuhl}
 \end{spalte}
 
-\section{Warum gewann der Wechselstrom?}
-\begin{itemize}
-  \item \textbf{Technik:} Ein Transformator setzt die Spannung von Wechselstrom herauf. Bei hoher Spannung
-    fliesst für dieselbe Leistung weniger Strom, und in den Leitungen geht weniger Energie verloren. Für
-    Gleichstrom gab es um 1890 kein vergleichbar einfaches Gerät.
-  \item \textbf{Kosten:} Mit Wechselstrom reichten wenige grosse Kraftwerke für weite Gebiete. Edisons
-    Gleichstrom brauchte alle paar Kilometer ein Kraftwerk \citeoffen{jonnes}.
-  \item \textbf{Kapital:} 1892 ging Edisons Firma in General Electric auf. Der neue Konzern setzte selbst auf
-    Wechselstrom \citeoffen{jonnes}.
-  \item \textbf{Die Angstkampagne wirkte nicht:} Westinghouse ignorierte sie zuerst, bestritt dann die Vorwürfe
-    und machte sie schliesslich mit besserer Technik gegenstandslos \citeoffen{cole}.
-\end{itemize}
-
 \newpage
+
+\section{Warum gewann Teslas Wechselstrom?}
+\begin{itemize}
+  \item \textbf{Technik:} Ein Transformator bringt Wechselstrom auf hohe Spannung. Dann fliesst für dieselbe
+    Leistung weniger Strom, und in den Leitungen geht weniger Energie verloren. Für Gleichstrom gab es um 1890 kein
+    vergleichbares Gerät.
+  \item \textbf{Kosten:} Mit Wechselstrom reichten wenige grosse Kraftwerke für weite Gebiete. Edisons Gleichstrom
+    brauchte alle paar Kilometer ein Kraftwerk \citeoffen{jonnes}.
+  \item \textbf{Kapital:} Westinghouse brachte Teslas System in die Praxis \cite[994]{kaick}. 1892 ging Edisons
+    Firma in General Electric auf, und auch GE setzte auf Wechselstrom \citeoffen{jonnes}.
+  \item \textbf{Die Angstkampagne wirkte nicht:} Westinghouse ignorierte sie zuerst, bestritt dann die Vorwürfe und
+    machte sie schliesslich mit besserer Technik gegenstandslos \citeoffen{cole}.
+\end{itemize}
 
 \section{Bedeutung für die Weltmacht USA}
 \begin{itemize}
@@ -122,7 +136,7 @@
 \begin{spalte}{0.56\linewidth}
   \begin{tikzpicture}
     \begin{axis}[
-        width=0.74\linewidth, height=40mm,
+        width=0.74\linewidth, height=35mm,
         xmin=1856, xmax=1915, ymin=0, ymax=36,
         xtick={1860,1880,1900,1913},
         x tick label style={/pgf/number format/1000 sep={}},
@@ -151,7 +165,7 @@
     (Schätzwerte). Eigene Darstellung, Zahlen aus \citeoffen{bairoch}.}
   \label{abb:weltindustrie}
 \end{spalte}\hfill
-\begin{spalte}{0.36\linewidth}
+\begin{spalte}{0.34\linewidth}
   \includegraphics[width=\linewidth]{bilder/new_york_nacht_1889.jpg}
   \captionof{figure}{Nachtleben in New York im Licht elektrischer Bogenlampen. Stich von William Allen Rogers für
     «Harper's Weekly», 1889. Bild: De Agostini/Getty Images, aus \cite{natgeo}.}
@@ -163,11 +177,11 @@
   \hline
   \multicolumn{1}{|c|}{\textbf{Mythos}} & \kopf{Befund} \\ \hline
   Edison zeigte öffentlich «grausame Experimente mit Hunden, Pferden und sogar einem Elefanten» \cite{abb}. &
-    Die Tierversuche machte Harold P. Brown, unterstützt von Edisons Labor \citeoffen{hughes58}. Die Elefantin
-    Topsy starb erst 1903, über zehn Jahre nach dem Stromkrieg und ohne Edisons Beteiligung \cite{topsy}. \\ \hline
-  Der Stromkrieg war ein Duell «Tesla gegen Edison». &
-    Es stritten Firmen und ihre Geldgeber. Tesla lieferte Westinghouse 1888 die Patente für den
-    Wechselstrommotor \cite[994]{kaick}. \\ \hline
+    Die Tierversuche machte Harold P. Brown, mit Hilfe aus Edisons Labor \citeoffen{hughes58}. Die Elefantin
+    Topsy starb erst 1903, ohne Edisons Beteiligung \cite{topsy}. \\ \hline
+  Edison prellte Tesla um 50'000 Dollar. &
+    In Teslas eigenem Bericht von 1919 machte «der Manager» das Versprechen, nicht Edison \citeoffen{tesla19}. \\
+    \hline
   Tesla zerriss aus Grossmut seinen Vertrag mit Westinghouse. &
     Belegt sind der Verzicht auf Lizenzgebühren (1891) und der spätere Verkauf der Patente \citeoffen{carlson}. \\
     \hline
@@ -176,31 +190,21 @@
 
 \section{Und heute?}
 \begin{itemize}
-  \item \textbf{Wechselstrom im Netz:} Aus der Steckdose kommt Wechselstrom, in der Schweiz mit 230\,V, in den USA
-    mit 120\,V \cite{iec}.
-  \item \textbf{Gleichstrom kehrt zurück:} Akkus, Solarzellen und Elektronik arbeiten mit Gleichstrom. Für sehr
-    lange Leitungen nutzt man HGÜ; die erste kommerzielle Verbindung moderner Bauart ging 1954 in Schweden in
-    Betrieb, gebaut von ASEA \cite{gotland}.
-  \item \textbf{Schweizer Spur:} 1891 übertrugen die Maschinenfabrik Oerlikon (MFO) und die AEG Drehstrom über
-    175\,km nach Frankfurt. Im selben Jahr gründete Charles E.\,L. Brown von der MFO in Baden die BBC
-    \cite{steig}, seit 1988 ABB \cite{abbHistory}.
-  \item \textbf{Neue Standardkriege:} In den USA wird der Ladestecker der Firma Tesla seit Ende 2023 zur Norm
-    SAE~J3400 \cite{nacs}. In der EU ist USB-C für Handys seit Ende 2024 Pflicht \cite{eu}.
-  \item \textbf{Tesla als Einheit:} Seit 1960 heisst die Einheit der magnetischen Flussdichte Tesla (T). Ein
-    MRI-Gerät im Spital arbeitet mit 0,35 bis 3\,T \cite[994]{kaick}.
+  \item \textbf{Teslas Wechselstrom im Netz:} Er kommt aus jeder Steckdose, in der Schweiz mit 230\,V \cite{iec}.
+  \item \textbf{Edisons Gleichstrom kehrt zurück:} Akkus, Solarzellen und Elektronik arbeiten mit Gleichstrom. Für
+    sehr lange Leitungen gibt es seit 1954 die Hochspannungs-Gleichstrom-Übertragung (HGÜ) \cite{gotland}.
+  \item \textbf{Tesla als Name:} Seit 1960 heisst die Einheit der magnetischen Flussdichte Tesla; ein MRI-Gerät
+    arbeitet mit 0,35 bis 3\,T \cite[994]{kaick}. Der Autohersteller Tesla (gegründet 2003) ist nach ihm benannt
+    \cite[993]{kaick}. Sein Ladestecker wird in den USA seit Ende 2023 zur Norm SAE~J3400: ein neuer
+    Standardkrieg \cite{nacs}.
 \end{itemize}
 
 \section{Fazit}
 \begin{itemize}
-  \item Der Wechselstrom gewann, weil er billiger war: hohe Spannung, wenige grosse Kraftwerke, weite Strecken.
-  \item Entschieden hat das Kapital, nicht die Angstkampagne: 1892 ging Edisons Firma in General Electric auf.
+  \item Teslas Wechselstrom gewann, weil er billiger war: hohe Spannung, wenige grosse Kraftwerke, weite Strecken.
+  \item Nicht der berühmtere Erfinder gewann, sondern das System mit dem stärkeren Geldgeber (Westinghouse).
   \item Billiger Strom und Grosskonzerne trugen den Aufstieg der USA zur grössten Industriemacht.
 \end{itemize}
-
-\section{Tipps}
-\textbf{Romane:} «Licht» von Anthony McCarten (Edison und sein Geldgeber J.\,P. Morgan) und «Die letzten Tage der
-Nacht» von Graham Moore (Westinghouses Anwalt Paul Cravath); SRF Kultur stellt beide vor \cite{srf}.
-\textbf{Film:} «The Current War» (2017). Romane und Film sind Fiktion und keine Quelle.
 
 \newpage
 
@@ -213,7 +217,8 @@ Nacht» von Graham Moore (Westinghouses Anwalt Paul Cravath); SRF Kultur stellt 
     USA 60\,Hz) \cite{iec}. \\ \hline
   Transformator & Setzt die Spannung von Wechselstrom herauf oder herab. Bei gleicher Leistung bedeutet höhere
     Spannung kleineren Strom und damit kleinere Leitungsverluste ($P_\mathrm{V} = I^2 \cdot R$). \\ \hline
-  Drehstrom & Wechselstrom mit drei Phasen; Grundlage der heutigen Netze und der Industriemotoren. \\ \hline
+  Drehfeldmotor & Teslas Wechselstrommotor: Ein rotierendes Magnetfeld treibt ihn an. Auf diesem Prinzip beruht der
+    Induktionsmotor \cite[994]{kaick}. \\ \hline
   Thomson-Houston & Dritter grosser US-Elektrokonzern neben Edison und Westinghouse; bot ebenfalls Wechselstrom
     an und fusionierte 1892 mit Edison General Electric zu General Electric (GE) \citeoffen{jonnes}. \\ \hline
   Patent, Patentpool & Ein Patent ist ein zeitlich befristetes Schutzrecht auf eine Erfindung. In einem
@@ -224,9 +229,12 @@ Nacht» von Graham Moore (Westinghouses Anwalt Paul Cravath); SRF Kultur stellt 
     Lösungen möglich wären \citeoffen{david92}. \\ \hline
   Gilded Age & «Vergoldetes Zeitalter» (ca. 1870--1900), benannt nach einem Roman von Mark Twain: an der
     Oberfläche Wachstum und Grosskonzerne, darunter Korruption und soziale Ungleichheit. \\ \hline
-  HGÜ & Hochspannungs-Gleichstrom-Übertragung: Gleichstrom wird mit Stromrichtern über sehr lange Strecken
-    übertragen. \\ \hline
 \end{tabularx}\par}
+
+\section{Tipps}
+\textbf{Romane:} «Licht» von Anthony McCarten (Edison und sein Geldgeber J.\,P. Morgan) und «Die letzten Tage der
+Nacht» von Graham Moore (Westinghouses Anwalt Paul Cravath); SRF Kultur stellt beide vor \cite{srf}.
+\textbf{Film:} «The Current War» (2017). Romane und Film sind Fiktion und keine Quelle.
 
 % Falls das Modul eine Angabe zum Einsatz von KI-Werkzeugen verlangt: die nächste Zeile aktivieren und anpassen.
 % {\footnotesize Hinweis: Bei Recherche, Struktur und Formulierung wurde ein KI-Werkzeug eingesetzt; alle Inhalte und Quellen hat der Autor geprüft.\par}

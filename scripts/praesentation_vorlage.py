@@ -304,13 +304,14 @@ for slide in S:
     reset(slide)
 F_PRESSE = kopie(prs, S[I_Q1])   # neue Folie mit der Karikatur
 F_Q4 = kopie(prs, S[I_Q3])       # vierte Quellenfolie
+F_ZITATE = kopie(prs, S[I_Q2])   # neue Folie mit zwei Primärquellen
 
 # ---------- 1 Frontfolie: Bild von 1889 als kurzes Video, darüber der Titel ----------
 s = S[I_INTRO]
 remove_ids(s, (896,))  # Ornamente der Vorlage; das Bild füllt den inneren Rahmen
-fill(s, {890: ('Der Stromkrieg', 40), 891: ('Edison vs. Westinghouse – und die Rolle von Nikola Tesla', 16)},
+fill(s, {890: ('Der Stromkrieg', 40), 891: ('Edison vs. Tesla – und die Rolle von George Westinghouse', 16)},
      """[0:00–0:15] Frontfolie. Sie steht, während alle Platz nehmen.
-Erster Klick: Das Video startet (11 Sekunden, ohne Ton). Das Bild wird dunkel, dann gehen die Lampen nacheinander an. Dazu frei sprechen: «New York im Jahr 1889. Elektrisches Licht verändert die Stadt. Aber wer liefert den Strom dafür? Darum ging es im Stromkrieg.»
+Erster Klick: Das Video startet (11 Sekunden, ohne Ton). Das Bild wird dunkel, dann gehen die Lampen nacheinander an. Dazu frei sprechen: «New York im Jahr 1889. Elektrisches Licht verändert die Stadt. Aber welcher Strom soll fliessen: Edisons Gleichstrom oder Teslas Wechselstrom?»
 Zweiter Klick: Der Titel wandert auf die Titelfolie.
 Bild: Stich von William Allen Rogers für «Harper's Weekly», 1889 {natgeo}. Das Abdunkeln und Aufleuchten ist eine eigene Bearbeitung; das Video beginnt und endet mit dem unveränderten Bild.
 Falls das Video nicht startet: einfach weiterklicken, das Bild bleibt stehen.""")
@@ -341,12 +342,12 @@ nachweis(s, 'Bildnachweis', 'Bild: W. A. Rogers, «Harper’s Weekly», 1889 · 
          5.2, BAND + 1.17, 4.2, PP_ALIGN.RIGHT, PAPER)
 set_timing(s, Timeline().click().add('video', film.shape_id, dur=11040))
 
-# ---------- 2 Titel: Edison gegen Westinghouse, Tesla als Partner von Westinghouse ----------
+# ---------- 2 Titel: Edison gegen Tesla, Westinghouse als Teslas Partner ----------
 s = S[I_TITEL]
-fill(s, {895: ('Modul «Weltmacht USA»', 13), 890: ['Der Stromkrieg', '- 1886–1892 -'],
+fill(s, {895: ('Modul «Weltmacht USA»', 13), 890: ['Der Stromkrieg', 'Edison vs. Tesla'],
          891: ('Simon Bruder · Dozent: Stephan Schwarz · 10.12.2026', 13)},
-     """[0:15–0:25] Begrüssung: «Ich spreche über den Stromkrieg: den Streit zwischen den Firmen von Edison und Westinghouse um Amerikas Stromnetz – und über die Rolle von Nikola Tesla.»
-Animation: Nach dem Morph fliegen Edison (links) und Westinghouse (rechts) ein, dann erscheint Tesla als kleiner Kreis bei Westinghouse. Das ist Absicht: Tesla war nicht Edisons Gegner, sondern lieferte Westinghouse die Motorpatente. Erst danach weiterklicken.
+     """[0:15–0:25] Begrüssung: «Ich spreche über den Stromkrieg: den Streit zwischen Thomas Edison und Nikola Tesla um Amerikas Stromnetz – und über die Rolle von George Westinghouse.»
+Animation: Nach dem Morph fliegt Edison von links ein, dann Tesla von rechts. Zuletzt erscheint W bei Tesla: Westinghouse kaufte 1888 Teslas Patente und brachte sein System auf den Markt {kaick}. Erst danach weiterklicken.
 Porträts einsetzen (optional): Oval anklicken → Rechtsklick → Form formatieren → Füllung → Bild- oder Texturfüllung → Einfügen; danach den Buchstaben im Oval löschen. Animation und Morph bleiben erhalten. Gemeinfreie Porträts gibt es auf Wikimedia Commons.""")
 sh = shapes_by_id(s)
 place(sh[895], 3.6, 1.11, 2.8)
@@ -357,15 +358,14 @@ for slide in (S[I_INTRO], S[I_TITEL]):
 edison = medallion(s, '!!Edison', 1.42, 1.62, 1.05, 1.35, 'E', size=36)
 edison_name = textbox(s, 'Edison Name', 0.995, 3.02, 1.9, 0.5,
                       [('Thomas A. Edison', SERIF, 11, True, False), ('Gleichstrom', SANS, 11, False, True)])
-westinghouse = medallion(s, '!!Westinghouse', 7.53, 1.62, 1.05, 1.35, 'W', size=36)
-westinghouse_name = textbox(s, 'Westinghouse Name', 6.955, 3.02, 2.2, 0.5,
-                            [('George Westinghouse', SERIF, 11, True, False),
-                             ('Wechselstrom · mit Nikola Tesla', SANS, 11, False, True)])
-tesla = medallion(s, '!!Tesla', 8.24, 1.48, 0.55, 0.55, 'T', bg=NAVY2, letter_color=WEISS, size=20)
+tesla = medallion(s, '!!Tesla', 7.53, 1.62, 1.05, 1.35, 'T', size=36)
+tesla_name = textbox(s, 'Tesla Name', 6.955, 3.02, 2.2, 0.5,
+                     [('Nikola Tesla', SERIF, 11, True, False), ('Wechselstrom · mit Westinghouse', SANS, 11, False, True)])
+westinghouse = medallion(s, '!!Westinghouse', 8.24, 1.48, 0.55, 0.55, 'W', bg=NAVY2, letter_color=WEISS, size=20)
 set_timing(s, Timeline().auto()
            .add('fly_left', edison.shape_id, at=0, dur=900).add('fade', edison_name.shape_id, at=500, dur=500)
-           .add('fly_right', westinghouse.shape_id, at=1000, dur=900).add('fade', westinghouse_name.shape_id, at=1500, dur=500)
-           .add('grow_turn', tesla.shape_id, at=2100, dur=800))
+           .add('fly_right', tesla.shape_id, at=1000, dur=900).add('fade', tesla_name.shape_id, at=1500, dur=500)
+           .add('grow_turn', westinghouse.shape_id, at=2100, dur=800))
 
 # ---------- 3 Einstieg ----------
 s = S[I_AUBURN]
@@ -373,7 +373,7 @@ remove_ids(s, (1407,))  # Ornamente der Vorlage; links steht das Bild
 fill(s, {1864: ('- Auburn, 1890 -', 48),
          1865: ('6. August: erste Hinrichtung auf dem elektrischen Stuhl – mit einem Generator von Westinghouse {essig}', 14)},
      """[0:25–0:50] Einstieg
-Auburn, Staat New York, 6. August 1890: William Kemmler wird als erster Mensch auf dem elektrischen Stuhl hingerichtet {essig}. Der Generator stammt von Westinghouse. Beschafft hatte ihn aber Harold P. Brown über Dritte und gegen den Willen von Westinghouse {hughes58}. Brown wollte zeigen: Wechselstrom tötet.
+Auburn, Staat New York, 6. August 1890: William Kemmler wird als erster Mensch auf dem elektrischen Stuhl hingerichtet {essig}. Der Generator stammt von Westinghouse. Beschafft hatte ihn aber Harold P. Brown über Dritte und gegen den Willen von Westinghouse {hughes58}. Brown wollte zeigen: Wechselstrom tötet, also das System, auf das Westinghouse mit Teslas Patenten setzte.
 Zum Bild: kolorierte Illustration der ersten Hinrichtung auf dem elektrischen Stuhl {natgeo}.
 Überleitung: «Daraus ergibt sich meine Leitfrage.»""")
 sh = shapes_by_id(s)
@@ -388,42 +388,45 @@ set_timing(s, Timeline().auto().add('fade', stuhl.shape_id, dur=800).add('zoom',
 # ---------- 4 Leitfrage und These (Wortlaut wie im Handout) ----------
 s = S[I_LEITFRAGE]
 zweispalter(s, 'Leitfrage und These', 'Leitfrage',
-            ['Warum setzte sich in den USA der Wechselstrom gegen Edisons Gleichstrom durch – und was zeigt der '
-             'Konflikt über den Aufstieg der USA zur führenden Industriemacht?'],
+            ['Edison gegen Tesla: Warum setzte sich Teslas Wechselstrom gegen Edisons Gleichstrom durch – und was '
+             'zeigt der Konflikt über den Aufstieg der USA zur führenden Industriemacht?'],
             'These',
-            ['Entschieden haben nicht Propaganda oder ein einzelnes Genie, sondern Kosten, Kapital und Technik.',
+            ['Nicht der berühmtere Erfinder gewann, sondern das billigere System mit dem stärkeren Geldgeber: Teslas '
+             'Wechselstrom, finanziert von Westinghouse.',
              'Aus dem Streit gingen Grosskonzerne hervor, die typisch für den amerikanischen Industriekapitalismus wurden.'],
-            """[0:50–1:20] Leitfrage und These
+            """[0:50–1:15] Leitfrage und These
 Leitfrage vorlesen. Dann klicken: Die These erscheint.
-These in eigenen Worten: Entschieden haben nicht Propaganda oder ein einzelnes Genie, sondern Kosten, Kapital und Technik. Aus dem Streit gingen Grosskonzerne hervor, die typisch für den amerikanischen Industriekapitalismus wurden.
-Zur Datierung, falls jemand fragt: Der Stromkrieg fällt in die späten 1880er- und frühen 1890er-Jahre {edpCW}; ich rechne von 1886 (erste Wechselstromnetze) bis 1892 (Gründung von General Electric).
-Überleitung: «Dafür braucht es eine Minute Technik.»""", l_size=16, r_size=15)
+These in eigenen Worten: Edison war der berühmtere Erfinder, Tesla hatte die bessere Technik für weite Strecken. Gewonnen hat das billigere System mit dem stärkeren Geldgeber. Aus dem Streit gingen Grosskonzerne hervor, die typisch für den amerikanischen Industriekapitalismus wurden.
+Zur Datierung, falls jemand fragt: Der Stromkrieg fällt in die späten 1880er- und frühen 1890er-Jahre {edpCW}.
+Überleitung: «Wer waren die beiden?»""", l_size=15, r_size=14)
 set_timing(s, Timeline().auto().add('fade', 2342, dur=700)
            .click().add('float', 2341, dur=700, para=0).add('float', 2341, at=500, dur=700, para=1))
 
 # ---------- 5 Technik (Tabelle) ----------
 s = S[I_SPANNUNG]
-fill(s, {3480: 'Warum die Spannung entscheidet'}, """[1:20–2:05] Technik
+fill(s, {3480: 'Warum die Spannung entscheidet'}, """[2:40–3:20] Technik
 Kernidee: Strom lässt sich nur mit hoher Spannung billig über weite Strecken schicken.
 Der Verlust in der Leitung ist I² · R: Er wächst mit dem Quadrat der Stromstärke. Zehnfache Spannung heisst bei gleicher Leistung ein Zehntel des Stroms und nur noch ein Hundertstel des Verlusts.
 Um 1890 liess sich nur Wechselstrom mit dem Transformator hoch- und heruntersetzen. Edisons Gleichstrom mit rund 110 Volt brauchte deshalb alle paar Kilometer ein Kraftwerk und dicke Kupferleitungen {pearl,jonnes}.
-Überleitung: «Wie haben die Zeitgenossen den Streit gesehen?»""")
+Dazu kam Teslas Drehfeldmotor: Mit ihm konnte Wechselstrom auch Maschinen in Fabriken antreiben {kaick}.
+Überleitung: «Wie lief der Streit ab?»""")
 frame = shapes_by_id(s)[3481]
 tbl = frame.table
-for tr in tbl._tbl.tr_lst[4:]:  # Zeile «Schwachpunkt» entfällt
+for tr in tbl._tbl.tr_lst[5:]:  # Kopfzeile und vier Zeilen bleiben
     tbl._tbl.remove(tr)
 fill_table(tbl, [
-    ['', 'Gleichstrom (Edison)', 'Wechselstrom (Westinghouse)'],
+    ['', 'Gleichstrom (Edison)', 'Wechselstrom (Tesla)'],
     ['Spannung', 'rund 110 V, damals nicht transformierbar', 'Transformator: hoch im Netz, tief im Haus'],
     ['Leitungsverlust', 'hoch: viel Strom, dicke Kupferleitungen', 'klein: hohe Spannung, wenig Strom'],
     ['Reichweite', 'ein Quartier (Pearl Street: 0,65 km²) {pearl}', 'Niagara–Buffalo 1896: rund 40 km {jonnes}'],
+    ['Motor', 'Gleichstrommotoren', 'Teslas Drehfeldmotor (Patente 1888) {kaick}'],
 ], size=13)
 for col, breite in zip(tbl.columns, (1.57, 3.43, 3.43)):  # jede Zelle bleibt einzeilig
     col.width = Inches(breite)
 for k, row in enumerate(tbl.rows):
-    row.height = Inches(0.48 if k == 0 else 0.66)
-frame.height = Inches(0.48 + 3 * 0.66)
-merksatz = textbox(s, 'Merksatz', 0.79, 4.2, 8.43, 0.45,
+    row.height = Inches(0.46 if k == 0 else 0.56)
+frame.height = Inches(0.46 + 4 * 0.56)
+merksatz = textbox(s, 'Merksatz', 0.79, 4.4, 8.43, 0.45,
                    [('Bei gleicher Leistung: 10-fache Spannung → 1/10 des Stroms → 1/100 des Verlusts (I² · R)', SANS, 14, True, False)])
 set_timing(s, Timeline().auto().add('float', merksatz.shape_id, at=600, dur=700))
 
@@ -431,13 +434,13 @@ set_timing(s, Timeline().auto().add('float', merksatz.shape_id, at=600, dur=700)
 s = F_PRESSE
 remove_ids(s, (2342,))
 fill(s, {2340: 'So sah es die Presse: ein Zweikampf',
-         2341: (['Currier & Ives zeichnen den Wettlauf um das Licht von New York als Duell: Edison (links) gegen '
+         2341: (['Schon damals machte die Presse aus dem Wettlauf um das Licht ein Duell: Edison (links) gegen '
                  'Charles Brush, den Erfinder der Bogenlampe {natgeo}.',
-                 'Tatsächlich stritten Firmen und ihre Geldgeber.'], 15)},
-     """[2:05–2:25] Bildquelle
+                 'Genauso wird der Stromkrieg bis heute erzählt: als Duell Edison gegen Tesla.'], 15)},
+     """[7:05–7:25] Bildquelle
 Karikatur von Currier & Ives aus dem späten 19. Jahrhundert: Edison (links) und Charles Brush, der Erfinder der Bogenlampe, ringen um die Beleuchtung von New York {natgeo}.
-Quellenkritik: Die Zeichnung macht aus dem Wettbewerb von Firmen einen Zweikampf zweier Männer. So wird der Streit bis heute oft erzählt, zum Beispiel als «Tesla gegen Edison».
-Klick: zweiter Satz. Überleitung: «Wer stritt wirklich?»""")
+Quellenkritik: Die Zeichnung macht aus einem Wettbewerb von Firmen einen Zweikampf zweier Männer. Genauso wird auch der Stromkrieg bis heute erzählt: als persönliches Duell Edison gegen Tesla. Dahinter standen aber immer auch Firmen und Geldgeber.
+Klick: zweiter Satz. Überleitung: «Aus solchen Zuspitzungen entstehen Mythen.»""")
 sh = shapes_by_id(s)
 place(sh[2341], 5.45, 1.95, 3.55, 2.6, anchor='t')
 space_after(sh[2341].text_frame, 12)
@@ -446,22 +449,20 @@ nachweis(s, 'Bildnachweis', 'Bild: Currier & Ives, spätes 19. Jh. · MPI/Getty 
 set_timing(s, Timeline().auto().add('fade', karikatur.shape_id, dur=700).add('float', 2341, at=500, dur=700, para=0)
            .click().add('float', 2341, dur=700, para=1))
 
-# ---------- 7 Firmen und Geldgeber ----------
+# ---------- 5 Zwei Erfinder und ihre Geldgeber ----------
 s = S[I_FIRMEN]
 remove_ids(s, (2450, 2455, 2458, 2467))  # Symbolbilder der Vorlage
 fill(s, {
-    2429: 'Firmen und Geldgeber statt Genies',
-    2434: ('Edison', 15), 2430: ('Edison General Electric: Gleichstrom aus vielen kleinen Kraftwerken {jonnes}', 13),
-    2436: ('Westinghouse', 15), 2431: ('Wechselstromnetze ab 1886; ab 1888 mit Teslas Patenten {kaick}', 13),
-    2435: ('Thomson-Houston', 15), 2432: ('dritter grosser Anbieter unter Charles A. Coffin; auch Wechselstrom {jonnes}', 13),
-    2437: ('J. P. Morgan', 15), 2433: ('Bankier; seine Bank fädelt 1892 die Fusion zu General Electric ein {jonnes}', 13),
-}, """[2:25–3:00] Akteure
-Es stritten nicht zwei Erfinder, sondern drei Konzerne und ihre Geldgeber {jonnes}.
-Edison General Electric: Edisons Firmen setzten auf Gleichstrom. Edison hatte viel Geld und seinen Ruf in dieses System gesteckt.
-Westinghouse Electric: George Westinghouse, bekannt durch die Druckluftbremse, baute ab 1886 Wechselstromnetze. Im Juli 1888 kaufte er die Wechselstrompatente von Nikola Tesla {kaick}. Damit konnte Wechselstrom auch Fabriken antreiben.
-Thomson-Houston unter Charles A. Coffin: der dritte grosse Anbieter; er verkaufte ebenfalls Wechselstrom.
-J. P. Morgan: Bankier und früher Geldgeber Edisons. Seine Bank fädelte 1892 die Fusion zu General Electric mit ein.
-Überleitung: «Wie lief der Streit ab?»""")
+    2429: 'Zwei Erfinder und ihre Geldgeber',
+    2434: ('Thomas A. Edison', 15), 2430: ('Erfinder und Unternehmer; Gleichstrom aus vielen kleinen Kraftwerken {jonnes}', 13),
+    2436: ('Nikola Tesla', 15), 2431: ('Ingenieur aus Smiljan; 1884 sechs Monate bei Edison, dann eigene Wege {kaick}', 13),
+    2435: ('J. P. Morgan', 15), 2432: ('Bankier; finanziert Edison und fädelt 1892 die Fusion zu General Electric ein {jonnes}', 13),
+    2437: ('George Westinghouse', 15), 2433: ('Unternehmer; kauft 1888 Teslas Patente und baut die Netze {kaick}', 13),
+}, """[1:15–2:00] Die beiden Erfinder
+Thomas Edison: Erfinder und Unternehmer, berühmt durch die Glühlampe. Seine Firmen setzten auf Gleichstrom aus vielen kleinen Kraftwerken {jonnes}.
+Nikola Tesla: Ingenieur aus Smiljan im heutigen Kroatien. Er kam 1884 mit einer Empfehlung aus Paris zu Edison nach New York. Die beiden waren charakterlich zu verschieden, und Edison wollte vom Wechselstrom nichts wissen; nach sechs Monaten trennten sie sich {kaick}.
+Hinter beiden stand Geld: J. P. Morgan finanzierte Edison und fädelte 1892 die Fusion zu General Electric ein {jonnes}. George Westinghouse kaufte im Juli 1888 Teslas Patente und baute die Netze {kaick}.
+Überleitung: «Wie dachten die beiden übereinander?»""")
 
 
 def vier_felder(slide, zeichen):
@@ -478,7 +479,23 @@ def vier_felder(slide, zeichen):
     staggered(slide, spalten)
 
 
-vier_felder(s, [('E', 22), ('W', 22), ('T-H', 18), ('M', 22)])
+vier_felder(s, [('E', 22), ('T', 22), ('M', 22), ('W', 22)])
+
+# ---------- 6 Zwei Primärquellen: Edison über Wechselstrom, Tesla über Edison ----------
+s = F_ZITATE
+zweispalter(s, 'Zwei Blicke aufeinander', 'Edison über Wechselstrom, 1889',
+            ['«Nichts rechtfertigt Hochspannung und Wechselstrom, weder wissenschaftlich noch geschäftlich.» {edison89}'],
+            'Tesla über Edison, 1931',
+            ['«Hätte Edison eine Nadel im Heuhaufen suchen müssen, er hätte Halm für Halm umgedreht.»',
+             '«Ein wenig Theorie und Rechnung hätten ihm 90 Prozent der Arbeit erspart.» {nyt31}'],
+            """[2:00–2:40] Zwei Primärquellen
+Links: Edison 1889 in der Zeitschrift «North American Review» {edison89}. Original, Wortlaut vor dem Vortrag prüfen: «There is no plea which will justify the use of high-tension and alternating currents, either in a scientific or a commercial sense.» Deutung: Edison hielt Wechselstrom für lebensgefährlich, und sein Geschäft hing am Gleichstrom.
+Rechts: Tesla 1931 in der New York Times, einen Tag nach Edisons Tod {nyt31}. Original, Wortlaut prüfen: «If Edison had a needle to find in a haystack he would proceed at once with the diligence of the bee to examine straw after straw until he found the object of his search … a little theory and calculation would have saved him ninety per cent of his labor.» Deutung: Tesla sah sich als Theoretiker und Edison als Tüftler, der alles ausprobiert.
+Beide Zitate sind übersetzt und gekürzt. Klick: Teslas Zitat erscheint.
+Überleitung: «Wer hatte technisch recht?»""", l_size=16, r_size=16, label_size=13)
+textbox(s, 'Hinweis Übersetzung', 1.25, 4.62, 7.5, 0.25, [('Zitate übersetzt', SANS, 9, False, True)])
+set_timing(s, Timeline().auto().add('fade', 2342, dur=700)
+           .click().add('float', 2341, dur=700, para=0).add('float', 2341, at=600, dur=700, para=1))
 
 
 # ---------- 7 und 8 Verlauf (Zeitstrahl; Jahreszahlen stehen in den Rahmenfeldern) ----------
@@ -500,28 +517,29 @@ def zeitstrahl(slide, title, spalten, notes):
     return [(j, l, t) for j, l, t, _ in ids]
 
 
-spalten = zeitstrahl(S[I_V1], '1882–1890: Wettbewerb und Angstkampagne', [
+spalten = zeitstrahl(S[I_V1], '1882–1890: Vom Mitarbeiter zum Rivalen', [
     ('1882', 'Pearl Street', 'Edisons Gleichstrom-Kraftwerk in New York: 85 Kunden, 400 Lampen {pearl}'),
-    ('1886', 'Great Barrington', 'erstes Wechselstromnetz der USA mit Transformatoren {jonnes}'),
-    ('1888', 'Angstkampagne', 'Harold P. Brown tötet öffentlich Hunde mit Wechselstrom {hughes58}'),
-    ('1890', 'Elektrischer Stuhl', 'erste Hinrichtung, mit einem Generator von Westinghouse {essig}'),
-], """[3:00–3:55] Verlauf, Teil 1
-Phase 1, offener Wettbewerb: 1882 eröffnet Edison in New York das Kraftwerk an der Pearl Street, mit anfangs rund 85 Kunden und 400 Lampen {pearl}. 1886 läuft in Great Barrington das erste Wechselstromnetz der USA mit Transformatoren; im selben Jahr gründet Westinghouse seine Elektrofirma {jonnes}.
-Phase 2, Angstkampagne: 1888 tötet der Ingenieur Harold P. Brown öffentlich Hunde mit Wechselstrom, unterstützt aus Edisons Labor {hughes58}. Wichtig: Es war Brown, nicht Edison selbst.
+    ('1884', 'Tesla bei Edison', 'sechs Monate in Edisons Firma, dann trennen sie sich {kaick}'),
+    ('1888', 'Teslas Patente', 'Westinghouse kauft im Juli Teslas Wechselstrompatente {kaick}'),
+    ('1890', 'Elektrischer Stuhl', 'Edisons Lager will zeigen: Wechselstrom tötet {hughes58,essig}'),
+], """[3:20–4:15] Verlauf, Teil 1
+1882 eröffnet Edison in New York das Kraftwerk an der Pearl Street, mit anfangs rund 85 Kunden und 400 Lampen {pearl}.
+1884 kommt Tesla zu Edison. Nach sechs Monaten trennen sie sich; Edison will vom Wechselstrom nichts wissen {kaick}. Tesla gründet eigene Firmen und entwickelt seinen Wechselstrommotor.
+1888 kauft Westinghouse im Juli Teslas Wechselstrompatente {kaick}. Im selben Jahr startet Edisons Lager die Angstkampagne: Der Ingenieur Harold P. Brown tötet öffentlich Hunde mit Wechselstrom, unterstützt aus Edisons Labor {hughes58}. Wichtig: Es war Brown, nicht Edison selbst.
 1890 folgt die erste Hinrichtung auf dem elektrischen Stuhl {essig}. Sie verläuft qualvoll, kein «sauberer» Tod.
 Überleitung: «Entschieden hat die Kampagne aber nichts.»""")
 staggered(S[I_V1], spalten, step=350)
-zeitstrahl(S[I_V2], '1891–1896: Markt und Kapital entscheiden', [
+zeitstrahl(S[I_V2], '1891–1896: Teslas System setzt sich durch', [
     ('1891', 'Lizenzverzicht', 'Westinghouse in Finanznot; Tesla verzichtet auf seine Gebühren {carlson}'),
-    ('1892', 'General Electric', 'Edison General Electric fusioniert mit Thomson-Houston {jonnes}'),
-    ('1893', 'Chicago', 'Westinghouse beleuchtet die Weltausstellung {kaick}'),
-    ('1896', 'Niagara–Buffalo', 'Strom über rund 40 km; GE und Westinghouse teilen ihre Patente {jonnes}'),
-], """[3:55–5:00] Verlauf, Teil 2
-Phase 3: Jetzt entscheiden Markt und Kapital.
+    ('1892', 'General Electric', 'Edisons Firma geht in GE auf; auch GE setzt auf Wechselstrom {jonnes}'),
+    ('1893', 'Chicago', 'Teslas System versorgt die Weltausstellung {kaick}'),
+    ('1896', 'Niagara–Buffalo', 'Teslas System bringt Strom über rund 40 km {kaick,jonnes}'),
+], """[4:15–5:10] Verlauf, Teil 2
+Jetzt entscheiden Markt und Kapital.
 1891 gerät Westinghouse in Finanznot; Tesla verzichtet auf seine Lizenzgebühren {carlson}.
-Wendepunkt 1892: Edison General Electric fusioniert mit dem Rivalen Thomson-Houston zu General Electric. Eingefädelt haben das Banken um J. P. Morgan. Edisons Name verschwindet aus dem Firmennamen, die Führung übernimmt Thomson-Houston, und GE setzt auf Wechselstrom {jonnes}. Damit ist der Streit um das System entschieden.
-1893 versorgt Westinghouse die Weltausstellung in Chicago mit Teslas Wechselstromsystem {kaick}. 1896 fliesst Strom von den Niagarafällen rund 40 km nach Buffalo; im selben Jahr teilen GE und Westinghouse ihre Patente {jonnes}. Aus Rivalen wird ein Duopol.
-Überleitung: «Warum also Wechselstrom?»""")
+Wendepunkt 1892: Edison General Electric fusioniert mit dem Rivalen Thomson-Houston zu General Electric. Eingefädelt haben das Banken um J. P. Morgan. Edisons Name verschwindet aus dem Firmennamen, die Führung übernimmt Thomson-Houston, und GE setzt auf Wechselstrom {jonnes}. Damit hat Edison den Streit um das System verloren.
+1893 versorgt Westinghouse die Weltausstellung in Chicago mit Teslas Wechselstromsystem; im selben Jahr wird Teslas System für die Niagarafälle gewählt {kaick}. 1896 fliesst Strom von dort rund 40 km nach Buffalo; GE und Westinghouse teilen ihre Patente {jonnes}. Aus Rivalen wird ein Duopol.
+Überleitung: «Warum also Teslas System?»""")
 
 
 # ---------- 9 Warum der Wechselstrom gewann ----------
@@ -538,13 +556,13 @@ def drei_spalten(slide, title, spalten, notes):
     staggered(slide, cols, step=450)
 
 
-drei_spalten(S[I_WARUM], 'Kosten und Kapital statt Angstkampagne', [
+drei_spalten(S[I_WARUM], 'Warum Teslas System gewann', [
     ('Kosten', 'Hohe Spannung, wenig Verlust: wenige grosse Kraftwerke statt eines pro Quartier {jonnes}'),
-    ('Kapital', '1892 geht Edisons Firma in General Electric auf; auch GE setzt auf Wechselstrom {jonnes}'),
+    ('Kapital', 'Westinghouse bringt Teslas System auf den Markt; 1892 geht Edisons Firma in GE auf {kaick,jonnes}'),
     ('Angst scheitert', 'Westinghouse ignoriert die Kampagne, bestreitet sie und entkräftet sie mit besserer Technik {cole}'),
-], """[5:00–5:55] Warum der Wechselstrom gewann
+], """[5:10–5:55] Warum Teslas System gewann
 Erstens Kosten: Mit hoher Spannung kam Strom mit wenig Verlust über weite Strecken. Wenige grosse Kraftwerke reichten; Edisons Gleichstrom brauchte alle paar Kilometer ein Kraftwerk {jonnes}.
-Zweitens Kapital: 1892 ging Edisons Firma in General Electric auf. Auch GE setzte auf Wechselstrom {jonnes}.
+Zweitens Kapital: Westinghouse brachte Teslas System in die Praxis {kaick}. 1892 ging Edisons Firma in General Electric auf, und auch GE setzte auf Wechselstrom {jonnes}.
 Drittens: Die Angstkampagne scheiterte. Cole und Chandler zeigen, dass Westinghouse sie zuerst ignorierte, dann die Vorwürfe bestritt und sie schliesslich mit besserer Technik gegenstandslos machte {cole}.
 Überleitung: «Was heisst das für die USA?»""")
 
@@ -554,7 +572,7 @@ remove_ids(s, (4458, 4459, 4460, 4461, 4462, 4463))  # Legende der Vorlage; die 
 fill(s, {4456: 'Die USA überholen Grossbritannien',
          4457: ('Anteil an der Weltindustrieproduktion in %. Linien verbinden Stichjahre (Schätzwerte). '
                 'Eigene Darstellung nach {bairoch}.', 11)},
-     """[5:55–6:45] Bedeutung für die USA (1)
+     """[5:55–6:35] Bedeutung für die USA (1)
 Bezug zum Modul «Weltmacht USA». Die Daten stammen vom Wirtschaftshistoriker Paul Bairoch {bairoch}; es sind Schätzwerte für vier Stichjahre, die Linien verbinden diese Punkte.
 1880 lag Grossbritannien mit 22,9 % klar vor den USA mit 14,7 %. Zwischen 1880 und 1900, in den Jahrzehnten des Stromkriegs, ziehen die USA vorbei. 1913 stellen sie 32 % der Weltindustrieproduktion, mehr als Grossbritannien (13,6 %) und Deutschland (14,8 %) zusammen.
 Vorsicht bei der Deutung: Die Grafik zeigt einen zeitlichen Zusammenhang, keinen Beweis. Strom war eine von mehreren Ursachen, neben Stahl, Eisenbahn und dem grossen Binnenmarkt.
@@ -572,12 +590,12 @@ fill(S[I_ZAHLEN], {
     3953: ('Strom baut die Fabriken um', 27), 3952: ('Zwei Kennzahlen zur US-Industrie {devine}', 14),
     3954: '5 % → 78 %', 3955: ('Anteil der Elektromotoren an der Antriebsleistung, 1899 → 1929', 14),
     3956: '1,3 % → 3,1 %', 3957: ('Wachstum des Outputs pro Arbeitsstunde pro Jahr, vor → nach 1919', 14),
-}, """[6:45–7:25] Bedeutung für die USA (2)
+}, """[6:35–7:05] Bedeutung für die USA (2)
 Beide Zahlen stammen von Devine {devine}.
 1899 lieferten Elektromotoren knapp 5 % der Antriebsleistung der US-Industrie, 1929 rund 78 %.
 Der Output pro Arbeitsstunde wuchs vor 1919 um 1,3 % pro Jahr, danach um 3,1 %. Grund: Erst als die Fabriken um viele einzelne Elektromotoren herum neu gebaut wurden, zahlte sich die Technik aus.
 Wenn die Zeit knapp wird: Diese Folie kürzen.
-Überleitung: «Viele kennen die Geschichte anders.»""")
+Überleitung: «Wie haben die Zeitgenossen den Streit gesehen?»""")
 sh = shapes_by_id(S[I_ZAHLEN])
 for sid in (3953, 3952, 3955, 3957):
     place(sh[sid], 1.8, sh[sid].top / 914400, 6.4)
@@ -587,15 +605,15 @@ staggered(S[I_ZAHLEN], [(3953, 3952), (3954, 3955), (3956, 3957)], step=500)
 s = S[I_MYTHEN]
 fill(s, {4469: 'Drei Mythen – und was die Quellen sagen'}, """[7:25–8:15] Mythen und Quellenkritik
 Erstens der Elefant: Ein ABB-Artikel schreibt, Edison habe öffentlich «grausame Experimente mit Hunden, Pferden und sogar einem Elefanten» gezeigt {abb}. Die Tierversuche machte aber Harold P. Brown, unterstützt von Edisons Labor {hughes58}. Und die Elefantin Topsy starb erst 1903, über zehn Jahre nach dem Stromkrieg; Edison war nicht beteiligt, nur seine Filmfirma filmte die Tötung {topsy}.
-Zweitens «Tesla gegen Edison»: Es stritten Firmen und ihre Geldgeber. Tesla lieferte Westinghouse 1888 die Patente für den Wechselstrommotor {kaick}.
+Zweitens die 50’000 Dollar: Oft heisst es, Edison habe Tesla für bessere Dynamos 50’000 Dollar versprochen und danach behauptet, das sei ein Scherz gewesen. In Teslas eigenem Bericht von 1919 steht aber: «The Manager had promised me fifty thousand dollars on the completion of this task but it turned out to be a practical joke.» Es war also «der Manager», nicht Edison {tesla19}. Die bekannte Szene mit Edison ist eine spätere Zuspitzung.
 Drittens der zerrissene Vertrag: Belegt sind nur der Verzicht auf Lizenzgebühren 1891 und der spätere Verkauf der Patente {carlson}.
-Überleitung: «Was bleibt davon bis heute?»""")
+Überleitung: «Was bleibt von Edison und Tesla bis heute?»""")
 sh = shapes_by_id(s)
 for sid, y, rows in (
     (4470, 1.45, [['Mythos: Edisons «Experimente mit Hunden, Pferden und sogar einem Elefanten» {abb}'],
                   ['Befund: Die Tiere tötete Harold P. Brown; Topsy starb erst 1903, ohne Edisons Zutun {hughes58,topsy}']]),
-    (4471, 2.6, [['Mythos: Der Stromkrieg war ein Duell «Tesla gegen Edison»'],
-                 ['Befund: Es stritten Firmen und ihre Geldgeber; Tesla lieferte Westinghouse 1888 die Motorpatente {kaick}']]),
+    (4471, 2.6, [['Mythos: Edison prellte Tesla um 50’000 Dollar'],
+                 ['Befund: In Teslas eigenem Bericht (1919) versprach «der Manager» das Geld, nicht Edison {tesla19}']]),
     (4472, 3.75, [['Mythos: Tesla zerriss aus Grossmut seinen Vertrag mit Westinghouse'],
                   ['Befund: Belegt sind der Verzicht auf Lizenzgebühren (1891) und der spätere Verkauf der Patente {carlson}']]),
 ):
@@ -610,32 +628,30 @@ s = S[I_HEUTE]
 remove_ids(s, (2450, 2455, 2458, 2467))
 fill(s, {
     2429: 'Und heute?',
-    2434: ('Wechselstrom im Netz', 14), 2430: ('weltweit aus der Steckdose: Schweiz 230 V, USA 120 V {iec}', 13),
-    2436: ('Gleichstrom ist zurück', 14), 2431: ('Akkus, Solarzellen, Elektronik; HGÜ für lange Leitungen seit 1954 {gotland}', 13),
-    2435: ('Schweizer Spur', 14), 2432: ('C. E. L. Brown gründet 1891 in Baden die BBC; seit 1988 ABB {steig,abbHistory}', 13),
-    2437: ('Neue Standardkriege', 14), 2433: ('Tesla-Ladestecker wird zur Norm SAE J3400; USB-C-Pflicht in der EU seit Ende 2024 {nacs,eu}', 13),
+    2434: ('Teslas Wechselstrom', 14), 2430: ('aus jeder Steckdose: Schweiz 230 V, USA 120 V {iec}', 13),
+    2436: ('Edisons Comeback', 14), 2431: ('Akkus, Solarzellen, Elektronik; HGÜ für lange Leitungen seit 1954 {gotland}', 13),
+    2435: ('Tesla als Name', 14), 2432: ('Einheit der Flussdichte seit 1960; Autohersteller seit 2003 {kaick}', 13),
+    2437: ('Neuer Standardkrieg', 14), 2433: ('Der Ladestecker der Firma Tesla wird in den USA zur Norm SAE J3400 {nacs}', 13),
 }, """[8:15–9:05] Und heute?
-Wechselstrom im Netz: Weltweit kommt Wechselstrom aus der Steckdose, in der Schweiz mit 230 Volt, in den USA mit 120 Volt {iec}. Die tiefe US-Spannung stammt aus der Anfangszeit mit Edisons rund 110 Volt.
-Gleichstrom ist zurück: Akkus, Solarzellen und Elektronik arbeiten mit Gleichstrom. Für sehr lange Leitungen nutzt man HGÜ; die erste kommerzielle Verbindung moderner Bauart ging 1954 in Schweden in Betrieb, gebaut von ASEA {gotland}.
-Schweizer Spur: Charles E. L. Brown von der Maschinenfabrik Oerlikon gründete 1891 in Baden die BBC {steig}. BBC und ASEA schlossen sich 1988 zu ABB zusammen {abbHistory}. Nicht verwechseln mit Harold P. Brown.
-Neue Standardkriege: In den USA wird der Ladestecker der Firma Tesla seit Ende 2023 zur Norm SAE J3400 {nacs}. In der EU ist USB-C für Handys seit Ende 2024 Pflicht {eu}.
-Tesla lebt auch als Einheit weiter: Seit 1960 heisst die Einheit der magnetischen Flussdichte Tesla {kaick}.
+Teslas Wechselstrom: Aus jeder Steckdose kommt Wechselstrom, in der Schweiz mit 230 Volt, in den USA mit 120 Volt {iec}. Die tiefe US-Spannung stammt aus der Anfangszeit mit Edisons rund 110 Volt.
+Edisons Comeback: Akkus, Solarzellen und Elektronik arbeiten mit Gleichstrom. Für sehr lange Leitungen nutzt man die Hochspannungs-Gleichstrom-Übertragung (HGÜ); die erste kommerzielle Verbindung moderner Bauart ging 1954 in Schweden in Betrieb {gotland}.
+Tesla als Name: Seit 1960 heisst die Einheit der magnetischen Flussdichte Tesla; ein MRI-Gerät im Spital arbeitet mit 0,35 bis 3 Tesla. Der Autohersteller Tesla wurde 2003 gegründet und nach ihm benannt {kaick}.
+Neuer Standardkrieg: Der Ladestecker dieser Firma wird in den USA seit Ende 2023 zur Norm SAE J3400 {nacs}. So kämpft der Name Tesla wieder um einen Standard.
 Überleitung: «Zurück zur Leitfrage.»""")
-vier_felder(s, [('AC', 18), ('DC', 18), ('CH', 18), ('vs.', 18)])
+vier_felder(s, [('AC', 18), ('DC', 18), ('T', 22), ('vs.', 18)])
 
 # ---------- 14 Fazit: beide Teile der Leitfrage ----------
 s = S[I_FAZIT]
-zweispalter(s, 'Fazit: ein prägender Standardkrieg', 'Warum Wechselstrom?',
-            ['Er war billiger: hohe Spannung, wenige grosse Kraftwerke, weite Strecken.',
-             'Entschieden hat das Kapital, nicht die Angstkampagne: 1892 ging Edisons Firma in General Electric auf.'],
+zweispalter(s, 'Fazit: Edison gegen Tesla', 'Warum Teslas System?',
+            ['Es war billiger: hohe Spannung, wenige grosse Kraftwerke, weite Strecken.',
+             'Nicht der berühmtere Erfinder gewann, sondern das System mit dem stärkeren Geldgeber.'],
             'Was zeigt das über die USA?',
             ['Billiger Strom und Grosskonzerne trugen den Aufstieg zur grössten Industriemacht.',
              'Standards werden früh gesetzt und bleiben lange: Pfadabhängigkeit {david92}.'],
             """[9:05–10:00] Fazit
-Zurück zur Leitfrage, erster Teil: Der Wechselstrom gewann, weil er billiger war und weil das Kapital 1892 darauf setzte. Die Angstkampagne hat daran nichts geändert.
+Zurück zur Leitfrage, erster Teil: Teslas Wechselstrom gewann, weil er billiger war und weil Westinghouse ihn auf den Markt brachte; 1892 setzte auch General Electric darauf. Die Angstkampagne hat daran nichts geändert.
 Zweiter Teil: Billiger Strom und Grosskonzerne wie General Electric und Westinghouse trugen den Aufstieg der USA zur grössten Industriemacht.
-Der Stromkrieg ist ein früher, prägender Standardkrieg. Er ist nicht der erste: Britische Bahngesellschaften stritten schon in den 1840er-Jahren um die Spurweite.
-Schluss: «Standards werden früh gesetzt und bleiben lange. Darum kommt in den USA bis heute eine andere Spannung aus der Steckdose als bei uns.»""",
+Schluss: «Edison hatte den Namen, Tesla die Technik. Gewonnen hat das System mit dem Geld dahinter. Darum kommt bis heute Teslas Wechselstrom aus unserer Steckdose.»""",
             l_size=16, r_size=16, label_size=14)
 set_timing(s, Timeline().auto().add('float', 2342, dur=800).add('float', 2341, at=700, dur=800))
 
@@ -654,19 +670,19 @@ qa_slide(S[I_G1], 'Frage 1: Angst als Werbung', 'Frage',
           'Angst wirkt kurzfristig, setzt sich aber selten gegen klaren Nutzen und tiefere Kosten durch.',
           'So auch im Stromkrieg: Westinghouse entkräftete die Vorwürfe mit besserer Technik {cole}.'],
          'Zuerst Stimmen aus dem Plenum sammeln. Danach Klick für Klick ergänzen.')
-qa_slide(S[I_G2], 'Frage 2: Die Elefantin Topsy', 'Frage',
-         ['Ein ABB-Artikel erzählt die Geschichte vom Elefanten, die Edison Papers widerlegen sie. Warum halten sich '
-          'solche Geschichten so lange?'],
+qa_slide(S[I_G2], 'Frage 2: Tesla als Kultfigur', 'Frage',
+         ['Lange galt Edison als der grosse Erfinder. Heute gilt Tesla oft als verkanntes Genie. Woher kommt '
+          'dieses Bild?'],
          'Mögliche Antworten',
-         ['Die Geschichte hat einen klaren Bösewicht und bleibt hängen.',
-          'Edisons Filmfirma filmte die Tötung 1903. Das wirkt wie ein Beweis, ist aber keiner {topsy}.',
-          'Websites und Firmen übernehmen sie ungeprüft {abb}. Lehre: Primärquellen prüfen.'],
+         ['Die Geschichte vom armen Genie gegen den reichen Unternehmer bleibt hängen.',
+          'Filme, Internet und der Autohersteller Tesla machen den Namen bekannt {kaick}.',
+          'Die Quellen zeigen ein nüchterneres Bild, etwa bei den 50’000 Dollar {tesla19}. Lehre: Primärquellen prüfen.'],
          'Zuerst Stimmen aus dem Plenum sammeln. Danach Klick für Klick ergänzen.')
 qa_slide(S[I_G3], 'Frage 3: Standardkriege heute', 'Frage',
          ['Welche Standardkriege kennt ihr heute (Ladestecker, Streaming, Betriebssysteme)? Wer gewinnt meistens: '
           'die bessere Technik oder die stärkere Firma?'],
          'Mögliche Antworten',
-         ['Beispiele: VHS gegen Betamax, Blu-ray gegen HD DVD, Ladestecker {nacs}, USB-C {eu}.',
+         ['Beispiele: VHS gegen Betamax, Blu-ray gegen HD DVD, Ladestecker für E-Autos {nacs}.',
           'Oft gewinnt, wer mehr Partner, tiefere Kosten und mehr Kapital hat.',
           'Ein gesetzter Standard bleibt lange: Pfadabhängigkeit {david92}. Beim Stromkrieg sprachen Technik und '
           'Kosten für den Wechselstrom.'],
@@ -697,7 +713,7 @@ for k, s in enumerate(QUELLENFOLIEN):
     fill(s, {2340: f'Quellen ({k + 1}/{len(QUELLENFOLIEN)})' + (' und Bildnachweis' if letzte else '')},
          'Anhang – nur bei Nachfragen zeigen. Vollständige Liste im IEEE-Format; die Nummern sind dieselben wie im Handout.')
     sh = shapes_by_id(s)
-    links, rechts = (teil[:2], teil[2:] + BILDNACHWEIS) if letzte else (teil[:3], teil[3:])
+    links, rechts = (teil[:3], teil[3:] + BILDNACHWEIS) if letzte else (teil[:3], teil[3:])
     for sid, x, zeilen in ((2342, 1.25, links), (2341, 5.28, rechts)):
         set_paras(sh[sid].text_frame, zeilen or [''], 10, rich=True)
         place(sh[sid], x, 1.64, 3.47, 3.2, anchor='t')
@@ -716,11 +732,12 @@ for slide in S:  # Die Vorlage nennt an einzelnen Stellen die ältere Schrift «
     for el in slide._element.iter(A + 'latin', A + 'ea', A + 'cs', A + 'sym'):
         if el.get('typeface') == 'Source Sans Pro':
             el.set('typeface', SANS)
-prs.core_properties.title = 'Der Stromkrieg – Edison vs. Westinghouse und die Rolle von Nikola Tesla'
+prs.core_properties.title = 'Der Stromkrieg – Edison vs. Tesla und die Rolle von George Westinghouse'
 prs.core_properties.author = 'Simon Bruder'
 
-HAUPTTEIL = [S[i] for i in (I_INTRO, I_TITEL, I_AUBURN, I_LEITFRAGE, I_SPANNUNG)] + [F_PRESSE] + \
-            [S[i] for i in (I_FIRMEN, I_V1, I_V2, I_WARUM, I_CHART, I_ZAHLEN, I_MYTHEN, I_HEUTE, I_FAZIT)]
+HAUPTTEIL = [S[i] for i in (I_INTRO, I_TITEL, I_AUBURN, I_LEITFRAGE, I_FIRMEN)] + [F_ZITATE] + \
+            [S[i] for i in (I_SPANNUNG, I_V1, I_V2, I_WARUM, I_CHART, I_ZAHLEN)] + [F_PRESSE] + \
+            [S[i] for i in (I_MYTHEN, I_HEUTE, I_FAZIT)]
 DISKUSSION = [S[i] for i in (I_KAPITEL, I_G1, I_G2, I_G3)]
 SCHLUSS = [S[I_DANKE], *QUELLENFOLIEN]
 ordne(prs, HAUPTTEIL + DISKUSSION + SCHLUSS)

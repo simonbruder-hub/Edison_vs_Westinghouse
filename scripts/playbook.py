@@ -20,67 +20,73 @@ def punkte(lst, letters=False):
 
 b = []
 b.append(para('Der Stromkrieg – Playbook für die Präsentation', b=True, sz=36, jc='center', after=60))
-b.append(para('10 Minuten · 20 Folien (mit Diskussion: 24) · 10. Dezember 2026', jc='center', after=240))
+b.append(para('10 Minuten · 21 Folien (mit Diskussion: 25) · 10. Dezember 2026', jc='center', after=240))
 
 b.append(heading('Deine Kernbotschaft'))
-b.append(para('Den Stromkrieg gewann nicht die bessere Propaganda und nicht das grössere Genie, sondern das billigere '
-              'System mit dem stärkeren Kapital – und genau so wurden die USA zur Industriemacht.', after=200))
+b.append(para('Edison gegen Tesla: Nicht der berühmtere Erfinder gewann, sondern das billigere System mit dem stärkeren '
+              'Geldgeber – Teslas Wechselstrom, finanziert von Westinghouse. Billiger Strom und Grosskonzerne machten die '
+              'USA zur Industriemacht.', after=200))
 
 b.append(heading('Ablauf: Folie für Folie'))
 b.append(table([
     ['0:00–0:15', '1 Frontfolie',
      'Steht, während alle Platz nehmen. Erster Klick: Das Video läuft (11 Sekunden, ohne Ton). Dazu: «New York im Jahr '
-     '1889. Elektrisches Licht verändert die Stadt. Aber wer liefert den Strom dafür?»',
+     '1889. Elektrisches Licht verändert die Stadt. Aber welcher Strom soll fliessen: Edisons Gleichstrom oder Teslas '
+     'Wechselstrom?»',
      'Zweiter Klick: Titelfolie.'],
     ['0:15–0:25', '2 Titel',
-     '«Ich spreche über den Stromkrieg: den Streit zwischen den Firmen von Edison und Westinghouse – und über die Rolle '
-     'von Nikola Tesla.» Edison, Westinghouse und Tesla erscheinen von selbst.',
+     '«Ich spreche über den Stromkrieg: den Streit zwischen Thomas Edison und Nikola Tesla – und über die Rolle von '
+     'George Westinghouse.» Edison und Tesla fliegen ein, dann erscheint das W für Westinghouse.',
      '«Der Streit ging bis zum Äussersten.»'],
     ['0:25–0:50', '3 Auburn 1890',
      '«6. August 1890: Zum ersten Mal stirbt ein Mensch auf dem elektrischen Stuhl, mit einem Generator von '
      'Westinghouse. Beschafft hatte ihn Harold P. Brown gegen den Willen von Westinghouse.»',
      '«Daraus ergibt sich meine Leitfrage.»'],
-    ['0:50–1:20', '4 Leitfrage, These',
-     'Leitfrage vorlesen. Klick: Die These erscheint. «Entschieden haben Kosten, Kapital und Technik.»',
-     '«Dafür braucht es eine Minute Technik.»'],
-    ['1:20–2:05', '5 Spannung',
-     'Hohe Spannung heisst wenig Verlust. Nur Wechselstrom liess sich damals mit dem Transformator umspannen.',
-     '«Wie haben die Zeitgenossen den Streit gesehen?»'],
-    ['2:05–2:25', '6 Karikatur',
-     '«Die Presse zeichnete den Wettlauf um das Licht als Zweikampf zweier Männer.» Klick: «Tatsächlich stritten Firmen '
-     'und ihre Geldgeber.»',
-     '«Wer stritt wirklich?»'],
-    ['2:25–3:00', '7 Firmen',
-     'Drei Konzerne und ein Bankier: Edison General Electric, Westinghouse, Thomson-Houston, J. P. Morgan. Tesla verkauft '
-     'Westinghouse 1888 seine Patente.',
+    ['0:50–1:15', '4 Leitfrage, These',
+     'Leitfrage vorlesen. Klick: Die These erscheint. «Nicht der berühmtere Erfinder gewann, sondern das billigere System '
+     'mit dem stärkeren Geldgeber.»',
+     '«Wer waren die beiden?»'],
+    ['1:15–2:00', '5 Zwei Erfinder',
+     'Edison, Erfinder und Unternehmer. Tesla kam 1884 zu Edison; nach sechs Monaten trennten sie sich. Hinter beiden '
+     'stand Geld: Morgan bei Edison, Westinghouse bei Tesla.',
+     '«Wie dachten die beiden übereinander?»'],
+    ['2:00–2:40', '6 Zwei Blicke',
+     'Edison 1889: Nichts rechtfertige Hochspannung und Wechselstrom. Klick: Tesla 1931: Edison suche die Nadel im '
+     'Heuhaufen Halm für Halm.',
+     '«Wer hatte technisch recht?»'],
+    ['2:40–3:20', '7 Spannung',
+     'Hohe Spannung heisst wenig Verlust. Nur Wechselstrom liess sich damals umspannen, und Teslas Motor trieb Fabriken an.',
      '«Wie lief der Streit ab?»'],
-    ['3:00–3:55', '8 Verlauf I',
-     'Erst Wettbewerb, ab 1888 Angstkampagne: Brown tötet Hunde, dann der elektrische Stuhl.',
+    ['3:20–4:15', '8 Verlauf I',
+     '1882 Pearl Street, 1884 Tesla bei Edison, 1888 Teslas Patente an Westinghouse, 1890 der elektrische Stuhl.',
      '«Entschieden hat die Kampagne aber nichts.»'],
-    ['3:55–5:00', '9 Verlauf II',
-     'Wendepunkt 1892: Edison General Electric fusioniert mit Thomson-Houston zu General Electric. 1893 Chicago, 1896 Niagara.',
-     '«Warum also Wechselstrom?»'],
-    ['5:00–5:55', '10 Warum',
+    ['4:15–5:10', '9 Verlauf II',
+     '1891 Lizenzverzicht, 1892 geht Edisons Firma in General Electric auf, 1893 Chicago, 1896 Niagara: Teslas System '
+     'setzt sich durch.',
+     '«Warum also Teslas System?»'],
+    ['5:10–5:55', '10 Warum',
      'Kosten und Kapital. Die Angstkampagne scheiterte, weil Westinghouse sie mit besserer Technik entkräftete.',
      '«Was heisst das für die USA?»'],
-    ['5:55–6:45', '11 Grafik',
+    ['5:55–6:35', '11 Grafik',
      'Zwischen 1880 und 1900 überholen die USA Grossbritannien. 1913: 32 % der Weltindustrie.',
      '«Was steckt hinter dieser Kurve?»'],
-    ['6:45–7:25', '12 Zahlen',
-     'Elektromotoren in Fabriken: 5 % → 78 %. Der Output pro Arbeitsstunde wächst danach mehr als doppelt so schnell.',
-     '«Viele kennen die Geschichte anders.»'],
-    ['7:25–8:15', '13 Mythen',
-     'Der Elefant, «Tesla gegen Edison», der zerrissene Vertrag: Alle drei halten der Prüfung nicht stand.',
-     '«Was bleibt davon bis heute?»'],
-    ['8:15–9:05', '14 Und heute?',
-     'Wechselstrom im Netz, Gleichstrom kehrt mit HGÜ zurück, Schweizer Spur über BBC und ABB, neue Standardkriege bei '
-     'Ladesteckern.',
+    ['6:35–7:05', '12 Zahlen',
+     'Elektromotoren in Fabriken: 5 % → 78 %. Reserve: Diese Folie kürzt du, wenn die Zeit knapp wird.',
+     '«Wie haben die Zeitgenossen den Streit gesehen?»'],
+    ['7:05–7:25', '13 Karikatur',
+     'Die Presse liebte Duelle: Edison gegen Brush. Klick: Genauso erzählt man heute Edison gegen Tesla.',
+     '«Aus solchen Zuspitzungen entstehen Mythen.»'],
+    ['7:25–8:15', '14 Mythen',
+     'Der Elefant, die 50’000 Dollar, der zerrissene Vertrag: Die Quellen erzählen es anders.',
+     '«Was bleibt von Edison und Tesla bis heute?»'],
+    ['8:15–9:05', '15 Und heute?',
+     'Teslas Wechselstrom im Netz, Edisons Gleichstrom kommt zurück, Tesla als Name: Einheit, Autohersteller, Ladestecker.',
      '«Zurück zur Leitfrage.»'],
-    ['9:05–10:00', '15–16 Fazit, Danke',
-     'Beide Teile der Leitfrage beantworten: Der Wechselstrom gewann über Kosten und Kapital. Billiger Strom und '
+    ['9:05–10:00', '16–17 Fazit, Danke',
+     '«Edison hatte den Namen, Tesla die Technik. Gewonnen hat das System mit dem Geld dahinter.» Billiger Strom und '
      'Grosskonzerne trugen den Aufstieg der USA.',
      '«Danke – Fragen?»'],
-    ['–', '17–20 Quellen', 'Quellen und Bildnachweis. Nur zeigen, wenn jemand danach fragt.', ''],
+    ['–', '18–21 Quellen', 'Quellen und Bildnachweis. Nur zeigen, wenn jemand danach fragt.', ''],
 ], [1050, 1500, 4652, 2050], head=['Zeit', 'Folie', 'Das sagst du', 'Überleitung'], sz=18))
 b.append(para('Die ausführlichen Sprechernotizen stehen in der PowerPoint (Ansicht → Notizen).', sz=18, after=200))
 
@@ -107,8 +113,8 @@ b.append(punkte([
 b.append(para('', after=100))
 
 b.append(heading('Version mit Diskussion'))
-b.append(para('Datei «…_mit_Diskussion»: Nach dem Fazit folgen vier Folien (16–19): das Kapitel «Diskussion» und drei '
-              'Fragen ans Plenum (Angst als Werbung, die Elefantin Topsy, Standardkriege heute). Die möglichen Antworten '
+b.append(para('Datei «…_mit_Diskussion»: Nach dem Fazit folgen vier Folien (17–20): das Kapitel «Diskussion» und drei '
+              'Fragen ans Plenum (Angst als Werbung, Tesla als Kultfigur, Standardkriege heute). Die möglichen Antworten '
               'erscheinen einzeln per Klick: zuerst Stimmen sammeln, dann klicken. Gruppenarbeit gibt es keine mehr. '
               'Danach kommen «Danke» und die Quellen.', after=200))
 
@@ -116,9 +122,10 @@ b.append(heading('Checkliste'))
 b.append(punkte([
     'Lerne pro Folie nur den Satz aus «Das sagst du», nicht die ganzen Notizen. Lies die Folien nicht vor.',
     'Übe dreimal laut mit Stoppuhr. Wirst du zu lang, kürze Folie 12 oder lass sie weg.',
-    'Klicks: Video (Folie 1), These (Folie 4), zweiter Satz (Folie 6), Antworten in der Diskussion. Alles andere läuft '
+    'Klicks: Video (Folie 1), These (Folie 4), Teslas Zitat (Folie 6), zweiter Satz (Folie 13), Antworten in der '
+    'Diskussion. Alles andere läuft '
     'von selbst. Morph, Animationen und Video funktionieren nur in PowerPoint (2019 oder Microsoft 365).',
-    'Diese Zahlen müssen sitzen: 1882, 1888, 1890, 1892, 1893, 1896 · 32 % · 5 % → 78 %.',
+    'Diese Zahlen müssen sitzen: 1882, 1884, 1888, 1890, 1892, 1893, 1896 · 32 % · 5 % → 78 %.',
     'Installiere die Schriften Libre Baskerville und Source Sans 3 (kostenlos bei Google Fonts) und nimm zusätzlich '
     'das PDF der Folien mit. Im PDF sehen die Folien auf jedem Computer richtig aus.',
     'Handout: einmal schwarz-weiss ausdrucken und prüfen, ob Bilder und Grafik lesbar sind. Verteile es erst nach dem '
@@ -138,12 +145,19 @@ b.append(table(zeilen([
     ['{pearl}', 'ETHW, Pearl Street Station', 'Zahlen über Suchtreffer',
      'Rund 85 Kunden, 400 Lampen, Versorgungsgebiet eine Viertelquadratmeile (0,65 km²).'],
     ['{jonnes}', 'Jonnes, *Empires of Light*', 'nicht eingesehen',
-     'Seitenzahlen: Westinghouse und Great Barrington 1886; Thomson-Houston mit Wechselstrom; Fusion 1892 (Morgan, '
-     'Führung bei Thomson-Houston); Niagara–Buffalo und Patentabkommen 1896; Kraftwerk alle paar Kilometer.'],
+     'Seitenzahlen: Morgan als Geldgeber Edisons; Thomson-Houston mit Wechselstrom; Fusion 1892 (Führung bei '
+     'Thomson-Houston); Niagara–Buffalo und Patentabkommen 1896; Kraftwerk alle paar Kilometer.'],
     ['{kaick}', 'van Kaick und Bachert, Der Radiologe', 'Volltext gelesen',
-     'Erledigt: S. 994 belegt den Patentverkauf im Juli 1888, Chicago 1893, die Einheit Tesla (1960) und 0,35–3 T.'],
+     'Erledigt: S. 993–994 belegen Herkunft und Studium, 1884 bei Edison und die Trennung nach sechs Monaten, den '
+     'Patentverkauf im Juli 1888, Chicago und Niagara 1893, die Einheit Tesla (1960), 0,35–3 T, den Autohersteller '
+     '(2003) und Teslas Tod 1943 in Geldnot.'],
     ['{hughes58}', 'Hughes, Aufsatz zu Harold P. Brown', 'nicht eingesehen',
      'Seitenzahlen: Tierversuche mit Hilfe aus Edisons Labor; elektrischer Stuhl; Generator über Dritte beschafft.'],
+    ['{edison89}', 'Edison, «The dangers of electric lighting» (1889)', 'Titel und Seiten über Suchtreffer',
+     'Wortlaut und Seite des Satzes «There is no plea which will justify the use of high-tension and alternating '
+     'currents …» (JSTOR oder Bibliothek).'],
+    ['{nyt31}', 'New York Times, 19. Okt. 1931', 'Titel und Datum über Suchtreffer; Wortlaut je nach Abdruck verschieden',
+     'Teslas Satz mit der Nadel im Heuhaufen und den 90 Prozent im Original nachlesen; Seite eintragen.'],
     ['{natgeo}', 'National Geographic History, «Edison and Tesla»', 'Titel und Heft über Suchtreffer',
      'Autorin oder Autor und Datum eintragen (Heft Juli/August 2016). Die Bildlegenden hast du mir geschickt.'],
     ['{essig}', 'Essig, *Edison and the Electric Chair*', 'nicht eingesehen',
@@ -161,14 +175,12 @@ b.append(table(zeilen([
     ['{topsy}', 'Edison Papers, «Myth buster: Topsy»', 'nicht geöffnet',
      'Topsy starb 1903; keine Beteiligung Edisons; nur die Filmfirma filmte.'],
     ['{iec}', 'IEC, World plugs', 'nicht geöffnet', 'Titel der Seite; Schweiz 230 V / 50 Hz, USA 120 V / 60 Hz.'],
+    ['{tesla19}', 'Tesla, «My inventions», Teil IV (1919)', 'Stelle über Suchtreffer',
+     'Titel, Heft und Seite von Teil IV; Satz «the Manager had promised me fifty thousand dollars … practical joke» '
+     '(frei im Netz).'],
     ['{gotland}', 'ETHW, Gotland-Verbindung', 'nicht geöffnet', '1954, erste kommerzielle HGÜ-Verbindung, gebaut von ASEA.'],
-    ['{steig}', 'HLS, Charles E. L. Brown', 'nicht geöffnet',
-     'Lauffen–Frankfurt 1891 über 175 km; Gründung der BBC 1891 in Baden.'],
-    ['{abbHistory}', 'ABB, History', 'nicht geöffnet', 'Zusammenschluss von ASEA und BBC 1988; Titel der Seite.'],
     ['{nacs}', 'Joint Office, SAE J3400', 'Aussage über Suchtreffer',
      'Titel und Datum der Meldung (19.12.2023); Ladestecker von Tesla wird zur Norm SAE J3400.'],
-    ['{eu}', 'Richtlinie (EU) 2022/2380', 'nicht geöffnet',
-     'Titel, Amtsblatt L 315, S. 30–43, Datum; USB-C-Pflicht für Handys ab Ende 2024.'],
     ['{srf}', 'SRF Kultur, Romane über Edison', 'Artikel über Suchtreffer',
      'Autorin oder Autor und Datum eintragen; beide Romane werden dort vorgestellt.'],
     ['{david92}', 'David, «Heroes, herds and hysteresis»', 'nicht eingesehen', 'Seitenzahl zur Pfadabhängigkeit.'],
@@ -195,17 +207,19 @@ b.append(para('', after=160))
 b.append(heading('Prüfprotokoll, zweite Runde (streng)'))
 b.append(para('**1. Kritische Mängel**', after=40))
 b.append(punkte([
-    'Seitenzahlen fehlen bei acht Quellen, an 21 Stellen (rot im Handout). Der FHNW-Leitfaden verlangt sie bei Büchern '
-    'und Aufsätzen.',
+    'Seitenzahlen fehlen bei elf Quellen, an 24 Stellen (rot im Handout). Der FHNW-Leitfaden verlangt sie bei Büchern, '
+    'Aufsätzen und Zeitungsartikeln.',
     'Zwanzig von einundzwanzig Quellen sind nicht an der Quelle geprüft (Tabelle oben). Ohne diese Prüfung sind die '
     'Belege formal richtig, aber nicht gesichert.',
     'Bei zwei Online-Quellen fehlen Autorin oder Autor und das genaue Datum ({natgeo}, {srf}).',
     'Die drei Bilder sind Agenturbilder. Nur im Unterricht verwenden und den Bildnachweis stehen lassen.',
+    'Die drei Originalzitate (Edison 1889, Tesla 1919 und 1931) habe ich übersetzt; den Wortlaut kenne ich nur aus '
+    'Abdrucken. Vor dem Vortrag im Original prüfen.',
 ], letters=False))
 b.append(para('**2. Optimierungspotenzial**', after=40))
 b.append(punkte([
-    'Folien 4, 7, 13 und 14 haben deutlich mehr als 20 Wörter. Nicht vorlesen; pro Folie einen Satz frei sprechen.',
-    '15 Inhaltsfolien in 10 Minuten sind knapp. Folie 12 ist die Reserve zum Kürzen.',
+    'Folien 4, 5, 14 und 15 haben deutlich mehr als 20 Wörter. Nicht vorlesen; pro Folie einen Satz frei sprechen.',
+    '16 Inhaltsfolien in 10 Minuten sind knapp. Folie 12 ist die Reserve zum Kürzen.',
     'Das Video ist selbst erzeugt. Ein echter Filmclip wäre stärker (Vorschlag oben).',
     'Auf der Titelfolie stehen Buchstaben statt Porträts.',
 ], letters=False))
@@ -220,9 +234,16 @@ for q, a in [
     ('War Wechselstrom nicht doch gefährlicher?',
      'Hohe Spannung ist gefährlich. Darum wird sie vor dem Haus wieder heruntertransformiert. Edisons Sorge war nicht '
      'erfunden, aber er übertrieb sie, weil es seinem Geschäft half.'),
-    ('Was war Teslas Rolle?',
-     'Er lieferte mit dem Wechselstrommotor (Patente 1888) das fehlende Stück, damit Wechselstrom auch Fabriken antreiben '
-     'konnte. Firma, Netze und Geld kamen von Westinghouse.'),
+    ('War der Stromkrieg wirklich ein Duell Edison gegen Tesla?',
+     'Es war der Kampf ihrer beiden Systeme: Edisons Gleichstrom gegen Teslas Wechselstrom. Geführt haben ihn aber vor '
+     'allem die Firmen: Edison General Electric gegen Westinghouse, das mit Teslas Patenten arbeitete. Tesla lieferte '
+     'die Erfindung, Westinghouse Fabriken, Netze und Geld.'),
+    ('Hat Edison Tesla um 50’000 Dollar betrogen?',
+     'Belegt ist das nicht. In Teslas eigenem Bericht von 1919 machte «der Manager» das Versprechen, nicht Edison. '
+     'Sicher ist nur: Die beiden trennten sich nach sechs Monaten, und Edison wollte vom Wechselstrom nichts wissen.'),
+    ('Wer war der bessere Erfinder?',
+     'Das lässt sich nicht messen. Edison war ein Tüftler und Unternehmer mit grossem Labor, Tesla ein Theoretiker. Für '
+     'weite Strecken hatte Tesla die bessere Technik; Edison hatte den Namen und das erste Netz.'),
     ('Warum haben die USA 120 Volt und wir 230 Volt?',
      'Die USA blieben bei der tiefen Spannung aus der Anfangszeit, die auf Edisons rund 110 Volt zurückgeht. In Europa '
      'setzte man später höhere Spannungen durch, weil dafür dünnere Kupferleitungen reichen.'),
@@ -256,13 +277,15 @@ b.append(heading('1. Zuerst lesen (zusammen etwa 4 Stunden)'))
 b.append(table([
     ['van Kaick und Bachert (2016), Der Radiologe', 'Hast du als PDF. Vier Seiten auf Deutsch: Tesla, Westinghouse, '
      'die Einheit Tesla. Ca. 15 Min.'],
-    ['Edison Papers: «The Current Wars»', 'Kurzer Überblick der Rutgers University. Hintergrund für Folien 7–9. '
+    ['Edison Papers: «The Current Wars»', 'Kurzer Überblick der Rutgers University. Hintergrund für Folien 5–9. '
      'Online, ca. 15 Min.'],
+    ['Tesla: «My Inventions», Teil IV (1919)', 'Teslas eigene Erinnerung an seine Zeit bei Edison, mit der Stelle zu '
+     'den 50’000 Dollar. Frei im Netz, englisch, ca. 20 Min.'],
     ['Edison Papers: «Myth Buster: Topsy the Elephant»', 'Für die Mythen-Folie. Online, ca. 10 Min.'],
     ['Cole & Chandler (2019)', 'Hast du als PDF. Nur Einleitung und Schluss lesen (ca. 1 Std.): Warum Edisons '
      'Angstkampagne scheiterte. Für Folie 10.'],
-    ['Jonnes: *Empires of Light* (2003)', 'Das Standardbuch zum Stromkrieg, gut lesbar. Nicht alles lesen: im '
-     'Inhaltsverzeichnis die Kapitel zu 1886–1896 suchen (Great Barrington, elektrischer Stuhl, Chicago, Niagara). '
+    ['Jonnes: *Empires of Light* (2003)', 'Das Standardbuch zu Edison, Tesla und Westinghouse, gut lesbar. Nicht alles '
+     'lesen: im Inhaltsverzeichnis die Kapitel zu 1884–1896 suchen (Tesla bei Edison, elektrischer Stuhl, Chicago, Niagara). '
      'Ca. 2 Std. Dabei gleich die Seitenzahlen notieren.'],
     ['National Geographic History: «Edison and Tesla»', 'Reich bebildert, englisch. Quelle deiner drei Bilder.'],
     ['Deine Artikel aus Spiegel und Tages-Anzeiger', 'Deutschsprachiger Einstieg. Lies sie mit einer Frage im Kopf: '
@@ -287,7 +310,8 @@ b.append(table([
 b.append(para('', after=160))
 b.append(heading('3. Vertiefen, falls Zeit bleibt'))
 b.append(table([
-    ['Carlson: *Tesla* (2013)', 'Die Kapitel zu Westinghouse 1888–1896. Belegt Lizenzverzicht und Patentverkauf.'],
+    ['Carlson: *Tesla* (2013)', 'Die Kapitel zu Teslas Zeit bei Edison (1884) und bei Westinghouse 1888–1896. Belegt '
+     'Lizenzverzicht und Patentverkauf.'],
     ['Hughes (1958): Aufsatz über Harold P. Brown', 'Tierversuche und die Beschaffung des Generators. 23 Seiten.'],
     ['Hughes: *Networks of Power* (1983)', 'Das wissenschaftliche Standardwerk zur Elektrifizierung. Das Kapitel zum '
      '«Battle of the Systems» reicht.'],

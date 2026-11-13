@@ -4,19 +4,21 @@ Referat von Simon Bruder, Modul «Weltmacht USA» (Dozent: Stephan Schwarz), 10.
 
 ## Abgabe (`abgabe/`)
 
-- `Handout_Stromkrieg_Bruder.pdf` – Handout im FHNW-Layout (2 Seiten Inhalt, 1 Seite Glossar und Quellen): Überblick mit
-  Leitfrage und These, Etappen, Gründe, Bedeutung für die USA mit Grafik, Mythen, «Und heute?», Fazit, Tipps.
+- `Handout_Stromkrieg_Bruder.pdf` – Handout im FHNW-Layout (2 Seiten Inhalt, 1 Seite Glossar, Tipps und Quellen) mit
+  dem Schwerpunkt Edison gegen Tesla: Überblick mit Leitfrage und These, Edison und Tesla im Vergleich, Etappen, Gründe,
+  Bedeutung für die USA mit Grafik, Mythen, «Und heute?», Fazit.
   Rote «S. ?» markieren Seitenzahlen, die noch nachzutragen sind.
 - `Handout_Stromkrieg_Overleaf.zip` – dasselbe Handout als LaTeX-Projekt. In Overleaf: «Neues Projekt → Projekt
   hochladen». Der Text steht in `main.tex`, die Quellen in `quellen.bib`.
-- `Praesentation_Stromkrieg_Bruder.pptx` / `.pdf` – Präsentation ohne Diskussion (20 Folien, 10 Minuten) auf der
+- `Praesentation_Stromkrieg_Bruder.pptx` / `.pdf` – Präsentation ohne Diskussion (21 Folien, 10 Minuten) auf der
   Slidesgo-Vorlage «Reconstruction Era and the Gilded Age», mit Sprechernotizen, Animationen und einem kurzen Video
   auf der Frontfolie
 - `Praesentation_Stromkrieg_Bruder_mit_Diskussion.pptx` / `.pdf` – dieselbe Präsentation mit drei Fragen ans Plenum
-  (24 Folien); die möglichen Antworten erscheinen per Klick
+  (25 Folien); die möglichen Antworten erscheinen per Klick
 - `Ausarbeitung_Stromkrieg_lang.docx` – ausführliche Ausarbeitung (34 Quellen) zur eigenen Vorbereitung
 
-Handout und Folien verwenden dieselben Quellennummern (IEEE nach dem FHNW-Leitfaden, 21 Quellen). Die lange
+Handout und Folien verwenden dieselben Quellennummern (IEEE nach dem FHNW-Leitfaden, 21 Quellen, darunter drei
+Primärquellen von Edison und Tesla). Die lange
 Ausarbeitung hat eine eigene Nummerierung.
 
 Schriften der Folien: Libre Baskerville und Source Sans 3 (Google Fonts) vor dem Präsentieren installieren. Morph,
@@ -63,10 +65,11 @@ das Video), die beiden Schriften und für die PDFs der Folien LibreOffice.
 In den Skripten steht eine Quelle als `{schluessel}`; daraus wird beim Erzeugen die Nummer `[n]`. Eine Quelle, die im
 Handout fehlt, lässt den Lauf der Folien abbrechen. So bleiben die Nummern überall gleich.
 
-`assets/folien_struktur.pptx` enthält 25 Folien der Vorlage. Das Skript füllt sie, ergänzt die Folie mit der Karikatur
-und eine vierte Quellenfolie, lässt drei nicht mehr gebrauchte Folien weg und legt die Reihenfolge fest: Frontfolie,
-Titel, Einstieg, Leitfrage, Technik, Karikatur, Firmen, Verlauf 1 und 2, Gründe, Grafik, Kennzahlen, Mythen,
-«Und heute?», Fazit, Diskussion (4 Folien), Danke, Quellen und Bildnachweis (4 Folien). Für die Fassung ohne Diskussion
+`assets/folien_struktur.pptx` enthält 25 Folien der Vorlage. Das Skript füllt sie, ergänzt die Folie mit den zwei
+Zitaten, die Folie mit der Karikatur und eine vierte Quellenfolie, lässt drei nicht mehr gebrauchte Folien weg und legt
+die Reihenfolge fest: Frontfolie, Titel, Einstieg, Leitfrage, Zwei Erfinder, Zwei Blicke (Zitate), Technik, Verlauf 1
+und 2, Gründe, Grafik, Kennzahlen, Karikatur, Mythen, «Und heute?», Fazit, Diskussion (4 Folien), Danke, Quellen und
+Bildnachweis (4 Folien). Für die Fassung ohne Diskussion
 entfernt es die vier Diskussionsfolien.
 
 Die drei historischen Bilder stammen aus National Geographic History; die Bildnachweise stehen am Bild. Sie sind nur

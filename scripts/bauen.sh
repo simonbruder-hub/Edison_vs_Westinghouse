@@ -30,6 +30,7 @@ node scripts/chart.js                                           # Grafik für di
 [ -f assets/titelvideo.mp4 ] || python3 scripts/titelvideo.py   # Video der Frontfolie, nur falls es fehlt
 python3 scripts/praesentation_vorlage.py                        # beide Foliensätze (Nummern wie im Handout)
 python3 scripts/playbook.py                                     # Playbook und Vorbereitungsliste
+python3 scripts/karteikarten.py                                 # Karteikarten zum Ausdrucken (braucht latexmk)
 node scripts/handout.js                                         # lange Ausarbeitung (eigene Nummerierung)
 
 # PDFs der Folien; braucht LibreOffice

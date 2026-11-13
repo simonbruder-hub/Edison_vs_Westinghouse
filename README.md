@@ -10,14 +10,14 @@ Referat von Simon Bruder, Modul «Weltmacht USA» (Dozent: Stephan Schwarz), 10.
   Rote «S. ?» markieren Seitenzahlen, die noch nachzutragen sind.
 - `Handout_Stromkrieg_Overleaf.zip` – dasselbe Handout als LaTeX-Projekt. In Overleaf: «Neues Projekt → Projekt
   hochladen». Der Text steht in `main.tex`, die Quellen in `quellen.bib`.
-- `Praesentation_Stromkrieg_Bruder.pptx` / `.pdf` – Präsentation ohne Diskussion (21 Folien, 10 Minuten) auf der
+- `Praesentation_Stromkrieg_Bruder.pptx` / `.pdf` – Präsentation ohne Diskussion (22 Folien, 10 Minuten) auf der
   Slidesgo-Vorlage «Reconstruction Era and the Gilded Age», mit Sprechernotizen, Animationen und einem kurzen Video
   auf der Frontfolie
 - `Praesentation_Stromkrieg_Bruder_mit_Diskussion.pptx` / `.pdf` – dieselbe Präsentation mit drei Fragen ans Plenum
-  (25 Folien); die möglichen Antworten erscheinen per Klick
+  (26 Folien); die möglichen Antworten erscheinen per Klick
 - `Ausarbeitung_Stromkrieg_lang.docx` – ausführliche Ausarbeitung (34 Quellen) zur eigenen Vorbereitung
 
-Handout und Folien verwenden dieselben Quellennummern (IEEE nach dem FHNW-Leitfaden, 21 Quellen, darunter drei
+Handout und Folien verwenden dieselben Quellennummern (IEEE nach dem FHNW-Leitfaden, 24 Quellen, darunter
 Primärquellen von Edison und Tesla). Die lange
 Ausarbeitung hat eine eigene Nummerierung.
 
@@ -26,6 +26,8 @@ Animationen und Video laufen in PowerPoint 2019 oder Microsoft 365. Die PDFs zei
 
 ## Vorbereitung (`vorbereitung/`)
 
+- `Karteikarten_Stromkrieg.pdf` – 24 Karteikarten (A6, vier pro A4-Seite): Stichpunkte pro Folie und Aussprache der
+  englischen Namen; dieselben Stichpunkte stehen als Sprechernotizen in der PowerPoint
 - `Playbook_und_Vorbereitung_Stromkrieg.docx` – Ablauf Folie für Folie, Hinweise zu Video und Bildern, Checkliste,
   **Stand der Quellen** (was geprüft ist und was noch zu prüfen ist), Prüfprotokoll, mögliche Fragen, Lese- und
   Schauliste mit Zeitplan
@@ -59,17 +61,20 @@ das Video), die beiden Schriften und für die PDFs der Folien LibreOffice.
 | `scripts/titelvideo.py` | erzeugt `assets/titelvideo.mp4` und das Standbild aus dem Stich von 1889 |
 | `scripts/praesentation_vorlage.py`, `animation.py` | füllt `assets/folien_struktur.pptx` und erzeugt beide Foliensätze samt Animationen und Video |
 | `scripts/chart.js` | Grafik «Anteil an der Weltindustrieproduktion» für die Folien |
+| `scripts/karten.py` | Karteikarten (Stichpunkte pro Folie) und Aussprache-Liste; Grundlage für Sprechernotizen, Karteikarten und Playbook |
+| `scripts/karteikarten.py` | druckbare Karteikarten (`vorbereitung/Karteikarten_Stromkrieg.pdf`) |
 | `scripts/playbook.py`, `fhnw_docx.py` | Playbook im FHNW-Layout (`assets/vorlage_fhnw.docx`) |
 | `scripts/handout.js` | lange Ausarbeitung |
 
 In den Skripten steht eine Quelle als `{schluessel}`; daraus wird beim Erzeugen die Nummer `[n]`. Eine Quelle, die im
 Handout fehlt, lässt den Lauf der Folien abbrechen. So bleiben die Nummern überall gleich.
 
-`assets/folien_struktur.pptx` enthält 25 Folien der Vorlage. Das Skript füllt sie, ergänzt die Folie mit den zwei
-Zitaten, die Folie mit der Karikatur und eine vierte Quellenfolie, lässt drei nicht mehr gebrauchte Folien weg und legt
-die Reihenfolge fest: Frontfolie, Titel, Einstieg, Leitfrage, Zwei Erfinder, Zwei Blicke (Zitate), Technik, Verlauf 1
-und 2, Gründe, Grafik, Kennzahlen, Karikatur, Mythen, «Und heute?», Fazit, Diskussion (4 Folien), Danke, Quellen und
-Bildnachweis (4 Folien). Für die Fassung ohne Diskussion
+`assets/folien_struktur.pptx` enthält 25 Folien der Vorlage. Das Skript füllt sie, ergänzt die Folien «Sicherheit gegen
+Kosten», «USA und Europa», die Karikatur, eine vierte Quellenfolie und den Bildnachweis, lässt vier nicht mehr
+gebrauchte Folien weg und legt
+die Reihenfolge fest: Frontfolie, Titel, Einstieg, Leitfrage, Zwei Erfinder, Zwei Systeme, Sicherheit gegen Kosten,
+Verlauf 1 und 2, Gründe, USA und Europa, Grafik, Karikatur, Mythen, «Und heute?», Fazit, Diskussion (4 Folien), Danke,
+Quellen (4 Folien) und Bildnachweis. Für die Fassung ohne Diskussion
 entfernt es die vier Diskussionsfolien.
 
 Die drei historischen Bilder stammen aus National Geographic History; die Bildnachweise stehen am Bild. Sie sind nur

@@ -35,7 +35,9 @@ Gelb markierte Stellen im Literaturverzeichnis der langen Ausarbeitung sind Plat
 `Stromkrieg_aktualisieren.cmd` doppelklicken (Windows). Das Skript lädt die Ordner `abgabe` und `vorbereitung`
 nach `C:\Users\simon\OneDrive - FHNW\7EIT\wusa\Stromkrieg_Referat` und legt sich beim ersten Lauf selbst dort ab.
 Danach genügt ein Doppelklick im Ordner, um die neueste Version zu holen. Selbst geänderte Dateien werden vorher
-nach `_Sicherung\<Datum>` kopiert. Kein Git und kein Login nötig.
+nach `_Sicherung\<Datum>` kopiert. Kein Git nötig. Weil das Repository privat ist, öffnet das Skript den Download im
+Browser (dort bei GitHub angemeldet sein); nach dem Download Enter drücken, dann übernimmt es die ZIP-Datei aus dem
+Ordner «Downloads».
 
 ## Neu erzeugen
 

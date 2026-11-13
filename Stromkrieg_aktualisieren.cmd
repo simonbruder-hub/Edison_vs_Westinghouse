@@ -6,7 +6,8 @@ pause
 exit /b
 #>
 # Stromkrieg-Referat: holt die neuesten Dateien von GitHub in den lokalen OneDrive-Ordner.
-# Kein Git und kein GitHub-Login noetig (das Repository ist oeffentlich).
+# Kein Git noetig. Ist das Repository privat, oeffnet das Skript den Download im Browser
+# (dort musst du bei GitHub angemeldet sein) und nimmt die ZIP-Datei dann aus dem Ordner Downloads.
 # Hast du eine Datei selbst geaendert, wird deine Version vorher nach _Sicherung kopiert.
 
 $ErrorActionPreference = 'Stop'
@@ -16,13 +17,47 @@ $url = 'https://github.com/simonbruder-hub/Edison_vs_Westinghouse/archive/refs/h
 $ordner = @('abgabe', 'vorbereitung')
 $skript = 'Stromkrieg_aktualisieren.cmd'
 
+function Get-DownloadOrdner {
+    try {
+        $wert = (Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders' -ErrorAction Stop).'{374DE290-123F-4565-9164-39C4925E467B}'
+        if ($wert) { return [Environment]::ExpandEnvironmentVariables($wert) }
+    } catch { }
+    return (Join-Path $env:USERPROFILE 'Downloads')
+}
+
+function Lade-Zip([string]$zip) {
+    try {
+        Invoke-WebRequest -Uri $url -OutFile $zip -UseBasicParsing
+        $fs = [System.IO.File]::OpenRead($zip)
+        $b1 = $fs.ReadByte(); $b2 = $fs.ReadByte(); $fs.Close()
+        if ($b1 -eq 0x50 -and $b2 -eq 0x4B) { return }   # echte ZIP-Datei (beginnt mit PK)
+        throw 'keine ZIP-Datei'
+    } catch {
+        Write-Host 'Direkter Download nicht moeglich, vermutlich weil das Repository privat ist.' -ForegroundColor Yellow
+    }
+    # Privates Repository: Download im Browser, wo du bei GitHub angemeldet bist
+    $downloads = Get-DownloadOrdner
+    $start = Get-Date
+    Write-Host 'Der Browser oeffnet jetzt den Download. Melde dich dort bei GitHub an, falls noetig.'
+    Start-Process $url
+    Read-Host "Warte, bis der Download fertig ist (Ordner: $downloads). Dann Enter druecken"
+    $datei = Get-ChildItem -LiteralPath $downloads -Filter 'Edison_vs_Westinghouse*.zip' -File -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTime -Descending | Select-Object -First 1
+    if (-not $datei) { throw "Keine Datei Edison_vs_Westinghouse*.zip im Ordner $downloads gefunden." }
+    $zeit = @($datei.CreationTime, $datei.LastWriteTime) | Sort-Object | Select-Object -Last 1
+    if ($zeit -lt $start.AddMinutes(-10)) {
+        Write-Host "Achtung: $($datei.Name) ist aelter als 10 Minuten. Ist es wirklich die neue Version?" -ForegroundColor Yellow
+    }
+    Move-Item -LiteralPath $datei.FullName -Destination $zip -Force   # ZIP wird danach geloescht, Downloads bleibt sauber
+}
+
 $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ('stromkrieg_' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $tmp | Out-Null
 try {
     Write-Host 'Lade die neueste Version von GitHub ...'
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $zip = Join-Path $tmp 'repo.zip'
-    Invoke-WebRequest -Uri $url -OutFile $zip -UseBasicParsing
+    Lade-Zip $zip
     Expand-Archive -LiteralPath $zip -DestinationPath $tmp
     $quelle = (Get-ChildItem -LiteralPath $tmp -Directory | Select-Object -First 1).FullName
     New-Item -ItemType Directory -Force -Path $ziel | Out-Null

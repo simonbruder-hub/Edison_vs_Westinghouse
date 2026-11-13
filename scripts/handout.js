@@ -1,5 +1,5 @@
 // Erzeugt abgabe/Ausarbeitung_Stromkrieg_lang.docx (A4, Arial 11, IEEE-Zitierweise).
-// Die lange Fassung hat eine eigene Nummerierung; Handout, Lösung und Folien teilen sich assets/zitierreihenfolge.json.
+// Die lange Fassung hat eine eigene Nummerierung; Handout und Folien richten sich nach latex/handout/main.tex.
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
@@ -172,7 +172,7 @@ body.push(P('Zum Einstieg eignen sich die Dokumentationen {pbsEdison,pbsTesla,te
 body.push(H('7  Fazit und Ausblick'));
 body.push(P('Der Stromkrieg war ein früher, prägender Standardkrieg der Industriegeschichte; McNichol spricht sogar vom «first standards war» {mcnichol}. Gewonnen hat das System, das sich billiger skalieren liess – und mit ihm der finanzstarke Grosskonzern. Darin liegt seine Bedeutung für die «Weltmacht USA».'));
 body.push(P('**Ironie der Geschichte:** Dem Gleichstrom fehlte um 1890 nur die Technik, seine Spannung zu wandeln. Mit Stromrichtern kehrt er zurück: Die erste kommerzielle Hochspannungs-Gleichstrom-Übertragung moderner Bauart ging 1954 zwischen dem schwedischen Festland und Gotland in Betrieb, gebaut von ASEA {gotland}. Auch Akkus, Solarzellen und Elektronik arbeiten mit Gleichstrom.'));
-body.push(P('**Standardkriege heute:** Weltweit kommt Wechselstrom aus der Steckdose, aber mit verschiedenen Spannungen und Steckern {iec}. In den USA stellten ab 2023 fast alle Autohersteller auf den Ladestecker der Firma Tesla um {nacs}; in der EU ist USB-C für Handys seit Ende 2024 Pflicht {eu}.'));
+body.push(P('**Standardkriege heute:** Weltweit kommt Wechselstrom aus der Steckdose, aber mit verschiedenen Spannungen und Steckern {iec}. In den USA wird der Ladestecker der Firma Tesla seit Ende 2023 zur Norm SAE J3400 {nacs}; in der EU ist USB-C für Handys seit Ende 2024 Pflicht {eu}.'));
 
 // ---------- Literaturverzeichnis ----------
 const refs = [new Paragraph({

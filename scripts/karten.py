@@ -75,12 +75,14 @@ KARTEN = {
         '1913: USA 32 %, mehr als Grossbritannien und Deutschland zusammen',
         'Fabriken: Elektromotoren 5 % (1899), 78 % (1929) {devine}',
         'Vorsicht: Zusammenhang, kein Beweis; auch Stahl, Bahn, Binnenmarkt',
-    ], weiter='«Wie sahen das die Zeitgenossen?»'),
-    'karikatur': dict(folie='So sah es die Presse', zeit='7:00–7:20', punkte=[
-        'Currier & Ives: Edison gegen Charles Brush, ein Duell statt Wettbewerb {natgeo}',
-        'Klick: Genauso erzählt man heute Edison gegen Tesla',
+    ], weiter='«Edisons erster Rivale war übrigens nicht Tesla.»'),
+    'karikatur': dict(folie='Vor Tesla: Edison gegen Brush', zeit='7:00–7:25', punkte=[
+        'Bild von 1880: Edison in New Jersey, Charles Brush (Bogenlampe) in New York {met}',
+        'Rivalen um das Licht in New York, Jahre vor Tesla {natgeo}',
+        'Klick: 1889 kauft Thomson-Houston Brushs Firma, 1892 sind beide in GE {ech}',
+        'Klick: Erzählt wird ein Duell, entschieden haben Firmen; heute dasselbe mit Tesla',
     ], weiter='«So entstehen Mythen.»'),
-    'mythen': dict(folie='Drei Mythen', zeit='7:20–8:10', punkte=[
+    'mythen': dict(folie='Drei Mythen', zeit='7:25–8:10', punkte=[
         'Elefant: Tierversuche machte Brown; Topsy starb 1903, ohne Edison {hughes58,topsy}',
         '50’000 Dollar: Tesla selbst (1919) nennt «den Manager» {tesla19}',
         'Tesla allein: Transformator aus Europa, Ferraris zeitgleich {jonnes,carlson}',

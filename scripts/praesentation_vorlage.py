@@ -536,17 +536,19 @@ set_timing(s, Timeline().auto().add('wipe_left', 4464, dur=2000).add('fade', 445
 # ---------- 13 Bildquelle: Karikatur von Currier & Ives ----------
 s = F_PRESSE
 remove_ids(s, (2342,))
-fill(s, {2340: 'So sah es die Presse: ein Zweikampf',
-         2341: (['Schon damals machte die Presse aus dem Wettlauf um das Licht ein Duell: Edison (links) gegen '
-                 'Charles Brush, den Erfinder der Bogenlampe {natgeo}.',
-                 'Genauso wird der Stromkrieg bis heute erzählt: als Duell Edison gegen Tesla.'], 15)}, K('karikatur'))
+fill(s, {2340: 'Vor Tesla: Edison gegen Brush',
+         2341: (['1880, Jahre vor Tesla: Edison (links) gegen Charles Brush, den Erfinder der Bogenlampe {natgeo}.',
+                 '1892 landen beide Firmen in General Electric {ech}.',
+                 'Erzählt wird ein Duell, heute Edison gegen Tesla. Entschieden haben Firmen und Kapital.'],
+                15)}, K('karikatur'))
 sh = shapes_by_id(s)
 place(sh[2341], 5.45, 1.95, 3.55, 2.6, anchor='t')
 space_after(sh[2341].text_frame, 12)
 karikatur = bild(s, 'Bild Karikatur', 'karikatur_edison_brush.jpg', 1.0, 1.72, w=4.1)
-nachweis(s, 'Bildnachweis', 'Bild: Currier & Ives, spätes 19. Jh. · MPI/Getty Images {natgeo}', 1.0, 4.81, 4.1)
+nachweis(s, 'Bildnachweis', 'Bild: Currier & Ives, «The Electric Light», 1880 {met} · MPI/Getty Images {natgeo}',
+         1.0, 4.81, 4.1)
 set_timing(s, Timeline().auto().add('fade', karikatur.shape_id, dur=700).add('float', 2341, at=500, dur=700, para=0)
-           .click().add('float', 2341, dur=700, para=1))
+           .click().add('float', 2341, dur=700, para=1).click().add('float', 2341, dur=700, para=2))
 
 # ---------- 14 Mythen (drei Tabellen: Mythos / Befund) ----------
 s = S[I_MYTHEN]
@@ -630,14 +632,26 @@ set_timing(s, Timeline().auto().add('zoom', 4515, dur=800).add('float', 4516, at
 # ---------- Quellen: vollständige Liste, Nummern wie im Handout; danach der Bildnachweis ----------
 eintraege = [f'[{nr}] {text}' for nr, text in Z.eintraege()]
 QUELLENFOLIEN = (S[I_Q1], S[I_Q2], S[I_Q3], F_Q4)
-assert len(eintraege) <= 6 * len(QUELLENFOLIEN), 'Zu viele Quellen: eine weitere Quellenfolie anlegen.'
+PRO_FOLIE = -(-len(eintraege) // len(QUELLENFOLIEN))  # 26 Quellen: 7 pro Folie
+assert PRO_FOLIE <= 7, 'Zu viele Quellen: eine weitere Quellenfolie anlegen.'
+
+
+def spalten_teilen(teil):
+    """Teilt die Einträge einer Folie so auf zwei Spalten auf, dass beide etwa gleich viel Text haben."""
+    if len(teil) < 2:
+        return len(teil)
+    return min(range(1, len(teil)),
+               key=lambda i: max(sum(map(len, teil[:i])), sum(map(len, teil[i:]))))
+
+
 for k, s in enumerate(QUELLENFOLIEN):
-    teil = eintraege[6 * k:6 * k + 6]
+    teil = eintraege[PRO_FOLIE * k:PRO_FOLIE * (k + 1)]
+    links = spalten_teilen(teil)
     fill(s, {2340: f'Quellen ({k + 1}/{len(QUELLENFOLIEN)})'},
          'Anhang – nur bei Nachfragen zeigen. Vollständige Liste im IEEE-Format; die Nummern sind dieselben wie im Handout.')
     sh = shapes_by_id(s)
-    for sid, x, zeilen in ((2342, 1.25, teil[:3]), (2341, 5.28, teil[3:])):
-        set_paras(sh[sid].text_frame, zeilen or [''], 9.5, rich=True)
+    for sid, x, zeilen in ((2342, 1.25, teil[:links]), (2341, 5.28, teil[links:])):
+        set_paras(sh[sid].text_frame, zeilen or [''], 9.5 if PRO_FOLIE <= 6 else 9, rich=True)
         place(sh[sid], x, 1.6, 3.47, 3.3, anchor='t')
         space_after(sh[sid].text_frame, 5)
     textbox(s, 'Hinweis', 1.25, 1.24, 7.5, 0.3, [('IEEE-Format · Nummern wie im Handout', SANS, 11, False, True)])
@@ -648,7 +662,7 @@ for sid, x, zeilen in (
     (2342, 1.25, ['Frontfolie: William Allen Rogers, Stich für «Harper’s Weekly», 1889; De Agostini/Getty Images, '
                   'aus {natgeo}. Abdunkeln und Aufleuchten im Video: eigene Bearbeitung.',
                   'Auburn 1890: kolorierte Illustration; Granger/Cordon Press, aus {natgeo}.']),
-    (2341, 5.28, ['Karikatur: Currier & Ives, spätes 19. Jahrhundert; MPI/Getty Images, aus {natgeo}.',
+    (2341, 5.28, ['Karikatur: Currier & Ives, «The Electric Light», Lithografie, 1880 {met}; MPI/Getty Images, aus {natgeo}.',
                   'Grafik zur Weltindustrie: eigene Darstellung nach {bairoch}.']),
 ):
     set_paras(sh[sid].text_frame, zeilen, 12, rich=True)

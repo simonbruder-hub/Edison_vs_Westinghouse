@@ -140,6 +140,10 @@ b.append(table(zeilen([
      'Titel und Datum der Meldung (19.12.2023); Ladestecker von Tesla wird zur Norm SAE J3400.'],
     ['{lee}', 'New York Times, City Room, 14.11.2007', 'Ereignis über AP-Meldungen bestätigt',
      'Abschaltung des letzten Gleichstromanschlusses durch Con Edison am 14. November 2007 im Original nachlesen.'],
+    ['{met}', 'The Met, Katalog: Currier & Ives, «The Electric Light»', 'Angaben über Suchtreffer',
+     'Titel, Jahr 1880 und Bildbeschreibung: Edison in New Jersey, Brush in Manhattan und Brooklyn.'],
+    ['{ech}', 'Encyclopedia of Cleveland History, Brush Electric Co.', 'Angaben über Suchtreffer',
+     'Kauf durch Thomson-Houston 1889 und General Electric 1892 (andere Artikel dort nennen 1891).'],
     ['{srf}', 'SRF Kultur, Romane über Edison', 'Artikel über Suchtreffer',
      'Autorin oder Autor und Datum eintragen; beide Romane werden dort vorgestellt.'],
     ['{david92}', 'David, «Heroes, herds and hysteresis»', 'nicht eingesehen', 'Seitenzahl zur Pfadabhängigkeit.'],
@@ -203,6 +207,11 @@ for q, a in [
      'Nein. Edison baute 1882 das erste kommerzielle Stromnetz und hielt Hochspannung ehrlich für gefährlich; 1889 '
      'starben tatsächlich Menschen an Leitungen über New York. Er hielt aber auch an Gleichstrom fest, weil sein '
      'Geschäft daran hing, und sein Lager unterstützte Browns Tierversuche.'),
+    ('Warum zeigst du ein Bild von Edison und Brush, wenn es um Edison und Tesla geht?',
+     'Das Bild stammt von 1880, Jahre bevor Tesla nach New York kam. Es zeigt zweierlei: Edison hatte von Anfang an '
+     'Rivalen, und schon damals stellte man den Wettbewerb als Duell zweier Erfinder dar. Am Ende landeten Brushs und '
+     'Edisons Firma 1892 beide in General Electric. Entschieden haben also Firmen und Kapital, nicht ein Duell; dasselbe '
+     'gilt für «Edison gegen Tesla».'),
     ('Warum haben die USA 60 Hz und Europa 50 Hz?',
      'Nach gängiger Darstellung stellte Westinghouse um 1890 auf 60 Hz um, auch weil Teslas Motoren damit besser '
      'liefen; in Europa setzte die AEG nach Lauffen–Frankfurt 50 Hz durch. Die Einzelheiten sind in der Literatur '

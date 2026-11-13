@@ -17,7 +17,7 @@ Referat von Simon Bruder, Modul «Weltmacht USA» (Dozent: Stephan Schwarz), 10.
   (26 Folien); die möglichen Antworten erscheinen per Klick
 - `Ausarbeitung_Stromkrieg_lang.docx` – ausführliche Ausarbeitung (34 Quellen) zur eigenen Vorbereitung
 
-Handout und Folien verwenden dieselben Quellennummern (IEEE nach dem FHNW-Leitfaden, 24 Quellen, darunter
+Handout und Folien verwenden dieselben Quellennummern (IEEE nach dem FHNW-Leitfaden, 26 Quellen, darunter
 Primärquellen von Edison und Tesla). Die lange
 Ausarbeitung hat eine eigene Nummerierung.
 

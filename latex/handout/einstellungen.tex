@@ -1,46 +1,34 @@
-% Einstellungen für das Handout: Layout, Farben, Bausteine und Quellen nach IEEE (deutsch, FHNW-Leitfaden).
+% Einstellungen für das Handout (Layout wie die FHNW-Vorlage, Quellen nach IEEE auf Deutsch).
 % Hier musst du normalerweise nichts ändern. Der Text steht in main.tex, die Quellen in quellen.bib.
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[nswissgerman]{babel}
 \usepackage[autostyle,german=swiss]{csquotes}
-\usepackage[default]{sourcesanspro}   % dieselbe Schrift wie auf den Folien (Source Sans)
+\usepackage{tgtermes}              % eine einzige Schrift: Times, wie in der FHNW-Vorlage
+\usepackage{newtxmath}             % passende Formelschrift
 \usepackage{microtype}
-\usepackage[a4paper,left=18mm,right=18mm,top=27mm,bottom=19mm,
-            headheight=11mm,headsep=7mm,footskip=9mm]{geometry}
+\usepackage[a4paper,left=19mm,right=17mm,top=27mm,bottom=20mm,
+            headheight=14mm,headsep=4mm,footskip=9mm]{geometry}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{enumitem}
-\usepackage{tabularx,booktabs,array}
+\usepackage{tabularx,array}
 \usepackage{caption}
-\usepackage{multicol}
-\usepackage[most]{tcolorbox}
-\usepackage{fontawesome5}
-\usepackage{qrcode}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 \usepackage[backend=biber,style=ieee,sorting=none,dashed=false,urldate=long]{biblatex}
 \addbibresource{quellen.bib}
 \usepackage[hidelinks]{hyperref}
-
-% ---------- Farben: eine Hauptfarbe (Marineblau) und eine Akzentfarbe (Kupfer), wie auf den Folien ----------
-% Kupfer steht durchgehend für Gleichstrom und Edison, Marineblau für Wechselstrom und Westinghouse.
-\definecolor{navy}{HTML}{10233F}
-\definecolor{kupfer}{HTML}{C8641E}
-\definecolor{grau}{HTML}{5F6B7A}
-\definecolor{hell}{HTML}{EEF1F5}
-\definecolor{kupferhell}{HTML}{FBF1E9}
-\AtBeginDocument{\color{navy}}
+\urlstyle{same}                     % Internetadressen in derselben Schrift wie der Text
 
 % ---------- Verweise mit noch fehlender Seitenzahl ----------
-% \citeoffen{jonnes} ergibt im Entwurf [1, S. ?] in Rot, in der Endfassung [1].
+% \citeoffen{jonnes} ergibt im Entwurf [3, S. ?] in Rot, in der Endfassung [3].
 \newif\ifentwurf
 \entwurftrue
 \newcommand{\citeoffen}[1]{\ifentwurf\cite[{\color{red}S.\,?}]{#1}\else\cite{#1}\fi}
-\newcommand{\offen}[1]{\ifentwurf\textcolor{red}{[#1]}\fi}   % sonstige offene Stellen, nur im Entwurf sichtbar
 
 % ---------- Quellenverzeichnis: IEEE mit deutschen Angaben wie im FHNW-Leitfaden ----------
 \stdpunctuation                                                    % «Titel», Zeitschrift (Komma nach dem Schlusszeichen)
@@ -64,72 +52,47 @@
   \usebibmacro{url+urldate}%
   \usebibmacro{finentry}}
 
-% ---------- Seitenlayout ----------
+% ---------- Seitenlayout: Kopfzeile mit Logo, Fusszeile mit Dozent und Seitenzahl ----------
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\includegraphics[height=9mm]{bilder/fhnw_logo.jpg}}
-\fancyhead[R]{\footnotesize\color{grau}Modul «Weltmacht USA» \textperiodcentered{} Handout}
-\fancyfoot[L]{\footnotesize\color{grau}FHNW, School of Engineering, Windisch \textperiodcentered{} Dozent: Stephan Schwarz}
-\fancyfoot[R]{\footnotesize\color{grau}\thepage}
+\fancyhead[L]{\hspace*{-6mm}\includegraphics[height=11mm]{bilder/fhnw_logo.jpg}}
+\fancyfoot[L]{\footnotesize FHNW, School of Engineering, Windisch, Stephan Schwarz}
+\fancyfoot[R]{\footnotesize\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0pt}
-\renewcommand{\headrule}{{\color{navy!30}\hrule width\headwidth height\headrulewidth}}
+\renewcommand{\footrulewidth}{0.4pt}
 
+% ---------- Absätze: linksbündig, ohne Silbentrennung ----------
 \setlength{\parindent}{0pt}
-\setlength{\emergencystretch}{1.5em}
 \setlength{\parskip}{4pt plus 1pt}
+\hyphenpenalty=10000
+\AtBeginDocument{\raggedright}
+
+% ---------- Überschriften und Listen ----------
 \setcounter{secnumdepth}{0}
-% Überschriften mit kurzem Kupferstrich
-\titleformat{\section}{\large\bfseries\color{navy}}{}{0pt}{}[{\vspace{-3pt}\textcolor{kupfer}{\rule{11mm}{1.3pt}}}]
-\titlespacing*{\section}{0pt}{11pt plus 2pt minus 2pt}{3pt}
-\setlist{nosep,leftmargin=*}
-\renewcommand{\arraystretch}{1.25}
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\titleformat{\section}{\large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{9pt plus 2pt minus 2pt}{2pt}
+\setlist[itemize]{label=--,leftmargin=5mm,labelsep=2mm,itemsep=1.5pt,topsep=2pt,parsep=0pt,partopsep=0pt}
+
+% ---------- Tabellen mit Gitterlinien wie in der Vorlage ----------
+\renewcommand{\arraystretch}{1.15}
+\setlength{\extrarowheight}{0.5pt}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
-\captionsetup{labelsep=colon,skip=4pt,font={footnotesize,color=grau},labelfont={bf,color=navy},justification=raggedright,singlelinecheck=false}
-\captionsetup[table]{name=Tab.,position=bottom}
+\newcommand{\kopf}[1]{\multicolumn{1}{c|}{\textbf{#1}}}   % Kopfzelle einer Tabelle
+\captionsetup{labelsep=colon,skip=3pt,font=footnotesize,labelfont=bf,justification=raggedright,singlelinecheck=false}
+\captionsetup[table]{name=Tab.,position=top,font={normalsize,bf}}
 \captionsetup[figure]{name=Abb.}
+% Tabelle mit Überschrift; bleibt auf einer Seite zusammen
+\newenvironment{tabelle}[1]
+  {\par\addvspace{8pt}\noindent\begin{minipage}{\linewidth}\raggedright\captionof{table}{#1}\small}
+  {\end{minipage}\par\addvspace{4pt}}
+% Spalte für Text neben einem Bild: \begin{spalte}{Breite} ... \end{spalte}\hfill\begin{spalte}{Breite} ...
+\newenvironment{spalte}[1]
+  {\begin{minipage}[t]{#1}\vspace{0pt}\raggedright\setlength{\parskip}{4pt plus 1pt}}
+  {\end{minipage}}
 
-% ---------- Bausteine ----------
-% Leitfrage (dunkel) und Kurzantwort (hell)
-\newtcolorbox{leitfrage}{enhanced,colback=navy,colframe=navy,coltext=white,arc=1.5mm,boxrule=0pt,
-  left=4mm,right=4mm,top=2.6mm,bottom=2.6mm,fontupper=\normalsize,
-  colbacklower=hell,collower=navy,fontlower=\normalsize,lowerbox=visible,segmentation style={draw=none},
-  bicolor,boxsep=0pt,middle=2.6mm}
-\newcommand{\etikett}[1]{{\footnotesize\bfseries\color{kupfer}\MakeUppercase{#1}}\par\vspace{1pt}}
-% Karte mit farbigem Balken oben: \begin{karte}{Farbe}{Titel} ... \end{karte}
-\newtcolorbox{karte}[2]{enhanced,colback=white,colframe=#1,boxrule=0.4pt,toprule=2.2pt,arc=1.2mm,
-  left=3mm,right=3mm,top=2mm,bottom=2mm,boxsep=0pt,
-  title={#2},fonttitle=\bfseries,coltitle=navy,attach title to upper={\par\vspace{2pt}}}
-% Kachel mit grosser Zahl: \kennzahl{Farbe}{Zahl}{Erklärung}
-\newcommand{\kennzahl}[3]{\begin{tcolorbox}[enhanced,colback=hell,colframe=hell,arc=1.2mm,boxrule=0pt,
-  left=3mm,right=3mm,top=2mm,bottom=2mm,boxsep=0pt]
-  {\fontsize{24}{26}\selectfont\bfseries\color{#1}#2}\par\vspace{1pt}{\footnotesize\raggedright #3\par}\end{tcolorbox}}
-% Nummerierter Punkt: \punkt{1}{Titel}{Text}
-\newcommand{\punkt}[3]{\begin{tcolorbox}[enhanced,colback=white,colframe=navy!18,boxrule=0.4pt,arc=1.2mm,
-  left=3mm,right=3mm,top=2mm,bottom=2mm,boxsep=0pt]
-  {\fontsize{20}{20}\selectfont\bfseries\color{kupfer}#1}\hspace{2mm}{\bfseries #2}\par\vspace{2pt}{\small\raggedright #3\par}\end{tcolorbox}}
-% Zeile mit Symbol: \symbolzeile{\faBolt}{Titel}{Text}
-\newcommand{\symbolzeile}[3]{\par\noindent\begin{minipage}[t]{6mm}\centering\color{kupfer}#1\end{minipage}%
-  \begin{minipage}[t]{\dimexpr\linewidth-6mm}\raggedright\textbf{#2} #3\end{minipage}\par\vspace{3pt}}
-% QR-Code mit Beschriftung: \qr{Adresse}{Titel}{Beschreibung}
-\newcommand{\qr}[3]{\begin{minipage}[t]{15mm}\vspace{0pt}\qrcode[height=14mm]{#1}\end{minipage}\hspace{2.5mm}%
-  \begin{minipage}[t]{\dimexpr\linewidth-17.5mm}\vspace{0pt}\raggedright\small\textbf{#2}\par #3\end{minipage}}
-
-% Ereignis auf dem Zeitstrahl: \ereignis{Jahr}{oben|unten}{Titel}{Text}; 1882 liegt bei x = 15 mm, ein Jahr = 10,286 mm
-\newcommand{\zeitx}[1]{15+(#1-1882)*10.286}
-\newcommand{\ereignis}[4]{%
-  \ifstrequal{#2}{oben}
-    {\draw[navy!35,line width=0.5pt] ({\zeitx{#1}},1.4) -- ++(0,3.6);
-     \node[anchor=south,align=center,text width=29mm,inner sep=0.8pt,font=\footnotesize]
-       at ({\zeitx{#1}},5.2) {{\bfseries\color{kupfer}#1}\\[-1.5pt]\textbf{#3}\\[-1.5pt]{\scriptsize\color{grau}#4}};}
-    {\draw[navy!35,line width=0.5pt] ({\zeitx{#1}},-1.4) -- ++(0,-3.6);
-     \node[anchor=north,align=center,text width=29mm,inner sep=0.8pt,font=\footnotesize]
-       at ({\zeitx{#1}},-5.2) {{\bfseries\color{kupfer}#1}\\[-1.5pt]\textbf{#3}\\[-1.5pt]{\scriptsize\color{grau}#4}};}
-  \fill[white] ({\zeitx{#1}},0) circle (1.9);
-  \fill[navy] ({\zeitx{#1}},0) circle (1.25);}
-% Begriff im Glossar
-\newcommand{\begriff}[2]{\par\noindent\textbf{#1}\quad #2\par\vspace{3pt}}
-
-% ---------- Grafiken: Zahlen in der Textschrift ----------
-\pgfplotsset{/pgf/number format/assume math mode=true}
+% ---------- Farben der Grafik ----------
+\definecolor{usa}{HTML}{0B6682}
+\definecolor{deutschland}{HTML}{6C4A93}
+\definecolor{grossbritannien}{HTML}{B0531A}

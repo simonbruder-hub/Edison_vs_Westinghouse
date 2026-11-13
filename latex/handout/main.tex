@@ -2,235 +2,235 @@
 % Kompilieren mit pdfLaTeX und Biber (Overleaf erkennt beides automatisch).
 %
 % Quellen nach IEEE, wie es die FHNW empfiehlt (Seitenzahl im Verweis, Punkt nach der Klammer):
-%   \cite{edpCW}          ergibt [2]           Online-Quelle ohne Seitenzahl
+%   \cite{edpCW}          ergibt [1]           Online-Quelle ohne Seitenzahl
 %   \cite[994]{kaick}     ergibt [4, S. 994]   Buch oder Artikel mit Seitenzahl
-%   \citeoffen{jonnes}    ergibt [1, S. ?]     Seitenzahl fehlt noch (rot markiert)
+%   \citeoffen{jonnes}    ergibt [3, S. ?]     Seitenzahl fehlt noch (rot markiert)
 % Hast du eine Seitenzahl nachgeschlagen, ersetzt du \citeoffen{...} durch \cite[Seite]{...}.
 
 \documentclass[10pt,a4paper]{article}
 \input{einstellungen}
-\hypersetup{pdftitle={Der Stromkrieg – Handout},pdfauthor={Simon Bruder},pdflang={de-CH},
-  pdfsubject={Modul Weltmacht USA, FHNW}}
+\hypersetup{pdftitle={Der Stromkrieg – Handout},pdfauthor={Simon Bruder},pdflang={de-CH}}
 
-% Endfassung: die folgende Zeile aktivieren, dann verschwinden alle roten Markierungen.
+% Endfassung: die folgende Zeile aktivieren, dann verschwinden die roten «S. ?».
 % \entwurffalse
 
 \begin{document}
 
-% ===================================================================== Seite 1: Was geschah?
-{\fontsize{27}{30}\selectfont\bfseries Der Stromkrieg\par}
-\vspace{1mm}
-{\Large\color{kupfer}Edison gegen Westinghouse -- und die Rolle von Nikola Tesla\par}
-\vspace{1.5mm}
-{\small\color{grau}Simon Bruder \textperiodcentered{} Handout zum Vortrag vom 10.~Dezember 2026\par}
-\vspace{3mm}
-
-\begin{leitfrage}
-  \etikett{Leitfrage}
-  \textbf{Warum setzte sich in den USA der Wechselstrom gegen Edisons Gleichstrom durch -- und was zeigt der
-  Konflikt über den Aufstieg der USA zur führenden Industriemacht?}
-  \tcblower
-  \etikett{Kurzantwort}
-  Entschieden haben nicht Propaganda oder ein einzelnes Genie, sondern \textbf{Kosten, Kapital und Technik}. Aus dem
-  Streit gingen Grosskonzerne hervor, die typisch für den amerikanischen Industriekapitalismus wurden.
-\end{leitfrage}
-
-\vspace{2mm}
-Um 1890 stritten in den USA drei Elektrokonzerne um das Stromsystem des Landes. Thomas Edisons Firmen setzten auf
-\mbox{\textbf{Gleichstrom}}, George Westinghouse und Thomson-Houston auf \mbox{\textbf{Wechselstrom}}
-\citeoffen{jonnes}. Als «Stromkrieg» («War of the Currents») gelten die späten 1880er- und frühen 1890er-Jahre
-\cite{edpCW}.
-
-\section{Die wichtigsten Etappen}
 \begin{center}
-\begin{tikzpicture}[x=1mm,y=1mm]
-  % drei Phasen
-  \fill[grau!45] (4,-0.8) rectangle ({\zeitx{1888}},0.8);
-  \fill[kupfer]  ({\zeitx{1888}},-0.8) rectangle ({\zeitx{1891}},0.8);
-  \fill[navy]    ({\zeitx{1891}},-0.8) rectangle (170,0.8);
-  \ereignis{1882}{unten}{Pearl Street}{Edisons erstes Kraftwerk\\in New York}
-  \ereignis{1886}{oben}{Great Barrington}{erstes Wechselstromnetz\\der USA}
-  \ereignis{1888}{unten}{Tesla-Patente}{an Westinghouse; Brown\\tötet öffentlich Hunde}
-  \ereignis{1890}{oben}{Elektrischer Stuhl}{erste Hinrichtung\\in Auburn}
-  \ereignis{1892}{unten}{General Electric}{Edisons Firma fusioniert\\mit Thomson-Houston}
-  \ereignis{1893}{oben}{Chicago}{Westinghouse beleuchtet\\die Weltausstellung}
-  \ereignis{1896}{unten}{Niagara--Buffalo}{Strom über rund 40\,km}
-\end{tikzpicture}
-
-\vspace{1mm}
-{\footnotesize\textcolor{grau!45}{\rule{3mm}{2mm}}\ Wettbewerb 1882--1887\hspace{5mm}
- \textcolor{kupfer}{\rule{3mm}{2mm}}\ Angstkampagne 1888--1890\hspace{5mm}
- \textcolor{navy}{\rule{3mm}{2mm}}\ Markt und Kapital entscheiden 1891--1896\par}
-\captionof{figure}{Eigene Darstellung nach \cite{pearl}, \citeoffen{jonnes}, \cite[994]{kaick},
-  \citeoffen{hughes58} und \citeoffen{essig}.}
+  {\fontsize{18}{22}\selectfont\bfseries Der Stromkrieg -- Handout\par}
+  \vspace{1.5mm}
+  Edison vs.\ Westinghouse und die Rolle von Nikola Tesla\par
+  Simon Bruder \textperiodcentered{} Modul «Weltmacht USA» \textperiodcentered{} Dozent: Stephan Schwarz
+  \textperiodcentered{} 10.12.2026
 \end{center}
 
-\section{Zwei Systeme im Vergleich}
-\begin{tcbraster}[raster columns=2,raster equal height,raster column skip=5mm]
-  \begin{karte}{kupfer}{Gleichstrom \textperiodcentered{} Edison General Electric}
-    \begin{itemize}[label=\textcolor{kupfer}{\textbullet}]
-      \item rund 110 Volt, damals nicht transformierbar
-      \item Kraftwerk mitten im Quartier: Pearl Street versorgte 1882 nur 0,65\,km\textsuperscript{2} \cite{pearl}
-      \item alle paar Kilometer ein Kraftwerk, dicke Kupferleitungen \citeoffen{jonnes}
-    \end{itemize}
-  \end{karte}
-  \begin{karte}{navy}{Wechselstrom \textperiodcentered{} Westinghouse, Thomson-Houston}
-    \begin{itemize}[label=\textcolor{navy}{\textbullet}]
-      \item Transformator: hohe Spannung im Netz, tiefe im Haus
-      \item wenige grosse Kraftwerke, weite Strecken: Niagara--Buffalo 1896 rund 40\,km \citeoffen{jonnes}
-      \item ab 1888 mit Teslas Patenten auch Antrieb für Fabriken \cite[994]{kaick}
-    \end{itemize}
-  \end{karte}
-\end{tcbraster}
-\vspace{1mm}
-{\small\textbf{Der Kern:} Bei gleicher Leistung bedeutet zehnfache Spannung ein Zehntel des Stroms und nur ein
-Hundertstel des Leitungsverlusts (\textit{P}\textsubscript{V}~=~\textit{I}\textsuperscript{2}\,\textperiodcentered\,\textit{R}).\par}
+\section{Worum geht es?}
+\begin{spalte}{0.655\linewidth}
+  Elektrisches Licht war in den 1880er-Jahren ein neues Geschäft, um das mehrere Firmen kämpften
+  (Abb.~\ref{abb:karikatur}). Daraus wurde ein Streit um das Stromsystem der USA: der \textbf{«Stromkrieg»},
+  englisch «War of the Currents». Er fällt in die späten 1880er- und frühen 1890er-Jahre \cite{edpCW}.
+  \begin{itemize}
+    \item \textbf{Gleichstrom:} Thomas Edison lieferte ab 1882 in New York Gleichstrom. Ein Kraftwerk reichte nur
+      für ein Quartier \cite{pearl}.
+    \item \textbf{Wechselstrom:} George Westinghouse baute ab 1886 Netze mit Wechselstrom \citeoffen{jonnes}.
+      Wechselstrom lässt sich mit wenig Verlust über weite Strecken übertragen \cite[994]{kaick}.
+    \item \textbf{Nikola Tesla} verkaufte Westinghouse im Juli 1888 seine Wechselstrompatente \cite[994]{kaick}.
+    \item \textbf{Angstkampagne:} Edisons Lager stellte Wechselstrom als lebensgefährlich dar. Harold P. Brown
+      tötete öffentlich Tiere und half, den elektrischen Stuhl einzuführen \citeoffen{hughes58}.
+  \end{itemize}
+\end{spalte}\hfill
+\begin{spalte}{0.31\linewidth}
+  \includegraphics[width=\linewidth]{bilder/karikatur_edison_brush.jpg}
+  \captionof{figure}{Edison (links) und Charles Brush, der Erfinder der Bogenlampe, als Rivalen um die Beleuchtung
+    New Yorks. Druck von Currier \& Ives, spätes 19.~Jahrhundert. Bild: MPI/Getty Images, aus \cite{natgeo}.}
+  \label{abb:karikatur}
+\end{spalte}
 
-\section{Begriffe}
-{\small\renewcommand{\arraystretch}{1.12}
-\begin{tabularx}{\linewidth}{@{}L{29mm}Y@{}}
-  \textbf{Gilded Age} & «Vergoldetes Zeitalter» (ca. 1870--1900): Wachstum und Grosskonzerne, darunter Korruption und
-    Ungleichheit. \\
-  \textbf{Standardkrieg} & Streit darum, welche technische Lösung sich als gemeinsamer Standard durchsetzt. \\
-  \textbf{Pfadabhängigkeit} & Ein Standard, der sich durchgesetzt hat, bleibt lange bestehen \citeoffen{david92}. \\
-  \textbf{Patentpool} & Firmen teilen ihre Patente, statt sich zu verklagen: General Electric und Westinghouse ab 1896. \\
-\end{tabularx}}
+\vspace{3mm}
+\begin{tabularx}{\linewidth}{|Y|}
+  \hline
+  \textbf{Leitfrage:} Warum setzte sich in den USA der Wechselstrom gegen Edisons Gleichstrom durch -- und was zeigt
+  der Konflikt über den Aufstieg der USA zur führenden Industriemacht? \\ \hline
+  \textbf{These:} Entschieden haben nicht Propaganda oder ein einzelnes Genie, sondern Kosten, Kapital und Technik.
+  Aus dem Streit gingen Grosskonzerne hervor, die typisch für den amerikanischen Industriekapitalismus wurden. \\
+  \hline
+\end{tabularx}
+
+\par\addvspace{8pt}
+\begin{spalte}{0.805\linewidth}
+\captionof{table}{Die wichtigsten Etappen}
+\small
+\begin{tabularx}{\linewidth}{|C{9mm}|Y|}
+  \hline
+  \textbf{Jahr} & \kopf{Ereignis} \\ \hline
+  1882 & Edison eröffnet in New York sein erstes dauerhaftes kommerzielles Zentralkraftwerk (Pearl Street):
+    Gleichstrom für rund 85 Kunden und 400 Lampen \cite{pearl}. \\ \hline
+  1886 & Westinghouse gründet seine Elektrofirma. In Great Barrington läuft das erste Wechselstromnetz der USA mit
+    Transformatoren \citeoffen{jonnes}. \\ \hline
+  1888 & Tesla verkauft Westinghouse seine Wechselstrompatente \cite[994]{kaick}. Edisons Lager startet die
+    Angstkampagne: Harold P. Brown tötet öffentlich Hunde \citeoffen{hughes58}. \\ \hline
+  1890 & Erste Hinrichtung auf dem elektrischen Stuhl (Abb.~\ref{abb:stuhl}) \citeoffen{essig}. Den
+    Westinghouse-Generator dafür hatte Brown gegen den Willen von Westinghouse über Dritte beschafft
+    \citeoffen{hughes58}. \\ \hline
+  1891 & Westinghouse gerät in Finanznot; Tesla verzichtet auf seine Lizenzgebühren \citeoffen{carlson}. \\ \hline
+  1892 & Edison General Electric und der Rivale Thomson-Houston fusionieren zu General Electric, eingefädelt von
+    Banken um J.\,P. Morgan. Edisons Name verschwindet, die Führung übernimmt Thomson-Houston \citeoffen{jonnes}. \\
+    \hline
+  1893 & Westinghouse versorgt die Weltausstellung in Chicago mit Teslas Wechselstromsystem \cite[994]{kaick}. \\
+    \hline
+  1896 & Strom von den Niagarafällen fliesst rund 40\,km nach Buffalo. General Electric und Westinghouse teilen
+    ihre Patente \citeoffen{jonnes}. \\ \hline
+\end{tabularx}
+\end{spalte}\hfill
+\begin{spalte}{0.17\linewidth}
+  \vspace{5.5mm}
+  \includegraphics[width=\linewidth]{bilder/elektrischer_stuhl_1890.jpg}
+  \captionof{figure}{Erste Hinrichtung auf dem elektrischen Stuhl, 1890. Zeitgenössische Illustration, koloriert.
+    Bild: Granger/Cordon Press, aus \cite{natgeo}.}
+  \label{abb:stuhl}
+\end{spalte}
+
+\section{Warum gewann der Wechselstrom?}
+\begin{itemize}
+  \item \textbf{Technik:} Ein Transformator setzt die Spannung von Wechselstrom herauf. Bei hoher Spannung
+    fliesst für dieselbe Leistung weniger Strom, und in den Leitungen geht weniger Energie verloren. Für
+    Gleichstrom gab es um 1890 kein vergleichbar einfaches Gerät.
+  \item \textbf{Kosten:} Mit Wechselstrom reichten wenige grosse Kraftwerke für weite Gebiete. Edisons
+    Gleichstrom brauchte alle paar Kilometer ein Kraftwerk \citeoffen{jonnes}.
+  \item \textbf{Kapital:} 1892 ging Edisons Firma in General Electric auf. Der neue Konzern setzte selbst auf
+    Wechselstrom \citeoffen{jonnes}.
+  \item \textbf{Die Angstkampagne wirkte nicht:} Westinghouse ignorierte sie zuerst, bestritt dann die Vorwürfe
+    und machte sie schliesslich mit besserer Technik gegenstandslos \citeoffen{cole}.
+\end{itemize}
 
 \newpage
-% ===================================================================== Seite 2: Warum, und was folgt daraus?
-\section{Warum gewann der Wechselstrom?}
-\begin{tcbraster}[raster columns=3,raster equal height,raster column skip=4mm]
-  \punkt{1}{Kosten}{Hohe Spannung, wenig Verlust: Wenige grosse Kraftwerke versorgen weite Gebiete
-    \citeoffen{jonnes}.}
-  \punkt{2}{Kapital}{1892 fädeln Banken um J.\,P. Morgan die Fusion zu General Electric ein. Auch der neue Konzern
-    setzt auf Wechselstrom \citeoffen{jonnes}.}
-  \punkt{3}{Angst wirkt nicht}{Westinghouse ignoriert die Kampagne, bestreitet die Vorwürfe und entkräftet sie mit
-    besserer Technik \citeoffen{cole}.}
-\end{tcbraster}
 
 \section{Bedeutung für die Weltmacht USA}
-\begin{minipage}{\linewidth}
-\begin{minipage}[c]{0.64\linewidth}
+\begin{itemize}
+  \item \textbf{Industriemacht:} Zwischen 1880 und 1900, in den Jahrzehnten des Stromkriegs, überholten die USA
+    Grossbritannien als grösste Industriemacht (Abb.~\ref{abb:weltindustrie}) \citeoffen{bairoch}.
+  \item \textbf{Billiger Strom für die Fabriken:} Elektromotoren lieferten 1899 knapp 5\,\%, 1929 rund 78\,\% der
+    Antriebsleistung der US-Industrie. Der Output pro Arbeitsstunde wuchs vor 1919 um 1,3\,\% pro Jahr, danach um
+    3,1\,\% \citeoffen{devine}.
+  \item \textbf{Grosskonzerne:} General Electric und Westinghouse teilten ab 1896 ihre Patente und beherrschten den
+    Markt \citeoffen{jonnes}. Solche Konzerne sind typisch für das Gilded Age.
+  \item \textbf{Alltag:} Elektrisches Licht veränderte die Städte, zum Beispiel das Nachtleben in New York
+    (Abb.~\ref{abb:nacht}).
+\end{itemize}
+
+\vspace{1mm}
+\begin{spalte}{0.56\linewidth}
   \begin{tikzpicture}
     \begin{axis}[
-        width=0.76\linewidth, height=42mm,
+        width=0.74\linewidth, height=40mm,
         xmin=1856, xmax=1915, ymin=0, ymax=36,
         xtick={1860,1880,1900,1913},
         x tick label style={/pgf/number format/1000 sep={}},
         ytick={0,10,20,30}, yticklabel={\pgfmathprintnumber{\tick}\,\%},
-        axis lines=left, axis line style={-,navy!60}, tick align=outside, tick style={navy!60},
-        ymajorgrids, grid style={navy!10},
+        axis lines=left, axis line style={-}, tick align=outside,
+        ymajorgrids, grid style={black!12},
         tick label style={font=\footnotesize},
         clip=false,
       ]
       % Zeitraum des Stromkriegs
-      \addplot[draw=none, fill=kupfer!18, forget plot] coordinates {(1886,0) (1886,36) (1892,36) (1892,0)} \closedcycle;
-      \node[font=\scriptsize\color{kupfer}, anchor=south] at (axis cs:1889,36) {Stromkrieg};
+      \addplot[draw=none, fill=black!10, forget plot] coordinates {(1886,0) (1886,36) (1892,36) (1892,0)} \closedcycle;
+      \node[font=\scriptsize\itshape, anchor=south] at (axis cs:1889,36) {Stromkrieg};
       % Werte nach Bairoch: Stichjahre 1860, 1880, 1900, 1913
-      \addplot[grau, line width=1pt, dashed, mark=square*, mark size=1.4pt, mark options={solid}]
-        coordinates {(1860,19.9) (1880,22.9) (1900,18.5) (1913,13.6)}
-        node[right=2pt, yshift=-4pt, font=\footnotesize] {13,6\,\% Grossbritannien};
-      \addplot[grau, line width=1pt, densely dotted, mark=triangle*, mark size=1.8pt, mark options={solid}]
-        coordinates {(1860,4.9) (1880,8.5) (1900,13.2) (1913,14.8)}
-        node[right=2pt, yshift=4pt, font=\footnotesize] {14,8\,\% Deutschland};
-      \addplot[navy, line width=1.6pt, mark=*, mark size=1.9pt]
+      \addplot[usa, line width=1.4pt, mark=*, mark size=1.8pt]
         coordinates {(1860,7.2) (1880,14.7) (1900,23.6) (1913,32.0)}
-        node[right=2pt, font=\footnotesize] {\textbf{32,0\,\% USA}};
+        node[right=2pt, black, font=\footnotesize] {\textbf{32,0\,\%} USA};
+      \addplot[grossbritannien, line width=1.2pt, dashed, mark=square*, mark size=1.6pt, mark options={solid}]
+        coordinates {(1860,19.9) (1880,22.9) (1900,18.5) (1913,13.6)}
+        node[right=2pt, yshift=-4pt, black, font=\footnotesize] {\textbf{13,6\,\%} Grossbritannien};
+      \addplot[deutschland, line width=1.2pt, densely dotted, mark=triangle*, mark size=2pt, mark options={solid}]
+        coordinates {(1860,4.9) (1880,8.5) (1900,13.2) (1913,14.8)}
+        node[right=2pt, yshift=4pt, black, font=\footnotesize] {\textbf{14,8\,\%} Deutschland};
     \end{axis}
   \end{tikzpicture}
-\end{minipage}\hfill
-\begin{minipage}[c]{0.31\linewidth}
-  \kennzahl{navy}{32\,\%}{Anteil der USA an der Weltindustrie\-produktion 1913: mehr als Grossbritannien und Deutschland
-    zusammen \citeoffen{bairoch}.}
-  \vspace{1mm}
-  \kennzahl{kupfer}{5\,\% {\Large\faLongArrowAltRight} 78\,\%}{Anteil der Elektromotoren an der Antriebsleistung der US-Industrie,
-    1899 bis 1929 \citeoffen{devine}.}
-\end{minipage}
-\captionof{figure}{Anteil an der Weltindustrieproduktion in Prozent. Die Linien verbinden die Stichjahre 1860, 1880,
-  1900 und 1913; es sind Schätzwerte. Eigene Darstellung, Zahlen aus \citeoffen{bairoch}.}
-\end{minipage}
+  \captionof{figure}{Anteil an der Weltindustrieproduktion in Prozent, Stichjahre 1860, 1880, 1900 und 1913
+    (Schätzwerte). Eigene Darstellung, Zahlen aus \citeoffen{bairoch}.}
+  \label{abb:weltindustrie}
+\end{spalte}\hfill
+\begin{spalte}{0.36\linewidth}
+  \includegraphics[width=\linewidth]{bilder/new_york_nacht_1889.jpg}
+  \captionof{figure}{Nachtleben in New York im Licht elektrischer Bogenlampen. Stich von William Allen Rogers für
+    «Harper's Weekly», 1889. Bild: De Agostini/Getty Images, aus \cite{natgeo}.}
+  \label{abb:nacht}
+\end{spalte}
 
-Zwischen 1880 und 1900, in den Jahrzehnten des Stromkriegs, überholten die USA Grossbritannien als grösste
-Industriemacht \citeoffen{bairoch}. Billiger Strom baute die Fabriken um: Der Output pro Arbeitsstunde wuchs vor 1919
-um 1,3\,\%, danach um 3,1\,\% pro Jahr \citeoffen{devine}. Aus Rivalen wurden Partner: General Electric und
-Westinghouse teilten ab 1896 ihre Patente und beherrschten den Markt \citeoffen{jonnes}.
-
-\section{Drei Mythen -- und was die Quellen sagen}
-\begin{tabularx}{\linewidth}{@{}L{60mm}Y@{}}
-  \toprule
-  \textbf{Mythos} & \textbf{Befund} \\
-  \midrule
+\begin{tabelle}{Drei Mythen}
+\begin{tabularx}{\linewidth}{|Y|Y|}
+  \hline
+  \multicolumn{1}{|c|}{\textbf{Mythos}} & \kopf{Befund} \\ \hline
   Edison zeigte öffentlich «grausame Experimente mit Hunden, Pferden und sogar einem Elefanten» \cite{abb}. &
-    Die Tierversuche machte Harold P. Brown \citeoffen{hughes58}. Die Elefantin Topsy starb erst 1903, über zehn
-    Jahre nach dem Stromkrieg und ohne Edisons Beteiligung \cite{topsy}. \\
+    Die Tierversuche machte Harold P. Brown, unterstützt von Edisons Labor \citeoffen{hughes58}. Die Elefantin
+    Topsy starb erst 1903, über zehn Jahre nach dem Stromkrieg und ohne Edisons Beteiligung \cite{topsy}. \\ \hline
   Der Stromkrieg war ein Duell «Tesla gegen Edison». &
-    Es stritten Firmen und ihre Geldgeber. Tesla lieferte Westinghouse 1888 die Patente \cite[994]{kaick}. \\
+    Es stritten Firmen und ihre Geldgeber. Tesla lieferte Westinghouse 1888 die Patente für den
+    Wechselstrommotor \cite[994]{kaick}. \\ \hline
   Tesla zerriss aus Grossmut seinen Vertrag mit Westinghouse. &
     Belegt sind der Verzicht auf Lizenzgebühren (1891) und der spätere Verkauf der Patente \citeoffen{carlson}. \\
-  \bottomrule
+    \hline
 \end{tabularx}
+\end{tabelle}
 
 \section{Und heute?}
-\begin{minipage}[t]{0.485\linewidth}
-  \symbolzeile{\faPlug}{Wechselstrom im Netz.}{Schweiz 230\,V und 50\,Hz, USA 120\,V und 60\,Hz \cite{iec}.}
-  \symbolzeile{\faExchange*}{Gleichstrom kehrt zurück.}{Akkus und Solarzellen arbeiten mit Gleichstrom; für sehr
-    lange Leitungen gibt es seit 1954 die Hochspannungs-Gleichstrom-Übertragung \cite{gotland}.}
-  \symbolzeile{\faMagnet}{Tesla als Einheit.}{Seit 1960 heisst die SI-Einheit der magnetischen Flussdichte Tesla
-    \cite[994]{kaick}.}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.485\linewidth}
-  \symbolzeile{\faMapMarker*}{Schweizer Spur.}{Charles E.\,L. Brown gründete 1891 in Baden die BBC \cite{steig}; seit
-    1988 heisst sie ABB \cite{abbHistory}.}
-  \symbolzeile{\faChargingStation}{Neue Standardkriege.}{In den USA wird der Ladestecker der Firma Tesla seit Ende
-    2023 zur Norm SAE~J3400 \cite{nacs}. In der EU ist USB-C für Handys seit Ende 2024 Pflicht \cite{eu}.}
-\end{minipage}
+\begin{itemize}
+  \item \textbf{Wechselstrom im Netz:} Aus der Steckdose kommt Wechselstrom, in der Schweiz mit 230\,V, in den USA
+    mit 120\,V \cite{iec}.
+  \item \textbf{Gleichstrom kehrt zurück:} Akkus, Solarzellen und Elektronik arbeiten mit Gleichstrom. Für sehr
+    lange Leitungen nutzt man HGÜ; die erste kommerzielle Verbindung moderner Bauart ging 1954 in Schweden in
+    Betrieb, gebaut von ASEA \cite{gotland}.
+  \item \textbf{Schweizer Spur:} 1891 übertrugen die Maschinenfabrik Oerlikon (MFO) und die AEG Drehstrom über
+    175\,km nach Frankfurt. Im selben Jahr gründete Charles E.\,L. Brown von der MFO in Baden die BBC
+    \cite{steig}, seit 1988 ABB \cite{abbHistory}.
+  \item \textbf{Neue Standardkriege:} In den USA wird der Ladestecker der Firma Tesla seit Ende 2023 zur Norm
+    SAE~J3400 \cite{nacs}. In der EU ist USB-C für Handys seit Ende 2024 Pflicht \cite{eu}.
+  \item \textbf{Tesla als Einheit:} Seit 1960 heisst die Einheit der magnetischen Flussdichte Tesla (T). Ein
+    MRI-Gerät im Spital arbeitet mit 0,35 bis 3\,T \cite[994]{kaick}.
+\end{itemize}
+
+\section{Fazit}
+\begin{itemize}
+  \item Der Wechselstrom gewann, weil er billiger war: hohe Spannung, wenige grosse Kraftwerke, weite Strecken.
+  \item Entschieden hat das Kapital, nicht die Angstkampagne: 1892 ging Edisons Firma in General Electric auf.
+  \item Billiger Strom und Grosskonzerne trugen den Aufstieg der USA zur grössten Industriemacht.
+\end{itemize}
+
+\section{Tipps}
+\textbf{Romane:} «Licht» von Anthony McCarten (Edison und sein Geldgeber J.\,P. Morgan) und «Die letzten Tage der
+Nacht» von Graham Moore (Westinghouses Anwalt Paul Cravath); SRF Kultur stellt beide vor \cite{srf}.
+\textbf{Film:} «The Current War» (2017). Romane und Film sind Fiktion und keine Quelle.
 
 \newpage
-% ===================================================================== Seite 3: Weiterdenken, Tipps, Quellen
-\begin{tcolorbox}[enhanced,colback=kupferhell,colframe=kupferhell,arc=1.2mm,boxrule=0pt,left=4mm,right=4mm,top=2.5mm,bottom=2.5mm,boxsep=0pt]
-  \etikett{Zum Weiterdenken}
-  Welcher Standard deines Alltags hat sich durchgesetzt, weil er billiger war und mehr Geld hinter sich hatte --
-  und nicht, weil er technisch der beste war?
-\end{tcolorbox}
-\vspace{-2mm}
 
-\section{Weiterlesen, weiterhören, weiterschauen}
-\begin{minipage}[t]{0.485\linewidth}
-  \qr{https://edison.rutgers.edu/life-of-edison/essaying-edison/essay/the-current-wars}
-     {Der Überblick aus dem Archiv}{«The Current Wars»: kurzer Aufsatz der Edison Papers, Rutgers University
-     \cite{edpCW}.}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.485\linewidth}
-  \qr{https://www.nationalgeographic.com/history/history-magazine/article/edison-tesla-current-war-ushered-electric-age}
-     {Reich bebildert}{«Edison and Tesla»: Artikel in National Geographic History, Ausgabe Juli/August 2016
-     (englisch).}
-\end{minipage}
+\section{Glossar}
+{\small
+\begin{tabularx}{\linewidth}{|C{31mm}|Y|}
+  \hline
+  Gleichstrom (DC) & Strom, der immer in dieselbe Richtung fliesst, z.\,B. aus einer Batterie. \\ \hline
+  Wechselstrom (AC) & Strom, der periodisch die Richtung wechselt; so kommt er aus der Steckdose (Europa 50\,Hz,
+    USA 60\,Hz) \cite{iec}. \\ \hline
+  Transformator & Setzt die Spannung von Wechselstrom herauf oder herab. Bei gleicher Leistung bedeutet höhere
+    Spannung kleineren Strom und damit kleinere Leitungsverluste ($P_\mathrm{V} = I^2 \cdot R$). \\ \hline
+  Drehstrom & Wechselstrom mit drei Phasen; Grundlage der heutigen Netze und der Industriemotoren. \\ \hline
+  Thomson-Houston & Dritter grosser US-Elektrokonzern neben Edison und Westinghouse; bot ebenfalls Wechselstrom
+    an und fusionierte 1892 mit Edison General Electric zu General Electric (GE) \citeoffen{jonnes}. \\ \hline
+  Patent, Patentpool & Ein Patent ist ein zeitlich befristetes Schutzrecht auf eine Erfindung. In einem
+    Patentpool teilen Firmen ihre Patente, statt sich zu verklagen (GE und Westinghouse ab 1896). \\ \hline
+  Standardkrieg & Streit darum, welche technische Lösung sich als gemeinsamer Standard durchsetzt (z.\,B.
+    Spannung, Stecker). \\ \hline
+  Pfadabhängigkeit & Hat sich ein Standard einmal durchgesetzt, bleibt er lange bestehen, auch wenn später andere
+    Lösungen möglich wären \citeoffen{david92}. \\ \hline
+  Gilded Age & «Vergoldetes Zeitalter» (ca. 1870--1900), benannt nach einem Roman von Mark Twain: an der
+    Oberfläche Wachstum und Grosskonzerne, darunter Korruption und soziale Ungleichheit. \\ \hline
+  HGÜ & Hochspannungs-Gleichstrom-Übertragung: Gleichstrom wird mit Stromrichtern über sehr lange Strecken
+    übertragen. \\ \hline
+\end{tabularx}\par}
 
-\vspace{2mm}
-\begin{minipage}[t]{0.485\linewidth}
-  \qr{https://www.srf.ch/kultur/literatur/romane-ueber-edison-wie-thomas-edison-die-welt-elektrifizierte}
-     {Zwei Romane, zwei Blickwinkel}{«Licht» von Anthony McCarten (Edison und sein Geldgeber J.\,P. Morgan) und «Die
-     letzten Tage der Nacht» von Graham Moore (Westinghouses Anwalt); vorgestellt von SRF Kultur \cite{srf}.}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.485\linewidth}
-  \qr{https://www.bbc.co.uk/programmes/w3ct74ml}
-     {Zum Hören}{Sendung des BBC World Service zum Thema (englisch) \offen{Titel der Sendung prüfen und hier
-     eintragen}.}
-\end{minipage}
+% Falls das Modul eine Angabe zum Einsatz von KI-Werkzeugen verlangt: die nächste Zeile aktivieren und anpassen.
+% {\footnotesize Hinweis: Bei Recherche, Struktur und Formulierung wurde ein KI-Werkzeug eingesetzt; alle Inhalte und Quellen hat der Autor geprüft.\par}
 
-\vspace{2mm}
-\symbolzeile{\faFilm}{Filme (Fiktion, keine Quellen).}{«The Current War» (2017, deutsch «Edison -- Ein Leben voller
-  Licht») erzählt den Streit selbst. «Prestige» (2006) macht Tesla zum geheimnisvollen Erfinder und Edisons Leute zu
-  Brandstiftern; das ist erfunden.}
-
-\section{Quellen}
-\begin{multicols}{2}
-\printbibliography[heading=none]
-
-\medskip
-{\footnotesize\raggedright\color{grau}\textbf{Hinweis zum KI-Einsatz:} Bei Struktur, Formulierung und Layout dieses
-Handouts wurde Claude (Anthropic) eingesetzt. Die Inhalte und alle Quellenangaben hat der Autor an den genannten
-Quellen geprüft.\par}
-\end{multicols}
+\printbibliography[title=Quellen]
 
 \end{document}

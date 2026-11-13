@@ -374,7 +374,7 @@ fill(s, {1864: ('- Auburn, 1890 -', 48),
          1865: ('6. August: erste Hinrichtung auf dem elektrischen Stuhl – mit einem Generator von Westinghouse {essig}', 14)},
      """[0:25–0:50] Einstieg
 Auburn, Staat New York, 6. August 1890: William Kemmler wird als erster Mensch auf dem elektrischen Stuhl hingerichtet {essig}. Der Generator stammt von Westinghouse. Beschafft hatte ihn aber Harold P. Brown über Dritte und gegen den Willen von Westinghouse {hughes58}. Brown wollte zeigen: Wechselstrom tötet.
-Zum Bild: zeitgenössische Illustration der Hinrichtung, später koloriert {natgeo}. Sie zeigt, wie stark das Ereignis die Öffentlichkeit beschäftigte.
+Zum Bild: kolorierte Illustration der ersten Hinrichtung auf dem elektrischen Stuhl {natgeo}.
 Überleitung: «Daraus ergibt sich meine Leitfrage.»""")
 sh = shapes_by_id(s)
 stuhl = bild(s, 'Bild Stuhl', 'elektrischer_stuhl_1890.jpg', 1.0, 0.95, h=3.6)
@@ -613,7 +613,7 @@ fill(s, {
     2434: ('Wechselstrom im Netz', 14), 2430: ('weltweit aus der Steckdose: Schweiz 230 V, USA 120 V {iec}', 13),
     2436: ('Gleichstrom ist zurück', 14), 2431: ('Akkus, Solarzellen, Elektronik; HGÜ für lange Leitungen seit 1954 {gotland}', 13),
     2435: ('Schweizer Spur', 14), 2432: ('C. E. L. Brown gründet 1891 in Baden die BBC; seit 1988 ABB {steig,abbHistory}', 13),
-    2437: ('Neue Standardkriege', 14), 2433: ('Tesla-Ladestecker wird US-Norm; USB-C-Pflicht in der EU seit Ende 2024 {nacs,eu}', 13),
+    2437: ('Neue Standardkriege', 14), 2433: ('Tesla-Ladestecker wird zur Norm SAE J3400; USB-C-Pflicht in der EU seit Ende 2024 {nacs,eu}', 13),
 }, """[8:15–9:05] Und heute?
 Wechselstrom im Netz: Weltweit kommt Wechselstrom aus der Steckdose, in der Schweiz mit 230 Volt, in den USA mit 120 Volt {iec}. Die tiefe US-Spannung stammt aus der Anfangszeit mit Edisons rund 110 Volt.
 Gleichstrom ist zurück: Akkus, Solarzellen und Elektronik arbeiten mit Gleichstrom. Für sehr lange Leitungen nutzt man HGÜ; die erste kommerzielle Verbindung moderner Bauart ging 1954 in Schweden in Betrieb, gebaut von ASEA {gotland}.
@@ -687,7 +687,7 @@ BILDNACHWEIS = [
     'Bildnachweis (alle Bilder aus {natgeo})',
     'Frontfolie: W. A. Rogers, Stich für «Harper’s Weekly», 1889; De Agostini/Getty Images. Abdunkeln und '
     'Aufleuchten im Video: eigene Bearbeitung.',
-    'Auburn 1890: zeitgenössische Illustration; Granger/Cordon Press.',
+    'Auburn 1890: kolorierte Illustration; Granger/Cordon Press.',
     'Karikatur: Currier & Ives, spätes 19. Jh.; MPI/Getty Images.',
     'Grafik zur Weltindustrie: eigene Darstellung nach {bairoch}.',
 ]

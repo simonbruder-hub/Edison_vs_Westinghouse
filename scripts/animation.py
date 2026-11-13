@@ -2,6 +2,7 @@
 
 Eine Folie bekommt eine Zeitleiste aus Klickgruppen. Jede Gruppe startet per Klick oder – nur die erste –
 automatisch mit der Folie. Effekte in einer Gruppe haben einen Startversatz `at` in Millisekunden.
+Die Art 'video' spielt ein eingebettetes Video ab (dur = Länge des Videos in Millisekunden).
 """
 from lxml import etree
 
@@ -95,6 +96,12 @@ def _behaviours(ids, kind, tgt, dur):
 
 
 def _effect(ids, e, node_type):
+    if e['kind'] == 'video':  # Wiedergabe starten, so wie PowerPoint es bei «Wiedergabe: In Klickreihenfolge» schreibt
+        ctn = ids()
+        return (f'<p:par><p:cTn id="{ctn}" presetID="1" presetClass="mediacall" presetSubtype="0" fill="hold"'
+                f' nodeType="{node_type}"><p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>'
+                f'<p:cmd type="call" cmd="playFrom(0.0)"><p:cBhvr><p:cTn id="{ids()}" dur="{e["dur"]}" fill="hold"/>'
+                f'{_tgt(e["spid"], None)}</p:cBhvr></p:cmd></p:childTnLst></p:cTn></p:par>')
     pid, sub = PRESETS[e['kind']]
     tgt = _tgt(e['spid'], e['para'])
     smooth = ' decel="100000"' if e['kind'].startswith('fly_') or e['kind'] == 'float' else ''
@@ -136,12 +143,18 @@ def timing_xml(tl, slide):
             bld.append(f'<p:bldP spid="{e["spid"]}" grpId="0"{build}/>')
     bld_xml = f'<p:bldLst>{"".join(bld)}</p:bldLst>' if bld else ''
 
+    # Jedes Video braucht zusätzlich einen Medienknoten (stumm geschaltet)
+    videos = ''.join(
+        f'<p:video><p:cMediaNode vol="80000" mute="1"><p:cTn id="{ids()}" fill="hold" display="0">'
+        f'<p:stCondLst><p:cond delay="indefinite"/></p:stCondLst></p:cTn>{_tgt(spid, None)}</p:cMediaNode></p:video>'
+        for spid in dict.fromkeys(e['spid'] for g in tl.groups for e in g['effects'] if e['kind'] == 'video'))
+
     return (f'<p:timing {NSDECL}><p:tnLst><p:par><p:cTn id="1" dur="indefinite" restart="never" nodeType="tmRoot"><p:childTnLst>'
             f'<p:seq concurrent="1" nextAc="seek"><p:cTn id="2" dur="indefinite" nodeType="mainSeq"><p:childTnLst>'
             f'{"".join(groups)}</p:childTnLst></p:cTn>'
             f'<p:prevCondLst><p:cond evt="onPrev" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:prevCondLst>'
             f'<p:nextCondLst><p:cond evt="onNext" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:nextCondLst>'
-            f'</p:seq></p:childTnLst></p:cTn></p:par></p:tnLst>{bld_xml}</p:timing>')
+            f'</p:seq>{videos}</p:childTnLst></p:cTn></p:par></p:tnLst>{bld_xml}</p:timing>')
 
 
 def _insert(slide, xml):

@@ -1,11 +1,12 @@
 """Füllt die Folienstruktur mit dem Referat und erzeugt zwei Fassungen: mit und ohne Diskussionsblock.
 
-Eingabe:  assets/folien_struktur.pptx (25 Folien aus der Slidesgo-Vorlage «Reconstruction Era and the Gilded Age»)
+Eingabe:  assets/folien_struktur.pptx (25 Folien aus der Slidesgo-Vorlage «Reconstruction Era and the Gilded Age»),
+          die Bilder aus latex/handout/bilder und das Titelvideo (scripts/titelvideo.py)
 Ausgabe:  abgabe/Praesentation_Stromkrieg_Bruder.pptx und …_mit_Diskussion.pptx
-Aufruf:   python3 scripts/praesentation_vorlage.py   (nach handout_kurz.py)
+Aufruf:   python3 scripts/praesentation_vorlage.py
 
-Quellen: Markup {schluessel} wird zu [n]. Die Nummern stammen aus assets/zitierreihenfolge.json und sind
-dieselben wie im Handout. Eine Quelle, die im Handout fehlt, bricht den Lauf ab.
+Quellen: Markup {schluessel} wird zu [n]. Die Nummern folgen der ersten Nennung im Handout
+(latex/handout/main.tex). Eine Quelle, die im Handout fehlt, bricht den Lauf ab.
 """
 import copy
 import re
@@ -30,10 +31,12 @@ SERIF, SANS = 'Libre Baskerville', 'Source Sans 3'
 STRUKTUR = ROOT / 'assets' / 'folien_struktur.pptx'
 OUT_OHNE = ROOT / 'abgabe' / 'Praesentation_Stromkrieg_Bruder.pptx'
 OUT_MIT = ROOT / 'abgabe' / 'Praesentation_Stromkrieg_Bruder_mit_Diskussion.pptx'
+BILDER = ROOT / 'latex' / 'handout' / 'bilder'
+VIDEO, POSTER = ROOT / 'assets' / 'titelvideo.mp4', ROOT / 'assets' / 'titelvideo_poster.jpg'
 
 (I_INTRO, I_TITEL, I_AUBURN, I_LEITFRAGE, I_SPANNUNG, I_FIRMEN, I_V1, I_V2, I_WARUM, I_CHART, I_ZAHLEN, I_MYTHEN,
  I_HEUTE, I_FAZIT, I_KAPITEL, I_S1, I_S2, I_GRUPPEN, I_G1, I_G2, I_G3, I_DANKE, I_Q1, I_Q2, I_Q3) = range(25)
-DISKUSSION = range(I_KAPITEL, I_G3 + 1)
+# Die Vorlagenfolien I_S1, I_S2 und I_GRUPPEN werden nicht mehr gebraucht (keine Aufgaben, keine Gruppenarbeit).
 
 Z = gemeinsame_zitate()
 T = Z.text
@@ -166,6 +169,47 @@ def textbox(slide, name, x, y, w, h, paras, align=PP_ALIGN.CENTER, anchor=MSO_AN
     return tb
 
 
+def bild(slide, name, datei, x, y, w=None, h=None):
+    """Bild mit feinem Rahmen in der Farbe der Vorlage."""
+    pic = slide.shapes.add_picture(str(BILDER / datei), Inches(x), Inches(y),
+                                   Inches(w) if w else None, Inches(h) if h else None)
+    rename(pic, name)
+    pic.line.color.rgb = NAVY
+    pic.line.width = Pt(1.5)
+    return pic
+
+
+def nachweis(slide, name, text, x, y, w, align=PP_ALIGN.LEFT, farbe=NAVY):
+    """Bildnachweis direkt am Bildrand (klein, kursiv)."""
+    tb = textbox(slide, name, x, y, w, 0.24, [(text, SANS, 8, False, True)], align=align)
+    for run in tb.text_frame.paragraphs[0].runs:
+        run.font.color.rgb = farbe
+    return tb
+
+
+def kopie(prs, quelle):
+    """Hängt eine Kopie einer Textfolie (ohne Bilder) ans Ende an."""
+    neu = prs.slides.add_slide(quelle.slide_layout)
+    for sh in list(neu.shapes):
+        sh._element.getparent().remove(sh._element)
+    for el in list(quelle.shapes._spTree)[2:]:
+        neu.shapes._spTree.append(copy.deepcopy(el))
+    return neu
+
+
+def ordne(prs, folien):
+    """Legt die Reihenfolge der Folien fest; nicht genannte Folien entfallen."""
+    lst = prs.slides._sldIdLst
+    el_von = {prs.part.related_part(el.rId): el for el in list(lst)}
+    behalten = [el_von[f.part] for f in folien]
+    for el in list(lst):
+        lst.remove(el)
+        if not any(el is b for b in behalten):
+            prs.part.drop_rel(el.rId)
+    for el in behalten:
+        lst.append(el)
+
+
 def slot(slide, name, x, y, text, size=22):
     """Zeichen im Rahmenfeld der Vorlage (0,81 × 0,68 Zoll, zwischen zwei kurzen Linien)."""
     return textbox(slide, name, x, y, 0.81, 0.68, [(text, SERIF, size, True, False)], anchor=MSO_ANCHOR.MIDDLE)
@@ -258,22 +302,50 @@ S = prs.slides
 assert len(S) == 25, 'assets/folien_struktur.pptx muss 25 Folien haben.'
 for slide in S:
     reset(slide)
+F_PRESSE = kopie(prs, S[I_Q1])   # neue Folie mit der Karikatur
+F_Q4 = kopie(prs, S[I_Q3])       # vierte Quellenfolie
 
-# ---------- 1 Intro: nur der Titel; mit dem ersten Klick morpht er auf die Titelfolie ----------
+# ---------- 1 Frontfolie: Bild von 1889 als kurzes Video, darüber der Titel ----------
 s = S[I_INTRO]
-fill(s, {890: ('Der Stromkrieg', 60), 891: 'Edison vs. Westinghouse – und die Rolle von Nikola Tesla'},
-     'Startbild, während alle Platz nehmen. Erster Klick: Der Titel morpht auf die Titelfolie; danach erscheinen '
-     'Edison, Westinghouse und Tesla automatisch.')
+remove_ids(s, (896,))  # Ornamente der Vorlage; das Bild füllt den inneren Rahmen
+fill(s, {890: ('Der Stromkrieg', 40), 891: ('Edison vs. Westinghouse – und die Rolle von Nikola Tesla', 16)},
+     """[0:00–0:15] Frontfolie. Sie steht, während alle Platz nehmen.
+Erster Klick: Das Video startet (11 Sekunden, ohne Ton). Das Bild wird dunkel, dann gehen die Lampen nacheinander an. Dazu frei sprechen: «New York im Jahr 1889. Elektrisches Licht verändert die Stadt. Aber wer liefert den Strom dafür? Darum ging es im Stromkrieg.»
+Zweiter Klick: Der Titel wandert auf die Titelfolie.
+Bild: Stich von William Allen Rogers für «Harper's Weekly», 1889 {natgeo}. Das Abdunkeln und Aufleuchten ist eine eigene Bearbeitung; das Video beginnt und endet mit dem unveränderten Bild.
+Falls das Video nicht startet: einfach weiterklicken, das Bild bleibt stehen.""")
+BX, BY, BW, BH = 0.52, 0.489, 8.96, 4.647  # Bildfläche im inneren Rahmen (Seitenverhältnis des Videos)
+BAND = 3.70
+film = s.shapes.add_movie(str(VIDEO), Inches(BX), Inches(BY), Inches(BW), Inches(BH),
+                          poster_frame_image=str(POSTER), mime_type='video/mp4')
+rename(film, 'Titelvideo')
+band = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(BX), Inches(BAND), Inches(BW), Inches(BY + BH - BAND))
+rename(band, 'Titelband')
+band.shadow.inherit = False
+band.fill.solid()
+band.fill.fore_color.rgb = NAVY
+etree.SubElement(band.fill._xPr.find(qn('a:solidFill')).find(qn('a:srgbClr')), qn('a:alpha')).set('val', '82000')
+band.line.fill.background()
+tree = s.shapes._spTree
+for k, el in enumerate((film._element, band._element)):  # nach hinten: Video, Band, darüber die Texte
+    tree.remove(el)
+    tree.insert(2 + k, el)
 sh = shapes_by_id(s)
-place(sh[890], 1.5, 1.35, 7.0, 2.0)
-place(sh[891], 1.5, 3.45, 7.0)
-set_timing(s, Timeline().auto().add('fade', 890, dur=1200).add('float', 891, at=900, dur=800))
+place(sh[890], 0.9, BAND + 0.04, 8.2, 0.78, anchor='ctr')
+place(sh[891], 0.9, BAND + 0.80, 8.2, 0.36, anchor='ctr')
+for sid, farbe in ((890, WEISS), (891, PAPER)):
+    for para in sh[sid].text_frame.paragraphs:
+        for run in para.runs:
+            run.font.color.rgb = farbe
+nachweis(s, 'Bildnachweis', 'Bild: W. A. Rogers, «Harper’s Weekly», 1889 · De Agostini/Getty Images {natgeo}',
+         5.2, BAND + 1.17, 4.2, PP_ALIGN.RIGHT, PAPER)
+set_timing(s, Timeline().click().add('video', film.shape_id, dur=11040))
 
 # ---------- 2 Titel: Edison gegen Westinghouse, Tesla als Partner von Westinghouse ----------
 s = S[I_TITEL]
 fill(s, {895: ('Modul «Weltmacht USA»', 13), 890: ['Der Stromkrieg', '- 1886–1892 -'],
          891: ('Simon Bruder · Dozent: Stephan Schwarz · 10.12.2026', 13)},
-     """[0:00–0:40, Folien 1–3] Begrüssung: «Ich spreche über den Stromkrieg: den Streit zwischen den Firmen von Edison und Westinghouse um Amerikas Stromnetz – und über die Rolle von Nikola Tesla.»
+     """[0:15–0:25] Begrüssung: «Ich spreche über den Stromkrieg: den Streit zwischen den Firmen von Edison und Westinghouse um Amerikas Stromnetz – und über die Rolle von Nikola Tesla.»
 Animation: Nach dem Morph fliegen Edison (links) und Westinghouse (rechts) ein, dann erscheint Tesla als kleiner Kreis bei Westinghouse. Das ist Absicht: Tesla war nicht Edisons Gegner, sondern lieferte Westinghouse die Motorpatente. Erst danach weiterklicken.
 Porträts einsetzen (optional): Oval anklicken → Rechtsklick → Form formatieren → Füllung → Bild- oder Texturfüllung → Einfügen; danach den Buchstaben im Oval löschen. Animation und Morph bleiben erhalten. Gemeinfreie Porträts gibt es auf Wikimedia Commons.""")
 sh = shapes_by_id(s)
@@ -297,12 +369,21 @@ set_timing(s, Timeline().auto()
 
 # ---------- 3 Einstieg ----------
 s = S[I_AUBURN]
-fill(s, {1864: ('- Auburn, 1890 -', 54),
+remove_ids(s, (1407,))  # Ornamente der Vorlage; links steht das Bild
+fill(s, {1864: ('- Auburn, 1890 -', 48),
          1865: ('6. August: erste Hinrichtung auf dem elektrischen Stuhl – mit einem Generator von Westinghouse {essig}', 14)},
-     """[0:00–0:40] Einstieg
+     """[0:25–0:50] Einstieg
 Auburn, Staat New York, 6. August 1890: William Kemmler wird als erster Mensch auf dem elektrischen Stuhl hingerichtet {essig}. Der Generator stammt von Westinghouse. Beschafft hatte ihn aber Harold P. Brown über Dritte und gegen den Willen von Westinghouse {hughes58}. Brown wollte zeigen: Wechselstrom tötet.
+Zum Bild: zeitgenössische Illustration der Hinrichtung, später koloriert {natgeo}. Sie zeigt, wie stark das Ereignis die Öffentlichkeit beschäftigte.
 Überleitung: «Daraus ergibt sich meine Leitfrage.»""")
-set_timing(s, Timeline().auto().add('zoom', 1864, dur=900).add('float', 1865, at=800, dur=700))
+sh = shapes_by_id(s)
+stuhl = bild(s, 'Bild Stuhl', 'elektrischer_stuhl_1890.jpg', 1.0, 0.95, h=3.6)
+nachweis(s, 'Bildnachweis', 'Bild: Granger/Cordon Press {natgeo}', 1.0, 4.58, 2.6)
+place(sh[1864], 4.0, 1.5, 5.0)
+place(sh[1865], 4.0, 3.08, 5.0)
+sh[1866].left, sh[1866].width = Inches(3.86), Inches(5.28)
+set_timing(s, Timeline().auto().add('fade', stuhl.shape_id, dur=800).add('zoom', 1864, at=400, dur=900)
+           .add('float', 1865, at=1200, dur=700))
 
 # ---------- 4 Leitfrage und These (Wortlaut wie im Handout) ----------
 s = S[I_LEITFRAGE]
@@ -312,7 +393,7 @@ zweispalter(s, 'Leitfrage und These', 'Leitfrage',
             'These',
             ['Entschieden haben nicht Propaganda oder ein einzelnes Genie, sondern Kosten, Kapital und Technik.',
              'Aus dem Streit gingen Grosskonzerne hervor, die typisch für den amerikanischen Industriekapitalismus wurden.'],
-            """[0:40–1:10] Leitfrage und These
+            """[0:50–1:20] Leitfrage und These
 Leitfrage vorlesen. Dann klicken: Die These erscheint.
 These in eigenen Worten: Entschieden haben nicht Propaganda oder ein einzelnes Genie, sondern Kosten, Kapital und Technik. Aus dem Streit gingen Grosskonzerne hervor, die typisch für den amerikanischen Industriekapitalismus wurden.
 Zur Datierung, falls jemand fragt: Der Stromkrieg fällt in die späten 1880er- und frühen 1890er-Jahre {edpCW}; ich rechne von 1886 (erste Wechselstromnetze) bis 1892 (Gründung von General Electric).
@@ -322,11 +403,11 @@ set_timing(s, Timeline().auto().add('fade', 2342, dur=700)
 
 # ---------- 5 Technik (Tabelle) ----------
 s = S[I_SPANNUNG]
-fill(s, {3480: 'Warum die Spannung entscheidet'}, """[1:10–2:00] Technik
+fill(s, {3480: 'Warum die Spannung entscheidet'}, """[1:20–2:05] Technik
 Kernidee: Strom lässt sich nur mit hoher Spannung billig über weite Strecken schicken.
 Der Verlust in der Leitung ist I² · R: Er wächst mit dem Quadrat der Stromstärke. Zehnfache Spannung heisst bei gleicher Leistung ein Zehntel des Stroms und nur noch ein Hundertstel des Verlusts.
 Um 1890 liess sich nur Wechselstrom mit dem Transformator hoch- und heruntersetzen. Edisons Gleichstrom mit rund 110 Volt brauchte deshalb alle paar Kilometer ein Kraftwerk und dicke Kupferleitungen {pearl,jonnes}.
-Überleitung: «Wer stand hinter den beiden Systemen?»""")
+Überleitung: «Wie haben die Zeitgenossen den Streit gesehen?»""")
 frame = shapes_by_id(s)[3481]
 tbl = frame.table
 for tr in tbl._tbl.tr_lst[4:]:  # Zeile «Schwachpunkt» entfällt
@@ -346,19 +427,38 @@ merksatz = textbox(s, 'Merksatz', 0.79, 4.2, 8.43, 0.45,
                    [('Bei gleicher Leistung: 10-fache Spannung → 1/10 des Stroms → 1/100 des Verlusts (I² · R)', SANS, 14, True, False)])
 set_timing(s, Timeline().auto().add('float', merksatz.shape_id, at=600, dur=700))
 
-# ---------- 6 Firmen und Geldgeber ----------
+# ---------- 6 Bildquelle: Karikatur von Currier & Ives ----------
+s = F_PRESSE
+remove_ids(s, (2342,))
+fill(s, {2340: 'So sah es die Presse: ein Zweikampf',
+         2341: (['Currier & Ives zeichnen den Wettlauf um das Licht von New York als Duell: Edison (links) gegen '
+                 'Charles Brush, den Erfinder der Bogenlampe {natgeo}.',
+                 'Tatsächlich stritten Firmen und ihre Geldgeber.'], 15)},
+     """[2:05–2:25] Bildquelle
+Karikatur von Currier & Ives aus dem späten 19. Jahrhundert: Edison (links) und Charles Brush, der Erfinder der Bogenlampe, ringen um die Beleuchtung von New York {natgeo}.
+Quellenkritik: Die Zeichnung macht aus dem Wettbewerb von Firmen einen Zweikampf zweier Männer. So wird der Streit bis heute oft erzählt, zum Beispiel als «Tesla gegen Edison».
+Klick: zweiter Satz. Überleitung: «Wer stritt wirklich?»""")
+sh = shapes_by_id(s)
+place(sh[2341], 5.45, 1.95, 3.55, 2.6, anchor='t')
+space_after(sh[2341].text_frame, 12)
+karikatur = bild(s, 'Bild Karikatur', 'karikatur_edison_brush.jpg', 1.0, 1.72, w=4.1)
+nachweis(s, 'Bildnachweis', 'Bild: Currier & Ives, spätes 19. Jh. · MPI/Getty Images {natgeo}', 1.0, 4.81, 4.1)
+set_timing(s, Timeline().auto().add('fade', karikatur.shape_id, dur=700).add('float', 2341, at=500, dur=700, para=0)
+           .click().add('float', 2341, dur=700, para=1))
+
+# ---------- 7 Firmen und Geldgeber ----------
 s = S[I_FIRMEN]
 remove_ids(s, (2450, 2455, 2458, 2467))  # Symbolbilder der Vorlage
 fill(s, {
     2429: 'Firmen und Geldgeber statt Genies',
     2434: ('Edison', 15), 2430: ('Edison General Electric: Gleichstrom aus vielen kleinen Kraftwerken {jonnes}', 13),
-    2436: ('Westinghouse', 15), 2431: ('Wechselstromnetze ab 1886; ab 1888 mit Teslas Motorpatenten {carlson}', 13),
+    2436: ('Westinghouse', 15), 2431: ('Wechselstromnetze ab 1886; ab 1888 mit Teslas Patenten {kaick}', 13),
     2435: ('Thomson-Houston', 15), 2432: ('dritter grosser Anbieter unter Charles A. Coffin; auch Wechselstrom {jonnes}', 13),
     2437: ('J. P. Morgan', 15), 2433: ('Bankier; seine Bank fädelt 1892 die Fusion zu General Electric ein {jonnes}', 13),
-}, """[2:00–2:50] Akteure
+}, """[2:25–3:00] Akteure
 Es stritten nicht zwei Erfinder, sondern drei Konzerne und ihre Geldgeber {jonnes}.
-Edison General Electric: Edisons Firmen setzten auf Gleichstrom. Edison hatte viel Geld und seinen Ruf in dieses System gesteckt; er hielt Hochspannung aber auch ehrlich für gefährlich.
-Westinghouse Electric: George Westinghouse, bekannt durch die Druckluftbremse, baute ab 1886 Wechselstromnetze. 1888 erwarb er die Motorpatente von Nikola Tesla {carlson}. Damit konnte Wechselstrom auch Fabriken antreiben.
+Edison General Electric: Edisons Firmen setzten auf Gleichstrom. Edison hatte viel Geld und seinen Ruf in dieses System gesteckt.
+Westinghouse Electric: George Westinghouse, bekannt durch die Druckluftbremse, baute ab 1886 Wechselstromnetze. Im Juli 1888 kaufte er die Wechselstrompatente von Nikola Tesla {kaick}. Damit konnte Wechselstrom auch Fabriken antreiben.
 Thomson-Houston unter Charles A. Coffin: der dritte grosse Anbieter; er verkaufte ebenfalls Wechselstrom.
 J. P. Morgan: Bankier und früher Geldgeber Edisons. Seine Bank fädelte 1892 die Fusion zu General Electric mit ein.
 Überleitung: «Wie lief der Streit ab?»""")
@@ -405,7 +505,7 @@ spalten = zeitstrahl(S[I_V1], '1882–1890: Wettbewerb und Angstkampagne', [
     ('1886', 'Great Barrington', 'erstes Wechselstromnetz der USA mit Transformatoren {jonnes}'),
     ('1888', 'Angstkampagne', 'Harold P. Brown tötet öffentlich Hunde mit Wechselstrom {hughes58}'),
     ('1890', 'Elektrischer Stuhl', 'erste Hinrichtung, mit einem Generator von Westinghouse {essig}'),
-], """[2:50–3:55] Verlauf, Teil 1
+], """[3:00–3:55] Verlauf, Teil 1
 Phase 1, offener Wettbewerb: 1882 eröffnet Edison in New York das Kraftwerk an der Pearl Street, mit anfangs rund 85 Kunden und 400 Lampen {pearl}. 1886 läuft in Great Barrington das erste Wechselstromnetz der USA mit Transformatoren; im selben Jahr gründet Westinghouse seine Elektrofirma {jonnes}.
 Phase 2, Angstkampagne: 1888 tötet der Ingenieur Harold P. Brown öffentlich Hunde mit Wechselstrom, unterstützt aus Edisons Labor {hughes58}. Wichtig: Es war Brown, nicht Edison selbst.
 1890 folgt die erste Hinrichtung auf dem elektrischen Stuhl {essig}. Sie verläuft qualvoll, kein «sauberer» Tod.
@@ -414,13 +514,13 @@ staggered(S[I_V1], spalten, step=350)
 zeitstrahl(S[I_V2], '1891–1896: Markt und Kapital entscheiden', [
     ('1891', 'Lizenzverzicht', 'Westinghouse in Finanznot; Tesla verzichtet auf seine Gebühren {carlson}'),
     ('1892', 'General Electric', 'Edison General Electric fusioniert mit Thomson-Houston {jonnes}'),
-    ('1893', 'Chicago', 'Westinghouse beleuchtet die Weltausstellung {jonnes}'),
+    ('1893', 'Chicago', 'Westinghouse beleuchtet die Weltausstellung {kaick}'),
     ('1896', 'Niagara–Buffalo', 'Strom über rund 40 km; GE und Westinghouse teilen ihre Patente {jonnes}'),
 ], """[3:55–5:00] Verlauf, Teil 2
 Phase 3: Jetzt entscheiden Markt und Kapital.
 1891 gerät Westinghouse in Finanznot; Tesla verzichtet auf seine Lizenzgebühren {carlson}.
 Wendepunkt 1892: Edison General Electric fusioniert mit dem Rivalen Thomson-Houston zu General Electric. Eingefädelt haben das Banken um J. P. Morgan. Edisons Name verschwindet aus dem Firmennamen, die Führung übernimmt Thomson-Houston, und GE setzt auf Wechselstrom {jonnes}. Damit ist der Streit um das System entschieden.
-1893 beleuchtet Westinghouse die Weltausstellung in Chicago. 1896 fliesst Strom von den Niagarafällen rund 40 km nach Buffalo; im selben Jahr teilen GE und Westinghouse ihre Patente {jonnes}. Aus Rivalen wird ein Duopol.
+1893 versorgt Westinghouse die Weltausstellung in Chicago mit Teslas Wechselstromsystem {kaick}. 1896 fliesst Strom von den Niagarafällen rund 40 km nach Buffalo; im selben Jahr teilen GE und Westinghouse ihre Patente {jonnes}. Aus Rivalen wird ein Duopol.
 Überleitung: «Warum also Wechselstrom?»""")
 
 
@@ -486,8 +586,8 @@ staggered(S[I_ZAHLEN], [(3953, 3952), (3954, 3955), (3956, 3957)], step=500)
 # ---------- 12 Mythen (drei Tabellen: Mythos / Befund) ----------
 s = S[I_MYTHEN]
 fill(s, {4469: 'Drei Mythen – und was die Quellen sagen'}, """[7:25–8:15] Mythen und Quellenkritik
-Erstens der Elefant: Ein ABB-Artikel schreibt, Edison habe öffentlich «Experimente mit Hunden, Pferden und sogar einem Elefanten» gezeigt {abb}. Die Tierversuche machte aber Harold P. Brown {hughes58}. Und die Elefantin Topsy starb erst 1903, über zehn Jahre nach dem Stromkrieg; Edison war nicht beteiligt, nur seine Filmfirma filmte die Tötung {topsy}.
-Zweitens «Tesla gegen Edison»: Es stritten Firmen und ihre Geldgeber. Tesla lieferte Westinghouse 1888 die Motorpatente {carlson}.
+Erstens der Elefant: Ein ABB-Artikel schreibt, Edison habe öffentlich «grausame Experimente mit Hunden, Pferden und sogar einem Elefanten» gezeigt {abb}. Die Tierversuche machte aber Harold P. Brown, unterstützt von Edisons Labor {hughes58}. Und die Elefantin Topsy starb erst 1903, über zehn Jahre nach dem Stromkrieg; Edison war nicht beteiligt, nur seine Filmfirma filmte die Tötung {topsy}.
+Zweitens «Tesla gegen Edison»: Es stritten Firmen und ihre Geldgeber. Tesla lieferte Westinghouse 1888 die Patente für den Wechselstrommotor {kaick}.
 Drittens der zerrissene Vertrag: Belegt sind nur der Verzicht auf Lizenzgebühren 1891 und der spätere Verkauf der Patente {carlson}.
 Überleitung: «Was bleibt davon bis heute?»""")
 sh = shapes_by_id(s)
@@ -495,7 +595,7 @@ for sid, y, rows in (
     (4470, 1.45, [['Mythos: Edisons «Experimente mit Hunden, Pferden und sogar einem Elefanten» {abb}'],
                   ['Befund: Die Tiere tötete Harold P. Brown; Topsy starb erst 1903, ohne Edisons Zutun {hughes58,topsy}']]),
     (4471, 2.6, [['Mythos: Der Stromkrieg war ein Duell «Tesla gegen Edison»'],
-                 ['Befund: Es stritten Firmen und ihre Geldgeber; Tesla lieferte Westinghouse 1888 die Motorpatente {carlson}']]),
+                 ['Befund: Es stritten Firmen und ihre Geldgeber; Tesla lieferte Westinghouse 1888 die Motorpatente {kaick}']]),
     (4472, 3.75, [['Mythos: Tesla zerriss aus Grossmut seinen Vertrag mit Westinghouse'],
                   ['Befund: Belegt sind der Verzicht auf Lizenzgebühren (1891) und der spätere Verkauf der Patente {carlson}']]),
 ):
@@ -513,12 +613,13 @@ fill(s, {
     2434: ('Wechselstrom im Netz', 14), 2430: ('weltweit aus der Steckdose: Schweiz 230 V, USA 120 V {iec}', 13),
     2436: ('Gleichstrom ist zurück', 14), 2431: ('Akkus, Solarzellen, Elektronik; HGÜ für lange Leitungen seit 1954 {gotland}', 13),
     2435: ('Schweizer Spur', 14), 2432: ('C. E. L. Brown gründet 1891 in Baden die BBC; seit 1988 ABB {steig,abbHistory}', 13),
-    2437: ('Neue Standardkriege', 14), 2433: ('Ladestecker in den USA; USB-C-Pflicht in der EU seit Ende 2024 {nacs,eu}', 13),
+    2437: ('Neue Standardkriege', 14), 2433: ('Tesla-Ladestecker wird US-Norm; USB-C-Pflicht in der EU seit Ende 2024 {nacs,eu}', 13),
 }, """[8:15–9:05] Und heute?
 Wechselstrom im Netz: Weltweit kommt Wechselstrom aus der Steckdose, in der Schweiz mit 230 Volt, in den USA mit 120 Volt {iec}. Die tiefe US-Spannung stammt aus der Anfangszeit mit Edisons rund 110 Volt.
 Gleichstrom ist zurück: Akkus, Solarzellen und Elektronik arbeiten mit Gleichstrom. Für sehr lange Leitungen nutzt man HGÜ; die erste kommerzielle Verbindung moderner Bauart ging 1954 in Schweden in Betrieb, gebaut von ASEA {gotland}.
 Schweizer Spur: Charles E. L. Brown von der Maschinenfabrik Oerlikon gründete 1891 in Baden die BBC {steig}. BBC und ASEA schlossen sich 1988 zu ABB zusammen {abbHistory}. Nicht verwechseln mit Harold P. Brown.
-Neue Standardkriege: In den USA stellten ab 2023 fast alle Autohersteller auf den Ladestecker der Firma Tesla um {nacs}. In der EU ist USB-C für Handys seit Ende 2024 Pflicht {eu}.
+Neue Standardkriege: In den USA wird der Ladestecker der Firma Tesla seit Ende 2023 zur Norm SAE J3400 {nacs}. In der EU ist USB-C für Handys seit Ende 2024 Pflicht {eu}.
+Tesla lebt auch als Einheit weiter: Seit 1960 heisst die Einheit der magnetischen Flussdichte Tesla {kaick}.
 Überleitung: «Zurück zur Leitfrage.»""")
 vier_felder(s, [('AC', 18), ('DC', 18), ('CH', 18), ('vs.', 18)])
 
@@ -538,81 +639,66 @@ Schluss: «Standards werden früh gesetzt und bleiben lange. Darum kommt in den 
             l_size=16, r_size=16, label_size=14)
 set_timing(s, Timeline().auto().add('float', 2342, dur=800).add('float', 2341, at=700, dur=800))
 
-# ---------- Diskussionsblock (nur Fassung «mit Diskussion») ----------
+# ---------- Diskussionsblock (nur Fassung «mit Diskussion»): drei Fragen ans Plenum ----------
 s = S[I_KAPITEL]
-fill(s, {1874: '?', 1873: 'Diskussion', 1875: 'Handout · Fragen und Gruppen 1–3'},
-     """[ab 10:00] Diskussion – Dauer vorher mit dem Dozenten absprechen.
-Ablauf: zuerst die Fragen von Handout Seite 1 und 2 kurz im Plenum, dann die Gruppenaufträge von Seite 3.""")
+fill(s, {1874: '?', 1873: 'Diskussion', 1875: 'Drei Fragen ans Plenum'},
+     """[ab 10:00] Diskussion – nur, wenn Zeit bleibt. Dauer vorher mit dem Dozenten absprechen.
+Pro Frage zuerst zwei, drei Stimmen sammeln, dann die möglichen Antworten Klick für Klick einblenden.""")
 set_timing(s, Timeline().auto().add('grow_turn', 1874, dur=800).add('fade', 1873, at=600, dur=600)
            .add('float', 1875, at=1000, dur=600))
-qa_slide(S[I_S1], 'Handout S. 1: Strom im Alltag', 'Fragen',
-         ['a) Welche Geräte in deinem Alltag laufen mit Gleichstrom, welche mit Wechselstrom?',
-          'b) Kennst du ein aktuelles Beispiel, bei dem sich Firmen um einen technischen Standard streiten?'],
-         'Antworten',
-         ['a) Meist beides: Das Netz liefert Wechselstrom. Elektronik, LED-Lampen und alles mit Akku arbeiten intern '
-          'mit Gleichstrom; das Netzteil wandelt um.',
-          'b) Ladestecker für E-Autos in den USA {nacs}, USB-C gegen Lightning {eu}; früher VHS gegen Betamax.'],
-         """Fragen a) und b) ins Plenum stellen, zwei, drei Antworten sammeln. Dann pro Klick eine Lösung einblenden.
-Ergänzung zu a): Direkt mit Wechselstrom laufen klassische Motoren und Heizgeräte, zum Beispiel der Wasserkocher. Solarzellen liefern Gleichstrom.""")
-qa_slide(S[I_S2], 'Handout S. 2: Bedeutung für die USA', 'Fragen',
-         ['a) Warum war billiger Strom für den Aufstieg der USA so wichtig?',
-          'b) Edison war der berühmtere Erfinder – trotzdem verlor er. Was sagt das über die Rolle von Geld und Firmen aus?'],
-         'Antworten',
-         ['a) Elektromotoren trieben die Fabriken an: 1899 knapp 5 %, 1929 rund 78 % der Antriebsleistung {devine}. '
-          'Die Produktivität stieg.',
-          'b) Ruhm reicht nicht: Kosten und Kapital entschieden. 1892 ging Edisons Firma in General Electric auf; '
-          'die Führung übernahm Thomson-Houston {jonnes}.'],
-         """Wie bei Seite 1: erst Antworten sammeln, dann pro Klick einblenden.
-a) knüpft an die Folie mit den zwei Kennzahlen an. b) knüpft an 1892 an: Fusion zu General Electric. Typisch für das Gilded Age: Banken und Grosskonzerne bestimmen den Markt, nicht einzelne Erfinder.""")
-drei_spalten(S[I_GRUPPEN], 'Handout S. 3: Diskussion in Gruppen', [
-    ('Gruppe 1', 'Angst als Werbung: Wo arbeiten Werbung oder Kampagnen heute mit Angst?'),
-    ('Gruppe 2', 'Elefantin Topsy: Warum halten sich falsche Geschichten so lange?'),
-    ('Gruppe 3', 'Standardkriege: Wer gewinnt – die bessere Technik oder die stärkere Firma?'),
-], """Gruppen einteilen; die Aufträge stehen auf Handout Seite 3. Diese Folie stehen lassen, solange die Gruppen diskutieren.
-Danach pro Gruppe die Lösungsfolie: Die Gruppe stellt zuerst ihr Ergebnis vor, dann Klick für Klick ergänzen.""")
-qa_slide(S[I_G1], 'Gruppe 1: Angst als Werbung', 'Auftrag',
+qa_slide(S[I_G1], 'Frage 1: Angst als Werbung', 'Frage',
          ['Harold P. Brown tötete öffentlich Tiere, um Wechselstrom gefährlich wirken zu lassen. Wo gibt es heute '
           'Werbung oder Kampagnen, die mit Angst arbeiten?'],
-         'Lösung',
+         'Mögliche Antworten',
          ['Beispiele: Werbung, die ein Konkurrenzprodukt schlechtmacht; Angstkampagnen im Wahlkampf.',
           'Angst wirkt kurzfristig, setzt sich aber selten gegen klaren Nutzen und tiefere Kosten durch.',
           'So auch im Stromkrieg: Westinghouse entkräftete die Vorwürfe mit besserer Technik {cole}.'],
-         'Gruppe 1 stellt zuerst vor. Danach Klick für Klick ergänzen.')
-qa_slide(S[I_G2], 'Gruppe 2: Die Elefantin Topsy', 'Auftrag',
-         ['Der ABB-Artikel erzählt die Geschichte vom Elefanten, die Edison Papers widerlegen sie. Warum halten sich '
+         'Zuerst Stimmen aus dem Plenum sammeln. Danach Klick für Klick ergänzen.')
+qa_slide(S[I_G2], 'Frage 2: Die Elefantin Topsy', 'Frage',
+         ['Ein ABB-Artikel erzählt die Geschichte vom Elefanten, die Edison Papers widerlegen sie. Warum halten sich '
           'solche Geschichten so lange?'],
-         'Lösung',
+         'Mögliche Antworten',
          ['Die Geschichte hat einen klaren Bösewicht und bleibt hängen.',
           'Edisons Filmfirma filmte die Tötung 1903. Das wirkt wie ein Beweis, ist aber keiner {topsy}.',
           'Websites und Firmen übernehmen sie ungeprüft {abb}. Lehre: Primärquellen prüfen.'],
-         'Gruppe 2 stellt zuerst vor. Danach Klick für Klick ergänzen.')
-qa_slide(S[I_G3], 'Gruppe 3: Standardkriege heute', 'Auftrag',
+         'Zuerst Stimmen aus dem Plenum sammeln. Danach Klick für Klick ergänzen.')
+qa_slide(S[I_G3], 'Frage 3: Standardkriege heute', 'Frage',
          ['Welche Standardkriege kennt ihr heute (Ladestecker, Streaming, Betriebssysteme)? Wer gewinnt meistens: '
           'die bessere Technik oder die stärkere Firma?'],
-         'Lösung',
-         ['Beispiele: VHS gegen Betamax, Blu-ray gegen HD DVD, Ladestecker, iOS gegen Android.',
+         'Mögliche Antworten',
+         ['Beispiele: VHS gegen Betamax, Blu-ray gegen HD DVD, Ladestecker {nacs}, USB-C {eu}.',
           'Oft gewinnt, wer mehr Partner, tiefere Kosten und mehr Kapital hat.',
           'Ein gesetzter Standard bleibt lange: Pfadabhängigkeit {david92}. Beim Stromkrieg sprachen Technik und '
           'Kosten für den Wechselstrom.'],
-         'Gruppe 3 stellt zuerst vor. Danach Klick für Klick ergänzen.')
+         'Zuerst Stimmen aus dem Plenum sammeln. Danach Klick für Klick ergänzen.')
 
 # ---------- Danke ----------
 s = S[I_DANKE]
 fill(s, {4515: 'Danke!', 4516: ['Fragen?', 'Simon Bruder · Modul «Weltmacht USA» (FHNW)', 'Dozent: Stephan Schwarz · 10.12.2026']},
-     'Danke – Fragen? Die Quellen stehen auf den nächsten drei Folien; nur bei Nachfragen zeigen.')
+     'Danke – Fragen? Quellen und Bildnachweis stehen auf den nächsten vier Folien; nur bei Nachfragen zeigen.')
 remove_ids(s, (4845, 4848, 4851, 4854, 4855, 4860))  # Social-Media-Symbole der Vorlage
 set_timing(s, Timeline().auto().add('zoom', 4515, dur=800).add('float', 4516, at=600, dur=700))
 
-# ---------- Quellen: vollständige Liste, Nummern wie im Handout ----------
+# ---------- Quellen: vollständige Liste, Nummern wie im Handout; am Schluss der Bildnachweis ----------
 eintraege = [f'[{nr}] {text}' for nr, text in Z.eintraege()]
-assert len(eintraege) <= 18, 'Mehr als 18 Quellen: eine vierte Quellenfolie in die Struktur aufnehmen.'
-for k, idx in enumerate((I_Q1, I_Q2, I_Q3)):
-    s = S[idx]
+QUELLENFOLIEN = (S[I_Q1], S[I_Q2], S[I_Q3], F_Q4)
+assert len(eintraege) <= 6 * 3 + 3, 'Zu viele Quellen: eine weitere Quellenfolie anlegen.'
+BILDNACHWEIS = [
+    'Bildnachweis (alle Bilder aus {natgeo})',
+    'Frontfolie: W. A. Rogers, Stich für «Harper’s Weekly», 1889; De Agostini/Getty Images. Abdunkeln und '
+    'Aufleuchten im Video: eigene Bearbeitung.',
+    'Auburn 1890: zeitgenössische Illustration; Granger/Cordon Press.',
+    'Karikatur: Currier & Ives, spätes 19. Jh.; MPI/Getty Images.',
+    'Grafik zur Weltindustrie: eigene Darstellung nach {bairoch}.',
+]
+for k, s in enumerate(QUELLENFOLIEN):
+    letzte = k == len(QUELLENFOLIEN) - 1
     teil = eintraege[6 * k:6 * k + 6]
-    fill(s, {2340: f'Quellen ({k + 1}/3)'},
+    fill(s, {2340: f'Quellen ({k + 1}/{len(QUELLENFOLIEN)})' + (' und Bildnachweis' if letzte else '')},
          'Anhang – nur bei Nachfragen zeigen. Vollständige Liste im IEEE-Format; die Nummern sind dieselben wie im Handout.')
     sh = shapes_by_id(s)
-    for sid, x, zeilen in ((2342, 1.25, teil[:3]), (2341, 5.28, teil[3:])):
+    links, rechts = (teil[:2], teil[2:] + BILDNACHWEIS) if letzte else (teil[:3], teil[3:])
+    for sid, x, zeilen in ((2342, 1.25, links), (2341, 5.28, rechts)):
         set_paras(sh[sid].text_frame, zeilen or [''], 10, rich=True)
         place(sh[sid], x, 1.64, 3.47, 3.2, anchor='t')
         space_after(sh[sid].text_frame, 7)
@@ -622,8 +708,8 @@ for k, idx in enumerate((I_Q1, I_Q2, I_Q3)):
 for i, slide in enumerate(S):
     if i not in (I_TITEL, I_V2):
         set_transition(slide, 'fade')
-set_transition(S[I_TITEL], 'morph', 1600)  # Intro → Titel
-set_transition(S[I_V2], 'morph', 1200)     # Zeitstrahl Teil 1 → Teil 2
+set_transition(S[I_TITEL], 'morph', 1200)  # Frontfolie → Titel
+set_transition(S[I_V2], 'morph', 1000)     # Zeitstrahl Teil 1 → Teil 2
 
 # ---------- Aufräumen ----------
 for slide in S:  # Die Vorlage nennt an einzelnen Stellen die ältere Schrift «Source Sans Pro».
@@ -633,9 +719,14 @@ for slide in S:  # Die Vorlage nennt an einzelnen Stellen die ältere Schrift «
 prs.core_properties.title = 'Der Stromkrieg – Edison vs. Westinghouse und die Rolle von Nikola Tesla'
 prs.core_properties.author = 'Simon Bruder'
 
+HAUPTTEIL = [S[i] for i in (I_INTRO, I_TITEL, I_AUBURN, I_LEITFRAGE, I_SPANNUNG)] + [F_PRESSE] + \
+            [S[i] for i in (I_FIRMEN, I_V1, I_V2, I_WARUM, I_CHART, I_ZAHLEN, I_MYTHEN, I_HEUTE, I_FAZIT)]
+DISKUSSION = [S[i] for i in (I_KAPITEL, I_G1, I_G2, I_G3)]
+SCHLUSS = [S[I_DANKE], *QUELLENFOLIEN]
+ordne(prs, HAUPTTEIL + DISKUSSION + SCHLUSS)
 prs.save(OUT_MIT)
 print('OK', OUT_MIT, len(prs.slides), 'Folien')
 prs = Presentation(OUT_MIT)
-drop_slides(prs, DISKUSSION)
+drop_slides(prs, range(len(HAUPTTEIL), len(HAUPTTEIL) + len(DISKUSSION)))
 prs.save(OUT_OHNE)
 print('OK', OUT_OHNE, len(prs.slides), 'Folien')

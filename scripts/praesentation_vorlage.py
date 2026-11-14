@@ -259,7 +259,7 @@ def rund_portraet(slide, name, x, y, foto, d=0.66):
     shp.shadow.inherit = False
     shp.line.color.rgb = NAVY
     shp.line.width = Pt(1.25)
-    bildfuellung(shp, foto)
+    bildfuellung(shp, foto, fokus=0.1)  # im Kreis mehr Platz über dem Kopf
     return shp
 
 
